@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.metamong.todayido.dao.OwnerDao">
+    <insert id="insertOwner" parameterType="ownerDto">
+        INSERT INTO owner
+        VALUES (#{store_name},#{business_num},#{owner_name},#{owner_pwd})
+    </insert>
+    <select id="selectId" resultType="Integer" parameterType="String">
+        SELECT count(*) FROM owner WHERE business_num=#{business_num}
+    </select>
+    <select id="selectPassword" resultType="String" parameterType="String">
+        SELECT owner_pwd FROM owner WHERE business_num=#{business_num}
+    </select>
+    <select id="selectOwner" resultType="OwnerDto" parameterType="String">
+        SELECT * FROM owner WHERE business_num=#{business_num}
+    </select>
+</mapper>

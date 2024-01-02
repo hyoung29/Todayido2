@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script th:inline="javascript">
+        $(function () {
+            $(".slider").bxSlider({
+                minSlides: 3,
+                maxSlides: 3,
+                slideWidth: 250,
+                ticker: true,
+                speed: 30000,
+            })
+            let m = [[${msg}]];
+            if(m != null){
+                alert(m);
+            }
+        })
+    </script>
+</head>
+<body>
+<header>
+    <th:block th:insert="~{ownerfragments::header(${session.owner})}"/>
+</header>
+<section class="main-area">
+    <div class="main-content">
+        <h1>오늘 뭐하지?</h1>
+        <h2>오늘 뭐하고 뭘 먹어야 할지 고민이라면!<br>
+            오뭐? 오뭐! 오늘 뭐하지에서 검색!</h2>
+    </div>
+    <div class="content_area">
+        <div id="restaurant">
+            <h1 class="title">Restaurant</h1>
+            <h3>배고픈데 뭐 먹지?</h3><hr>
+        </div>
+        <div class="slider">
+            <div class="rcontent">
+                <img src="images/mesikdang.png">
+                <p class="rstar">4.4</p>
+                <p class="rname">미식당</p>
+                <p class="rplace">용현동</p>
+                <p class="rmenu">카레, 덮밥, 라면 등</p>
+            </div>
+            <div class="rcontent">
+                <img src="images/gomokjung.png">
+                <p class="rstar">4.9</p>
+                <p class="rname">고목정</p>
+                <p class="rplace">학익동</p>
+                <p class="rmenu">삼겹살, 목살, 갈매기살 등</p>
+            </div>
+            <div class="rcontent">
+                <img src="images/ggulggul.png">
+                <p class="rstar">4.5</p>
+                <p class="rname">꿀꿀진순대</p>
+                <p class="rplace">성래동</p>
+                <p class="rmenu">순대, 순대국밥, 순대지 등</p>
+            </div>
+            <div class="rcontent">
+                <img src="images/sungwon.png">
+                <p class="rstar">4.1</p>
+                <p class="rname">성원닭갈비</p>
+                <p class="rplace">효성동</p>
+                <p class="rmenu">닭갈비, 찜닭, 볶음밥 등</p>
+            </div>
+        </div>
+        <div id="cafe">
+            <h1 class="title">Cafe</h1>
+            <h3>카페는 어디?</h3><hr>
+        </div>
+        <div class="slider">
+            <div class="ccontent">
+                <img src="images/star.png">
+                <p class="cstar">4.9</p>
+                <p class="cname">스타벅스</p>
+                <p class="cplace">청담동</p>
+                <p class="cmenu">아메리카노, 카페라떼 등</p>
+            </div>
+            <div class="ccontent">
+                <img src="images/39.png">
+                <p class="cstar">4.8</p>
+                <p class="cname">디저트 39</p>
+                <p class="cplace">학익동</p>
+                <p class="cmenu">딸기라떼, 민트초코라떼 등</p>
+            </div>
+            <div class="ccontent">
+                <img src="images/2sume.png">
+                <p class="cstar">4.4</p>
+                <p class="cname">투썸플레이스</p>
+                <p class="cplace">용현동</p>
+                <p class="cmenu">케이크, 아메리카노 등</p>
+            </div>
+            <div class="ccontent">
+                <img src="images/bback.png">
+                <p class="cstar">3.9</p>
+                <p class="cname">빽다방</p>
+                <p class="cplace">도화동</p>
+                <p class="cmenu">빽커피, 녹차빽스치노 등</p>
+            </div>
+        </div>
+        <div id="bar">
+            <h1 class="title">Bar</h1>
+            <h3>한잔할까?</h3><hr>
+        </div>
+        <div class="slider">
+            <div class="bcontent">
+                <img src="images/today.png">
+                <p class="bstar">4.4</p>
+                <p class="bname">오늘 술집</p>
+                <p class="bplace">학일동</p>
+                <p class="bmenu">모듬전, 맥주, 치킨 등</p>
+            </div>
+            <div class="bcontent">
+                <img src="images/crown.png">
+                <p class="bstar">4.5</p>
+                <p class="bname">크라운호프</p>
+                <p class="bplace">학익동</p>
+                <p class="bmenu">치킨, 맥주, 소주 등</p>
+            </div>
+            <div class="bcontent">
+                <img src="images/maul.png">
+                <p class="bstar">4.7</p>
+                <p class="bname">마을회관포차</p>
+                <p class="bplace">억련동</p>
+                <p class="bmenu">삼겹살, 곱창, 소주 등</p>
+            </div>
+            <div class="bcontent">
+                <img src="images/dongne.png">
+                <p class="bstar">4.2</p>
+                <p class="bname">동네 술집</p>
+                <p class="bplace">화곡동</p>
+                <p class="bmenu">삼겹살, 곱창, 소주 등</p>
+            </div>
+        </div>
+        <div id="place">
+            <h1 class="title">Place</h1>
+            <h3>뭐하고 놀까?</h3><hr>
+        </div>
+        <div id="bx-wrapper">
+            <div class="slider">
+                <div class="pcontent">
+                    <img src="images/misul.png">
+                    <p class="pstar">4.4</p>
+                    <p class="pname">국립현대미술관</p>
+                    <p class="pplace">소격동</p>
+                    <p class="pmenu">전시회</p>
+                </div>
+                <div class="pcontent">
+                    <img src="images/bakmul.png">
+                    <p class="pstar">4.7</p>
+                    <p class="pname">인천시립박물관</p>
+                    <p class="pplace">옥련동</p>
+                    <p class="pmenu">박물관, 미술관</p>
+                </div>
+                <div class="pcontent">
+                    <img src="images/hangang.png">
+                    <p class="pstar">4.8</p>
+                    <p class="pname">한강 공원</p>
+                    <p class="pplace">여의도동</p>
+                    <p class="pmenu">피크닉</p>
+                </div>
+                <div class="pcontent">
+                    <img src="images/hakik.png">
+                    <p class="pstar">4.5</p>
+                    <p class="pname">학익 공원</p>
+                    <p class="pplace">학익동</p>
+                    <p class="pmenu">각종 체육 시설</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+</html>

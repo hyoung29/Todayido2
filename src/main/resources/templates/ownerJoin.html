@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script th:inline="javascript">
+        $(function () {
+            let m = [[${msg}]];
+            if(m != null){
+                alert(m);
+            }
+        })
+    </script>
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragment::header(${session.owner})}"/>
+</header>
+<section>
+    <div class="content">
+        <form class="login-form" method="post" name="jForm" onsubmit="return check()" th:action="@{ownerjoinProc}">
+            <h2 class="login-header">사업주 회원가입</h2>
+            <input autofocus class="login-input" name="store_name" placeholder="가게 이름" required title="가게 이름" type="text">
+            <input class="login-input" name="business_num" placeholder="사업자 번호" title="사업자 번호" type="text">
+            <input class="login-input" name="owner_name" placeholder="대표자 이름" required title="가게 이름" type="text">
+            <input class="login-input" id="pw" name="owner_pwd" placeholder="비밀번호" required title="비밀번호" type="password">
+            <input class="login-input" id="pwCheck" name="check_password" placeholder="비밀번호확인" required title="비밀번호확인" type="password">
+            <input class="login-btn" type="submit" value="가입">
+        </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+<script th:inline="javascript">
+    let ck = false;
+
+    function check(){
+        const jfrm = document.jForm;
+        console.log(jfrm);
+        let length = jfrm.length - 1;
+        for(let i = 0; i < length; i++){
+            if(jfrm[i].value == "" || jfrm[i] == null){
+                alert(`${jfrm[i].title} 입력`);
+                jfrm[i].focus();
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+</html>

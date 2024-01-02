@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TodayIdo</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Include jQuery UI for the date picker -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}" />
+</header>
+<section>
+    <div class="login-form">
+        <div class="prof">
+            <h1>홍길동님</h1>
+            <h3 class="my">내정보</h3>
+        </div>
+        <div class="resv">
+            <h6>예약 현황</h6>
+            <div class="resv_d">
+                <div class="rcontent">
+                    <img src="images/mesikdang.png" class="pt">
+                    <p class="rstar">4.4</p>
+                    <p class="rname">미식당</p>
+                    <p class="rplace">용현동</p>
+                    <p class="rmenu">모듬전, 맥주, 치킨 등</p>
+                </div>
+            </div>
+            <div>
+                <!-- Add input elements for date, time, and number of people -->
+                <input type="button" value="예약변경" class="resv-change" id="rchange">
+                <input type="button" value="예약취소" class="resv-cancel">
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}" />
+</footer>
+<!-- Add the modal HTML -->
+<div class="modal-change1" id="modalOverlay"></div>
+<div class="modal-change" id="myModal">
+    <h2>예약 변경</h2>
+    <!-- Add input elements for date, time, and number of people inside the modal -->
+    <input type="text" id="datepickerModal" placeholder="날짜 선택" required>
+    <input type="time" id="timepickerModal" placeholder="시간 선택" required>
+    <input type="number" id="peopleModal" placeholder="인원수" required>
+    <br>
+    <input type="button" value="변경하기" class="resv-change" onclick="confirmReservationChange()">
+    <input type="button" value="취소" class="cancle-btn" onclick="closeModal()">
+</div>
+
+<script>
+    $(function () {
+        $("#myModal").hide();
+        $("#modalOverlay").hide();
+        // Initialize datepicker for the modal
+        $("#datepickerModal").datepicker();
+
+        // Attach click event handler to the "예약취소" button
+        $(".resv-cancel").click(function () {
+            cancelReservation();
+        });
+
+        // Attach click event handler to the "예약변경" button
+        $("#rchange").click(function () {
+            openModal();
+        });
+    });
+
+    // Function to show the modal
+    function openModal() {
+        $("#myModal").show();
+        $("#modalOverlay").show();
+    }
+
+    // Function to hide the modal
+    function closeModal() {
+        $("#myModal").hide();
+        $("#modalOverlay").hide();
+    }
+
+    // Function to handle reservation change from the modal
+    function confirmReservationChange() {
+        var selectedDate = $("#datepickerModal").val();
+        var selectedTime = $("#timepickerModal").val();
+        var numberOfPeople = $("#peopleModal").val();
+
+        // Check if any required field is empty
+        if (!selectedDate || !selectedTime || !numberOfPeople) {
+            alert("입력칸에 값을 입력하지 않았습니다. 모든 필수 항목을 입력해주세요.");
+            return; // Do not proceed further
+        }
+
+        // Implement your logic to change the reservation using selectedDate, selectedTime, and numberOfPeople
+        alert("예약이 변경되었습니다\n날짜: " + selectedDate + "\n시간: " + selectedTime + "\n인원수: " + numberOfPeople);
+
+        // Close the modal after confirming the change
+        closeModal();
+    }
+
+    // Function to handle reservation cancellation
+    function cancelReservation() {
+        // Show a confirmation dialog
+        var confirmCancel = confirm("예약을 취소하시겠습니까?");
+
+        // If the user clicks "Yes" in the confirmation dialog
+        if (confirmCancel) {
+            // Implement your logic to cancel the reservation here
+            alert("예약이 취소되었습니다!");
+            // Redirect to the original page (change the URL accordingly)
+            window.location.href = "myPage";
+        }
+    }
+</script>
+
+</body>
+
+</html>

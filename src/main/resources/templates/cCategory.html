@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
+</header>
+<section>
+    <div class="content">
+        <form class="login-form">
+            <div class="Category">
+                <ul class="category">
+                    <li><h3>카테고리</h3></li>
+                    <li><a href="rCategory">식당</a></li>
+                    <li><a href="cCategory"><b>카페</b></a></li>
+                    <li><a href="bCategory">술집</a></li>
+                    <li><a href="pCategory">장소</a></li>
+                </ul>
+            </div>
+            <img src="images/cafe.png" width="600px">
+            <h3>추천 카페</h3>
+            <div class="recommend">
+                <div class="ccontent">
+                    <img src="images/star.png">
+                    <p class="cstar">4.9</p>
+                    <p class="cname">스타벅스</p>
+                    <p class="cplace">청담동</p>
+                    <p class="cmenu">아메리카노, 카페라떼</p>
+                </div>
+                <div class="ccontent">
+                    <img src="images/39.png">
+                    <p class="cstar">4.8</p>
+                    <p class="cname">디저트 39</p>
+                    <p class="cplace">학익동</p>
+                    <p class="cmenu">딸기라떼, 민트초코라떼</p>
+                </div>
+                <div class="ccontent">
+                    <img src="images/2sume.png">
+                    <p class="cstar">4.4</p>
+                    <p class="cname">투썸플레이스</p>
+                    <p class="cplace">용현동</p>
+                    <p class="cmenu">케이크, 아메리카노</p>
+                </div>
+                <div class="ccontent">
+                    <img src="images/bback.png">
+                    <p class="cstar">3.9</p>
+                    <p class="cname">빽다방</p>
+                    <p class="cplace">도화동</p>
+                    <p class="cmenu">빽커피, 녹차빽스치노</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+</html>

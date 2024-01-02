@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
+</header>
+<section>
+    <div class="content">
+        <form class="login-form" method="post" th:action="@{findId}">
+            <h2 class="login-header">아이디찾기</h2>
+            <input autofocus class="login-input" name="name" placeholder="이름" required type="text">
+            <input class="login-input" name="phone" onkeyup="addHypen(this)" placeholder="휴대폰번호('-'없이 입력)" required type="text">
+            <button class="login-btn" onclick="findSubmit(); return false;" type="submit">아이디 찾기</button>
+            <div class="join"><a th:href="@{findPw}">비밀번호찾기</a></div>
+        </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+<script>
+    function addHypen(obj) {
+        var number = obj.value.replace(/[^0-9]/g, "");
+        var phone = "";
+
+        if(number.length < 4) {
+            return number;
+        } else if(number.length < 7) {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3);
+        } else if(number.length < 11) {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3, 3);
+            phone += "-";
+            phone += number.substr(6);
+        } else {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3, 4);
+            phone += "-";
+            phone += number.substr(7);
+        }
+        obj.value = phone;
+    }
+</script>
+</html>

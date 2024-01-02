@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body{
+            height: auto;
+        }
+        .main-image{
+            width: 500px;
+            height: 300px;
+            background-color: #5b5b5b;
+            margin: 30px auto 0 auto;
+        }
+        .review{
+            width: 500px;
+            height: 100%;
+            background-color: #97cbff;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+        .rev{
+            width: 450px;
+            height: 100%;
+            margin: 25px auto;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .revproc{
+            width: 80px;
+            height: 30px;
+            background-color: white;
+            margin: 0 auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        .modalbg{
+            display: none;
+            text-align: center;
+        }
+        .modal{
+            width: 350px;
+            height: 280px;
+            background-color: white;
+            border: solid 1px black;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        input{
+            border: solid 1px #246C34;
+        }
+        .dr, .close_rev{
+            margin-top: 10px;
+            border: solid 1px #246C34;
+            background: transparent;
+            border-radius: 10px;
+            width: 50px;
+            height: 25px;
+        }
+        #file{
+            display: none;
+        }
+        .r_photo{
+            width: 100px;
+            height: 130px;
+            margin-left: auto;
+        }
+        .r_d {
+            display: flex;
+        }
+        .rev_text{
+            margin: 10px;
+        }
+        .star_rating {
+            font-size:0;
+            letter-spacing:-4px;
+        }
+        .star_rating span {
+            font-size:22px;
+            letter-spacing:0;
+            display:inline-block;
+            margin-left:5px;
+            color:#ccc;
+            text-decoration:none;
+            cursor: pointer;
+        }
+        .star_rating span:first-child {
+            margin-left:0;
+        }
+        .star_rating span.on {
+            color:#777;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
+</header>
+<div class="main-image">
+
+</div>
+<!-- 리뷰쓰기 버튼 -->
+    <input type="button" value="리뷰쓰기" class="revproc">
+<div class="review">
+    <h5 style="margin-left: 15px">리뷰</h5>
+
+    <!--  리뷰 등록  -->
+    <div class="modalbg">
+        <div class="modal">
+            <form th:action="@{reviewProc}" id="rform">
+                <input type="hidden" name="user_id" th:value="${session.user.user_id}">
+                <input type="hidden" name="store_num" th:value="${store.store_num}">
+                <h3 class="rev_text">리뷰작성</h3>
+                <textarea name="review_text" cols="40" rows="8" placeholder="내용"></textarea><br>
+                <!-- 리뷰사진 추가 -->
+                <div>
+                <label for="file">리뷰사진선택</label>
+                <input type="file" name="files" id="file" multiple>
+                <input type="text" class="upload-name" value="파일선택" readonly><br>
+                </div>
+                <input type="hidden" name="rating" value="0" id="rating">
+                <p class="star_rating">
+                    <span data-star="1">★</span>
+                    <span data-star="2">★</span>
+                    <span data-star="3">★</span>
+                    <span data-star="4">★</span>
+                    <span data-star="5">★</span>
+                </p>
+                <input type="button" value="등록" class="dr" id="drbtn">
+                <input type="button" value="닫기" class="close_rev" id="cbtn">
+            </form>
+        </div>
+    </div>
+    <!--  리뷰 출력 부분  -->
+    <div id="rs">
+        <th:block th:if="${#lists.isEmpty(rList)}">
+            <div style="width: 100%">
+                게시글이 없습니다.
+            </div>
+        </th:block>
+        <th:block th:unless="${#lists.isEmpty(rList)}">
+        <th:block th:each="rev:${rList}">
+            <div class="rev">
+                <div id="rSpace" class="r_d">
+                    <div>
+                        <div th:text="${rev.user_id}"></div>
+                        <div th:switch="${rev.rating}">
+                            <span th:case="1">&#9733;&#9734;&#9734;&#9734;&#9734;</span>
+                            <span th:case="2">&#9733;&#9733;&#9734;&#9734;&#9734;</span>
+                            <span th:case="3">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
+                            <span th:case="4">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                            <span th:case="5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        </div>
+                        <div th:text="${rev.review_text}"></div>
+                        <div th:text="${rev.crated_at}"></div>
+                    </div>
+                    <img src="images/mesikdang.png" class="r_photo">
+                </div>
+            </div>
+        </th:block>
+        </th:block>
+    </div>
+</div>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+<script th:inline="javascript">
+    $("#file").on("change", function (){
+        //파일 선택창에서 업로드할 파일을 선택한 다음
+        //'열기' 버튼을 누르면 change 이벤트가 발생.
+        let files = $("#file")[0].files;
+        console.log(files);
+
+        let fileName = "";//출력할 문장 저장 변수
+
+        if(files.length > 1){
+            fileName = `${files[0].name} 외 ${files.length - 1}개`;
+        } else if(files.length == 1){
+            fileName = files[0].name;
+        } else {
+            fileName = "파일선택";
+        }
+        $(".upload-name").val(fileName);
+    });
+
+    $(".revproc").click(function (e){
+        e.preventDefault();
+        $(".modalbg").show();
+    })
+    $(".close_rev").click(function (){
+        $(".modalbg").hide();
+    })
+
+    $("#drbtn").click(function () {
+        const rForm = $("#rform").serialize();
+        console.log(rForm);
+        //restController에 전송
+        $.ajax({
+            url: "ReviewInsert",
+            type: "post",
+            data: rForm,
+            success: function (res) {
+                console.log(res);
+                if(res != null){
+                    let str = "";
+                    str += `
+                    <div class="rev">
+                        <div id="rSpace" class="r_d">
+                            <div>
+                                <div>${res.user_id}</div>
+                    `;
+                    switch(res.rating){
+                        case 1:
+                            str += `<span>&#9733;&#9734;&#9734;&#9734;&#9734;</span>`;
+                            break;
+                        case 2:
+                            str += `<span>&#9733;&#9733;&#9734;&#9734;&#9734;</span>`;
+                            break;
+                        case 3:
+                            str += `<span>&#9733;&#9733;&#9733;&#9734;&#9734;</span>`;
+                            break;
+                        case 4:
+                            str += `<span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>`;
+                            break;
+                        default:
+                            str += `<span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>`;
+                    }
+                    str += `
+                                <div>${res.review_text}</div>
+                                <div>${res.crated_at}</div>
+                            </div>
+                            <img src="images/mesikdang.png" class="r_photo">
+                        </div>
+                    </div>
+                    `;
+                    $("#rs").prepend(str);
+                    //$("#comment").val("");
+                    $(".modalbg").hide();
+                } else {
+                    alert("댓글 작성 실패");
+                    $("#comment").val("");
+                    $("#comment").focus();
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                alert("댓글 저장 실패");
+            }
+        })
+    })
+    $( ".star_rating span" ).click(function() {
+        $(this).parent().children("span").removeClass("on");
+        $(this).addClass("on").prevAll("span").addClass("on");
+        let s = $(this).data("star");
+        console.log(s);
+        $("#rating").val(s);
+    });
+
+
+
+</script>
+</html>

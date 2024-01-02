@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
+</header>
+<section>
+    <div class="content">
+        <form class="login-form">
+            <div class="Category">
+                <ul class="category">
+                    <li><h3>카테고리</h3></li>
+                    <li><a href="rCategory">식당</a></li>
+                    <li><a href="cCategory">카페</a></li>
+                    <li><a href="bCategory">술집</a></li>
+                    <li><a href="pCategory"><b>장소</b></a></li>
+                </ul>
+            </div>
+            <img src="images/place.png" width="600px">
+            <h3>추천 장소</h3>
+            <div class="recommend">
+                <div class="pcontent">
+                    <img src="images/misul.png">
+                    <p class="pstar">4.4</p>
+                    <p class="pname">국립현대 미술관 </p>
+                    <p class="pplace">종로구 소격동</p>
+                    <p class="pmenu">박람회,미술작품전시</p>
+                </div>
+                <div class="pcontent">
+                    <img src="images/bakmul.png">
+                    <p class="pstar">4.7</p>
+                    <p class="pname">인천시립박물관</p>
+                    <p class="pplace">옥련동</p>
+                    <p class="pmenu">박물관,미술관</p>
+                </div>
+                <div class="pcontent">
+                    <img src="images/hangang.png">
+                    <p class="pstar">4.8</p>
+                    <p class="pname">한강 공원</p>
+                    <p class="pplace">영등포</p>
+                    <p class="pmenu">피크닉,생태계탐구</p>
+                </div>
+                <div class="pcontent">
+                    <img src="images/hakik.png">
+                    <p class="pstar">4.5</p>
+                    <p class="pname">학익 공원</p>
+                    <p class="pplace">학익동</p>
+                    <p class="pmenu">각종 체육 시설</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+</html>

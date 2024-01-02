@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
+</header>
+<section>
+    <div class="content">
+        <form class="login-form">
+            <div class="Category">
+                <ul class="category">
+                    <li><h3>카테고리</h3></li>
+                    <li><a href="rCategory">식당</a></li>
+                    <li><a href="cCategory">카페</a></li>
+                    <li><a href="bCategory"><b>술집</b></a></li>
+                    <li><a href="pCategory">장소</a></li>
+                </ul>
+            </div>
+            <img src="images/bar.png" width="600px">
+            <h3>추천 술집</h3>
+            <div class="recommend">
+                <div class="bcontent">
+                    <img src="images/today.png">
+                    <p class="bstar">4.4</p>
+                    <p class="bname">오늘 술집</p>
+                    <p class="bplace">청담동</p>
+                    <p class="bmenu">모듬전, 맥주, 치킨</p>
+                </div>
+                <div class="bcontent">
+                    <img src="images/crown.png">
+                    <p class="bstar">4.5</p>
+                    <p class="bname">크라운호프</p>
+                    <p class="bplace">청담동</p>
+                    <p class="bmenu">치킨, 맥주, 소주</p>
+                </div>
+                <div class="bcontent">
+                    <img src="images/maul.png">
+                    <p class="bstar">4.7</p>
+                    <p class="bname">마을회관포차</p>
+                    <p class="bplace">청담동</p>
+                    <p class="bmenu">삼겹살, 곱창, 소주</p>
+                </div>
+                <div class="bcontent">
+                    <img src="images/dongne.png">
+                    <p class="bstar">4.2</p>
+                    <p class="bname">동네 술집</p>
+                    <p class="bplace">청담동</p>
+                    <p class="bmenu">삼겹살, 곱창, 소주</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+</html>

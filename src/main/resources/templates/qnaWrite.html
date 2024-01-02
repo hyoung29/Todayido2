@@ -1,0 +1,92 @@
+<!--글쓰기 페이지-->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
+</header>
+<!-------------------------- 헤더부분---------------------------->
+
+<section>
+
+    <div class="content">
+        <form th:action="@{WriteProc}" class="write-form"
+              method="post" enctype="multipart/form-data">
+            <div class="user-info">
+                <div class="user-info-sub" th:object="${session.user}"></div>
+            </div>
+
+            <h2 class="login-header">QnA 작성</h2>
+
+            <!--작성자(로그인 한 id), 제목, 내용, 파일-->
+
+            <!--로그인 한 상태에서 글쓰기 권한-->
+            <input type="hidden" name="user_id"
+                   th:value="${session.user.user_id}">
+
+
+            <input type="text" class="write-input" name="qna_title"
+                   autofocus placeholder="제목" required>
+            <textarea rows="15" name="qna_contents"
+                      placeholder="내용을 적어주세요." value="내용:"
+                      class="write-input ta"></textarea>
+
+            <!--파일 업로드부분-->
+            <div class="filebox">
+                <label for="file">업로드</label>
+                <input type="file" name="files" id="file" multiple>
+                <input type="text" class="upload-name" value="파일선택" readonly>
+            </div>
+
+            <!--글쓰기 업로드 뒤로가기 수정 버튼-->
+            <div class="btn-area"> <!-- 업로드 수정 닫기 업로드 버튼-->
+                <input type="submit" class="btn-writeupload" value="upload">
+                <input type="reset" class="btn-writereset" value="reset">
+                <input type="button" class="btn-writeback" value="나가기" id="backbtn">
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<!--footer-->
+
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+
+<!--footer-->
+
+</body>
+
+<script th:inline="javascript">
+
+    //파일명 처리용 함수
+    $("#file").on("change", function () {
+        //파일 선택창에서 업로드할 파일을 선택한 다음
+        //'열기' 버튼을 누르면 change 이벤트가 발생.
+        //console.log($("#file"));
+        let files = $("#file")[0].files;
+        console.log(files);
+
+        let fileName = "";//출력할 문장 저장 변수
+
+        if (files.length > 1) {
+            fileName = `${files[0].name} 외 ${files.length - 1}개`;
+        } else if (files.length == 1) {
+            fileName = files[0].name;
+        } else {
+            fileName = "파일선택";
+        }
+        $(".upload-name").val(fileName);
+    });
+
+</script>
+</html>
