@@ -8,8 +8,12 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,11 +25,18 @@ public class DetailService {
     @Autowired
     private DetailDao dDao;
 
+    @Autowired
+    PlatformTransactionManager manager;
+    @Autowired
+    TransactionDefinition definition;
+
+
     public ModelAndView getReview(int store_num){
         log.info("getReview()");
         ModelAndView mv = new ModelAndView();
         StoreDto store = dDao.selectStore(store_num);
         mv.addObject("store", store);
+
         List<ReviewDto> rList = dDao.selectReview(store_num);
         mv.addObject("rList", rList);
 
@@ -46,38 +57,56 @@ public class DetailService {
         return review;
     }
 
-    private void fileUpload(List<MultipartFile> files, HttpSession session, int review_num) throws IOException {
-        log.info("fileUpload()");
-
-        String realPath = session.getServletContext().getRealPath("/");
-        log.info(realPath);
-        realPath += "upload";
-
-        File folder = new File(realPath);
-        if (folder.isDirectory() == false){
-            folder.mkdir();
-        }
-
-        for (MultipartFile mf : files){
-            String oriname = mf.getOriginalFilename();
-            if (oriname.equals("")){
-                return;
-            }
-
-            ReviewFileDto rfd = new ReviewFileDto();
-            rfd.setReview_num(review_num);
-            rfd.setRv_oriname(oriname);
-            String sysname = System.currentTimeMillis() + oriname.substring(oriname.lastIndexOf("."));
-            rfd.setRv_sysname(sysname);
-
-            File file = new File(realPath + sysname);
-
-            mf.transferTo(file);
-
-            dDao.insertRfile(rfd);
-        }
-
-
-    }
-
+//    private void fileUpload(List<MultipartFile> files, HttpSession session, int review_num) throws IOException {
+//        log.info("fileUpload()");
+//
+//        String realPath = session.getServletContext().getRealPath("/");
+//        log.info(realPath);
+//        realPath += "upload";
+//
+//        File folder = new File(realPath);
+//        if (folder.isDirectory() == false){
+//            folder.mkdir();
+//        }
+//
+//
+//
+//        ReviewFileDto rfd = new ReviewFileDto();
+//        rfd.setReview_num(review_num);
+//        rfd.setRv_oriname(oriname);
+//        String sysname = System.currentTimeMillis() + oriname.substring(oriname.lastIndexOf("."));
+//        rfd.setRv_sysname(sysname);
+//
+//        File file = new File(realPath + sysname);
+//
+//        mf.transferTo(file);
+//
+//            dDao.insertRfile(rfd);
+//
+//
+//
+//    }
+//
+//    public String reviewProc(List<MultipartFile> files, ReviewDto review, HttpSession session, RedirectAttributes rttr) {
+//        log.info("reviewProc");
+//        TransactionStatus status = manager.getTransaction(definition);
+//
+//        String view = null;
+//        String msg = null;
+//
+//        try{
+//            fileUpload(files, session, review.getReview_num());
+//            manager.commit(status);
+//            view = "redirect:detail";
+//            msg = "작성성공";
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            manager.rollback(status);//취소
+//            view = "redirect:detail";
+//            msg = "작성 실패";
+//        }
+//        rttr.addFlashAttribute("msg",msg);
+//
+//        return view;
+//    }
 }

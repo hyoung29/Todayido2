@@ -10,10 +10,8 @@ import java.util.List;
 @Mapper
 public interface DetailDao {
     //스토어 가져오는 메소드
-    
 
     List<ReviewDto> selectReview(int store_num);
-
 
     void insertReview(ReviewDto review);
 
@@ -22,4 +20,5 @@ public interface DetailDao {
     void insertRfile(ReviewFileDto rfd);
 
     StoreDto selectStore(int storeNum);
+
 }
