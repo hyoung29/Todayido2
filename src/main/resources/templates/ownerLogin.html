@@ -17,17 +17,17 @@
 </head>
 <body>
 <header>
-    <th:block th:insert="~{fragments::header(${session.owner})}" />
+    <th:block th:insert="~{fragments::header(${session.user})}" />
 </header>
 <section>
     <div class="content">
         <form class="login-form" method="post" th:action="@{ownerloginProc}">
             <h2 class="login-header">사업주 로그인</h2>
-            <input autofocus class="login-input" name="business_num" placeholder="아이디" required type="text">
+            <input autofocus class="login-input" name="business_num" placeholder="사업자 번호" required type="text">
             <input class="login-input" name="owner_pwd" placeholder="비밀번호" required type="password">
             <input class="login-btn" type="submit" value="로그인">
-            <div class="find"><a th:href="@{findId}">아이디찾기</a></div>
-            <div class="find"><a th:href="@{findPw}">비밀번호찾기</a></div>
+            <div class="find"><a th:href="@{findownerId}">아이디찾기</a></div>
+            <div class="find"><a th:href="@{findownerPw}">비밀번호찾기</a></div>
             <div class="join"><a th:href="@{ownerJoin}">회원가입</a></div>
         </form>
     </div>

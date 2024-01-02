@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -50,15 +49,15 @@ public class UserController {
         String view = uServ.logout(session);
         return view;
     }
-    @GetMapping("findId")
-    public String findId(){
-        log.info("findId()");
-        return "findId";
+    @GetMapping("findUserId")
+    public String findUserId(){
+        log.info("findUserId()");
+        return "findUserId";
     }
-    @GetMapping("findPw")
-    public String findPw(){
-        log.info("findPw()");
-        return "findPw";
+    @GetMapping("findUserPwd")
+    public String findUserPwd(){
+        log.info("findUserPwd()");
+        return "findUserPwd";
     }
     @GetMapping("myPage")
     public String myPage(){
