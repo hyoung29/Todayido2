@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,10 +22,10 @@ public class UserController {
         log.info("home()");
         return "index";
     }
-    @GetMapping("joinForm")
-    public String joinForm(){
-        log.info("joinForm()");
-        return "joinForm";
+    @GetMapping("userJoin")
+    public String userJoin(){
+        log.info("userJoin()");
+        return "userJoin";
     }
     @PostMapping("userjoinProc")
     public String userjoinProc(UserDto user, RedirectAttributes rttr) {
@@ -32,10 +33,10 @@ public class UserController {
         String view = uServ.userJoin(user, rttr);
         return view;
     }
-    @GetMapping("loginForm")
-    public String loginForm(){
-        log.info("loginForm()");
-        return "loginForm";
+    @GetMapping("userLogin")
+    public String userLogin(){
+        log.info("userLogin()");
+        return "userLogin";
     }
     @PostMapping("userloginProc")
     public String userloginProc(UserDto user, HttpSession session, RedirectAttributes rttr){
@@ -49,19 +50,20 @@ public class UserController {
         String view = uServ.logout(session);
         return view;
     }
+    @GetMapping("myPage")
+    public String myPage(){
+        log.info("myPage()");
+        return "myPage";
+    }
     @GetMapping("findUserId")
     public String findUserId(){
         log.info("findUserId()");
         return "findUserId";
     }
-    @GetMapping("findUserPwd")
-    public String findUserPwd(){
-        log.info("findUserPwd()");
-        return "findUserPwd";
-    }
-    @GetMapping("myPage")
-    public String myPage(){
-        log.info("myPage()");
-        return "myPage";
+    @PostMapping("findUserIdresult")
+    public String findUserIdresult(UserDto user, Model model){
+        log.info("findUserIdresult()");
+        String view = uServ.findUserId(user, model);
+        return view;
     }
 }

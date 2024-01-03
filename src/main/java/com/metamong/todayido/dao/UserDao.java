@@ -13,4 +13,6 @@ public interface UserDao {
     String selectPassword(String userid);
     //로그인 성공 시 회원 정보를 가져오는 메소드
     UserDto selectUser(String userid);
+    //회원 아이디 가져오는 메소드
+    String selectUserId(UserDto user);
 }

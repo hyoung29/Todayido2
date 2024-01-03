@@ -19,7 +19,7 @@
                     <li><a th:href="@{adiminLogin}">로그인</a></li>
                     <li><a th:href="@{adminJoin}">회원가입</a></li>
                 </th:block>
-                <th:block th:unless="${admin     == null}">
+                <th:block th:unless="${admin == null}">
                     <li th:text="${admin.admin_name}+'님'"></li>
                     <li><a th:href="@{logout}">로그아웃</a></li>
                 </th:block>
