@@ -12,7 +12,7 @@
 <script th:inline="javascript">
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
-            center: new kakao.maps.LatLng(37.5254859, 126.711437), // 지도의 초기 중심좌표
+            center: new kakao.maps.LatLng(37.43893465005026,126.67511804592407), // 지도의 초기 중심좌표
             level: -1 // 지도의 초기 확대 레벨
         };
 
@@ -22,14 +22,18 @@
     // 주소-좌표 변환 객체를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
 
-    var positions = {title: [[${store.store_name}]], address: [[${store.store_adress}]]};
+    var positions = [
+        { title: [[${store.store_name}]], address: [[${store.store_adress}]] }
+    ];
 
     // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
     var bounds = new kakao.maps.LatLngBounds(); //추가한 코드
 
-    positions.forEach(function (position) {
+    Array.from(positions).forEach(function (position) {
+        console.log("Processing position:", position);
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(position.address, function(result, status) {
+            console.log("Geocoding result for", position.address, ":", result);
 
             // 정상적으로 검색이 완료됐으면
             if (status === kakao.maps.services.Status.OK) {
