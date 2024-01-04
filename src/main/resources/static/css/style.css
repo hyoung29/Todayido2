@@ -1193,8 +1193,15 @@ label.form-label {
 	margin: 50px auto;
 	background-color: #FFF;
 	OPACITY: 0.8;
+}
+
+.st-rg{
+	display: block;
+}
+.st-rgbt{
 
 }
+
 
 /*수진*/
 .cView {
