@@ -13,13 +13,14 @@
 </header>
 <section>
     <div class="login-form">
+        <h2>아이디 찾기 결과</h2>
         <th:block th:if="${findId == null}">
             <p>조회결과가 없습니다.</p>
         </th:block>
         <th:block th:unless="${findId == null}">
             <p th:text="${findId}"></p>
         </th:block>
-        <div class="find"><a th:href="@{findUserId}">아이디찾기</a></div>
+        <div class="join"><a th:href="@{userLogin}">로그인</a></div>
     </div>
 </section>
 <footer>
