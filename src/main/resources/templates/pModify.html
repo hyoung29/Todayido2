@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>가게 정보 수정</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+
+    <script>
+        function showUpdateConfirmation() {
+            var confirmation = confirm("수정하시겠습니까?");
+            if (confirmation) {
+                // Assuming you have a Thymeleaf mapping for "/update"
+                document.getElementById("editForm").submit();
+            }
+        }
+    </script>
+</head>
+<body>
+<header>
+    <th:block th:insert="~{ownerfragments::header(${session.owner})}"/>
+</header>
+
+<section>
+    <form id="editForm" th:action="@{/update}" method="post" enctype="multipart/form-data" class="login-form">
+        <h1>가게 정보 수정 페이지</h1>
+
+        <div class="st-rg">
+            <label for="storeName">가게 이름 :</label>
+            <input type="text" id="storeName" name="storeName" th:required="true" th:value="${existingData.storeName}">
+        </div>
+        <p th:text="${store.store_name}"></p>
+        <div class="st-rg">
+            <label for="storeAddress">주소 :</label>
+            <input type="text" id="storeAddress" name="storeAddress" th:required="true" th:value="${existingData.storeAddress}">
+        </div>
+
+        <!-- Add other fields for editing -->
+
+        <div class="st-rgbt">
+            <button type="button" onclick="showUpdateConfirmation()">수정</button>
+        </div>
+    </form>
+</section>
+
+<footer>
+    <th:block th:insert="~{fragments::footer}" />
+</footer>
+
+</body>
+</html>
