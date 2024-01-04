@@ -17,12 +17,12 @@
 
 <!------------------------------ 헤더 ------------------------------>
 
-
+<section>
     <div class="qnalist-form">
         <h2 class="login-header">문의사항</h2>
+
         <div class="search-area">
             <div>
-
                 <select id="sel">
                     <option value="qna_title" selected>
                         제목
@@ -31,20 +31,16 @@
                         작성자
                     </option>
                 </select>
-
                 <input type="text" id="keyword-title">
-
                 <button id="search">검색</button>
             </div>
         </div>
         <div class="data-area">
-
             <div class="title-row">
                 <div class="t-no p-10">NO.</div>
                 <div class="t-title p-30">제목</div>
                 <div class="t-name p-15">작성자</div>
                 <div class="t-date p-30">작성일</div>
-
             </div>
 
             <div class="data-row">
@@ -67,7 +63,9 @@
                         </div>
                     </th:block>
                 </th:block>
-                <button class="wr-btn" id="write">작성하기</button>
+                <div>
+                    <button class="wr-btn" id="write">작성하기</button>
+                </div>
             </div>
         </div>
         <div class="btn-area">
@@ -76,16 +74,16 @@
     </div>
 </section>
 
+<!--------------------------footer-------------------------------------->
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
+<!--------------------------footer-------------------------------------->
 
 </body>
-
-
-
 <script>
 
+    // -------------------------serch 검색 (제목 or 작성자)--------------------
     $("#search").click(function () {
         //사용자가 입력한 검색 키워드를 가져온다.
         let keyword = $("#keyword-title").val();
@@ -97,8 +95,9 @@
         //검색용 uri 생성 및 실행(location.href)
         location.href = `/qnalist?colname=${select}&keyword=${keyword}&pageNum=1`
     });
+    // <-------------------------serch 검색 (제목 or 작성자)-------------------->
 
-    <!--작성하기 버튼 누르면 글 작성 페이지로 이동-->
+   // <----------작성하기 버튼 누르면 글 작성 페이지로 이동---------------------->
     $("#write").click(function () {
         location.href = "qnaWrite";
     });

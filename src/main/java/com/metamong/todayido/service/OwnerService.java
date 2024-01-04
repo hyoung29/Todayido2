@@ -7,7 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 @Slf4j
@@ -67,4 +72,34 @@ public class OwnerService {
         session.invalidate();
         return "redirect:/";
     }
+
+    public String pdetail(MultipartFile file, OwnerDto pdetail, HttpSession session, RedirectAttributes rttr) {
+        try {
+            // 여기에 파일 업로드 로직을 추가
+            if (!file.isEmpty()) {
+                // 업로드할 디렉토리 경로 설정 (실제로는 적절한 경로를 지정해야 함)
+                String uploadDir = "/resource/directory/";
+
+                // 업로드할 파일명 생성
+                String fileName = file.getOriginalFilename();
+
+                // 파일 저장 경로 설정
+                Path filePath = Paths.get(uploadDir, fileName);
+
+                // 파일 저장
+                Files.write(filePath, file.getBytes());
+
+                // 업로드 성공 메시지를 반환
+                return "File uploaded successfully.";
+            } else {
+                // 업로드할 파일이 없는 경우
+                return "No file selected for upload.";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 업로드 실패 메시지를 반환
+            return "File upload failed.";
+        }
+    }
 }
+

@@ -26,8 +26,11 @@
 </head>
 <body>
 <header>
-    <th:block th:insert="~{fragments::header(${session.admin})}"/>
+    <th:block th:insert="~{adminfragments::header(${session.admin})}"/>
 </header>
+<!--------------------헤더부분-------------------------------------->
+
+
 <section class="main-area">
     <div class="main-content">
         <h1>오늘 뭐하지?</h1>
@@ -175,8 +178,10 @@
         </div>
     </div>
 </section>
+<!--footer----------------------------------------------------->
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
+<!--footer----------------------------------------------------->
 </body>
 </html>

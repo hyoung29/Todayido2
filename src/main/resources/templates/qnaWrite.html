@@ -31,9 +31,9 @@
             <input type="hidden" name="user_id"
                    th:value="${session.user.user_id}">
 
-
             <input type="text" class="write-input" name="qna_title"
                    autofocus placeholder="제목" required>
+
             <textarea rows="15" name="qna_contents"
                       placeholder="내용을 적어주세요." value="내용:"
                       class="write-input ta"></textarea>
@@ -57,11 +57,9 @@
 </section>
 
 <!--footer-->
-
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
-
 <!--footer-->
 
 </body>
@@ -88,5 +86,27 @@
         $(".upload-name").val(fileName);
     });
 
+    $("#backbtn").click(function () {
+        let url = "/qnalist?";
+
+        const searchDto = [[${session.sdto}]];
+        let colname = "";
+        let keyword = "";
+        if(searchDto != null){
+            colname = searchDto.colname;
+            keyword = searchDto.keyword;
+        }
+
+        let page = [[${session.pageNum}]];
+
+        if(colname == null || colname == ""){//검색 안한 목록 이동 (첫페이지)
+            url += `pageNum=${page}`;
+        } else {//검색한 결과 목록으로 이동.(수정하던 페이지)
+            url += `colname=${colname}&keyword=${keyword}&pageNum=${page}`;
+        }
+        console.log(url);
+        location.href = url;
+        //history.back();
+    });
 </script>
 </html>

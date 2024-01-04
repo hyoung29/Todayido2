@@ -55,6 +55,7 @@
         <if test="colname != null and colname != ''">
             WHERE ${colname} LIKE CONCAT('%',#{keyword},'%')
         </if>
+        order by qna_num desc
         LIMIT #{pageNum}, #{listCnt}
     </select>
 
