@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -51,9 +52,10 @@ public class OwnerController {
     }
 
     @GetMapping("ownerPage")
-    public String ownerPage() {
+    public ModelAndView ownerPage(int business_num) {
         log.info("ownerPage()");
-        return "ownerPage";
+        ModelAndView mv = oServ.getOwner(business_num);
+        return mv;
     }
 
     //가게등록하기
