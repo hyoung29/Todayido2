@@ -93,9 +93,10 @@ public class BoardController {
     }
 
     @GetMapping("rCategory")
-    public String rCategory() {
+    public ModelAndView rCategory(int store_category_id) {
         log.info("rCategory()");
-        return "rCategory";
+        ModelAndView mv = dServ.getStoreList(store_category_id);
+        return mv;
     }
 
     @GetMapping("cCategory")
@@ -129,11 +130,5 @@ public class BoardController {
         ModelAndView mv = dServ.getReview(store_num);
         return mv;
     }
-//    @PostMapping("reviewProc")
-//    public String reviewProc(@RequestPart List<MultipartFile> files, ReviewDto review, HttpSession session, RedirectAttributes rttr){
-//        log.info("reviewProc()");
-//        String view = dServ.reviewProc(files, review, session, rttr);
-//        return view;
-//    }
 }
 

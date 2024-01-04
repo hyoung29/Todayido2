@@ -18,4 +18,7 @@
     <select id="selectLastReview" resultType="ReviewDto" parameterType="Integer">
         SELECT * FROM review WHERE review_num=#{review_num}
     </select>
+    <select id="selectStoreList" resultType="StoreDto" parameterType="Integer">
+        SELECT * FROM store WHERE store_category_id=#{store_category_id}
+    </select>
 </mapper>

@@ -27,32 +27,17 @@
             <h3>추천 식당</h3>
             <div class="recommend">
                 <div class="rcontent">
-                    <img src="images/mesikdang.png">
-                    <p class="rstar">4.4</p>
-                    <p class="rname">미식당</p>
-                    <p class="rplace">청담동</p>
-                    <p class="rmenu">카레, 덮밥, 라면</p>
-                </div>
-                <div class="rcontent">
-                    <img src="images/gomokjung.png">
-                    <p class="rstar">4.9</p>
-                    <p class="rname">고목정</p>
-                    <p class="rplace">용현동</p>
-                    <p class="rmenu">삼겹살, 목살, 갈매기살</p>
-                </div>
-                <div class="rcontent">
-                    <img src="images/ggulggul.png">
-                    <p class="rstar">4.5</p>
-                    <p class="rname">꿀꿀진순대</p>
-                    <p class="rplace">학익동</p>
-                    <p class="rmenu">순대, 순대국밥, 순대지</p>
-                </div>
-                <div class="rcontent">
-                    <img src="images/sungwon.png">
-                    <p class="rstar">4.1</p>
-                    <p class="rname">성원닭갈비</p>
-                    <p class="rplace">한남동</p>
-                    <p class="rmenu">닭갈비, 찜닭, 볶음밥</p>
+                    <th:block th:each="sLt:${sList}">
+                        <img src="images/mesikdang.png">
+                        <label>
+                            <a th:href="@{detail(store_num=${sLt.store_num})}">
+                                <p th:text="${sLt.average_rating}" class="rstar"></p>
+                                <p th:text="${sLt.store_name}" class="rname"></p>
+                                <p th:text="${sLt.store_adress}" class="rplace"></p>
+                                <p th:text="${sLt.store_description}" class="rmenu"></p>
+                            </a>
+                        </label>
+                    </th:block>
                 </div>
             </div>
         </form>
