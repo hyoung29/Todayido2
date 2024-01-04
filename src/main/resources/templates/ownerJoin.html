@@ -17,7 +17,7 @@
 </head>
 <body>
 <header>
-    <th:block th:insert="~{fragment::header(${session.owner})}"/>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
 </header>
 <section>
     <div class="content">

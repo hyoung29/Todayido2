@@ -14,4 +14,7 @@
     <select id="selectUser" resultType="UserDto" parameterType="String">
         SELECT * FROM user WHERE user_id=#{user_id}
     </select>
+    <select id="selectUserId" resultType="String">
+        SELECT user_id FROM user WHERE user_name=#{user_name} AND user_pnum=#{user_pnum}
+    </select>
 </mapper>

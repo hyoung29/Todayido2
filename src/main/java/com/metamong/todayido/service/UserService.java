@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Service
@@ -39,7 +40,7 @@ public class UserService {
         try {
             uDao.insertUser(user);
             msg = "가입 성공";
-            view = "redirect:loginForm";
+            view = "redirect:userLogin";
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -61,11 +62,11 @@ public class UserService {
                 view = "redirect:/";
                 msg = "로그인 성공";
             } else {
-                view = "redirect:loginForm";
+                view = "redirect:userLogin";
                 msg = "비밀번호가 틀립니다";
             }
         } else {
-            view = "redirect:loginForm";
+            view = "redirect:userLogin";
             msg = "존재하지 않는 아이디입니다";
         }
 
@@ -77,5 +78,15 @@ public class UserService {
         log.info("logout()");
         session.invalidate();
         return "redirect:/";
+    }
+
+    public String findUserId(UserDto user, Model model) {
+        log.info("findUserId()");
+        String view = "findUserIdresult";
+
+        String userId = uDao.selectUserId(user);
+        model.addAttribute("findId", userId);
+
+        return view;
     }
 }

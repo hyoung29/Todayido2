@@ -16,8 +16,8 @@
         <nav class="top-right">
             <ul>
                 <th:block th:if="${user == null}">
-                    <li><a th:href="@{loginForm}">로그인</a></li>
-                    <li><a th:href="@{joinForm}">회원가입</a></li>
+                    <li><a th:href="@{userLogin}">로그인</a></li>
+                    <li><a th:href="@{userJoin}">회원가입</a></li>
                 </th:block>
                 <th:block th:unless="${user == null}">
                     <li th:text="${user.user_name}+'님'"></li>
@@ -29,8 +29,8 @@
                     <a href="rCategory">카테고리</a>
                     <a href="myPage">마이페이지</a>
                     <a href="qnalist">문의사항</a>
-                    <a href="pindex">사업주</a>
-                    <a href="admin">관리자</a>
+                    <a href="ownerJoin">사업주</a>
+                    <a href="adminLogin">관리자</a>
                     <div style="width: 150px"/>
                 </div>
             </ul>
