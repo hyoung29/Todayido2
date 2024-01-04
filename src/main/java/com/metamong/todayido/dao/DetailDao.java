@@ -1,7 +1,6 @@
 package com.metamong.todayido.dao;
 
 import com.metamong.todayido.dto.ReviewDto;
-import com.metamong.todayido.dto.ReviewFileDto;
 import com.metamong.todayido.dto.StoreDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,8 +15,6 @@ public interface DetailDao {
     void insertReview(ReviewDto review);
 
     ReviewDto selectLastReview(int review_num);
-
-    void insertRfile(ReviewFileDto rfd);
 
     StoreDto selectStore(int storeNum);
 

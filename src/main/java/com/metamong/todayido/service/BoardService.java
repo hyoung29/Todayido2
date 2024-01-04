@@ -178,19 +178,6 @@ public class BoardService {
         return mv;
     }
 
-    public ResponseEntity<Resource> fileDownload(BoardFileDto bfile, HttpSession session) throws IOException {
-        log.info("fileDownload()");
-        //파일 저장 경로와 파일명을 조합
-        String realPath = session.getServletContext().getRealPath("/");
-        realPath += "upload/" + bfile.getBf_sysname();
-        //실제 파일이 저장된 하드디스크까지의 경로를 수립
-        InputStreamResource fResource = new InputStreamResource(new FileInputStream(realPath));
-        //파일명이 한글인 경우 UTF-8로 인코딩
-        String fileName = URLEncoder.encode(bfile.getBf_oriname(), StandardCharsets.UTF_8);
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).cacheControl(CacheControl.noCache())
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName).body(fResource);
-    }
-
     //게시글 삭제(파일목록, 댓글목록 삭제)
     public String deleteBoard(int b_num, HttpSession session, RedirectAttributes rttr) {
         log.info("deleteBoard()");

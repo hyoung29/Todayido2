@@ -40,10 +40,10 @@ public class BoardRestController {
         List<BoardFileDto> fList = bServ.delFile(bFile, session);
         return fList;
     }
-    @PostMapping("ReviewInsert")
-    public ReviewDto ReviewInsert(@RequestParam("files")MultipartFile files, ReviewDto review){
-        log.info("ReviewInsert");
-        review = dServ.ReviewInsert(review);
+    @PostMapping("reviewInsert")
+    public ReviewDto reviewInsert(@RequestParam("files")MultipartFile files, ReviewDto review, HttpSession session){
+        log.info("reviewInsert");
+        review = dServ.ReviewInsert(files, review, session);
         return review;
     }
 }

@@ -143,7 +143,7 @@
     <div id="rs">
         <th:block th:if="${#lists.isEmpty(rList)}">
             <div style="width: 100%">
-                게시글이 없습니다.
+                댓글이 없습니다
             </div>
         </th:block>
         <th:block th:unless="${#lists.isEmpty(rList)}">
@@ -162,12 +162,15 @@
                         <div th:text="${rev.review_text}"></div>
                         <div th:text="${rev.crated_at}"></div>
                     </div>
-                    <img src="images/mesikdang.png" class="r_photo">
+                    <th:block th:if="${rev.rv_sysname != null}">
+                        <img th:src="@{upload/}+${rev.rv_sysname}" class="r_photo">
+                    </th:block>
                 </div>
             </div>
         </th:block>
         </th:block>
     </div>
+    <div class="paging" th:utext="${paging}"></div>
 </div>
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
@@ -202,91 +205,78 @@
 
     $("#drbtn").click(function () {
         let form = new FormData();
-        let files = $("#files")[0];
-        form.append("text",$("#text").val());
+        let files = $("#file")[0];
+        form.append("user_id", [[${session.user.user_id}]]);
+        form.append("store_num", [[${store.store_num}]]);
+        form.append("review_text", $("#text").val());
         form.append("files", files.files[0]);
-        form.append("rating",$("#rating").val());
+        form.append("rating", $("#rating").val());
         console.log(form);
 
         $.ajax({
-            url:"reviewInsert",
+            url: "reviewInsert",
             type: "post",
             data: form,
             enctype: "multipart/form-data",
             contentType: false,
             processData: false,
-            cache:false,
-            success: function (res){
+            cache: false,
+            success: function (res) {
                 console.log(res);
+                if (res != null) {
+                    let str = "";
+                    str += `
+                    <div class="rev">
+                        <div id="rSpace" class="r_d">
+                            <div>
+                                <div>${res.user_id}</div>
+                    `;
+                    switch (res.rating) {
+                        case 1:
+                            str += `<span>&#9733;&#9734;&#9734;&#9734;&#9734;</span>`;
+                            break;
+                        case 2:
+                            str += `<span>&#9733;&#9733;&#9734;&#9734;&#9734;</span>`;
+                            break;
+                        case 3:
+                            str += `<span>&#9733;&#9733;&#9733;&#9734;&#9734;</span>`;
+                            break;
+                        case 4:
+                            str += `<span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>`;
+                            break;
+                        default:
+                            str += `<span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>`;
+                    }
+                    str += `
+                                <div>${res.review_text}</div>
+                                <div>${res.crated_at}</div>
+                            </div>
+                            <img src="upload/${res.rv_sysname}" class="r_photo">
+                        </div>
+                    </div>
+                    `;
+                    $("#rs").prepend(str);
+                    //$("#comment").val("");
+                    $(".modalbg").hide();
+                } else {
+                    alert("댓글 작성 실패");
+                    $("#comment").val("");
+                    $("#comment").focus();
+                }
             },
-            error: function (err){
+            error: function (err) {
                 console.log(err);
             }
-        })
-        // const rForm = $("#rform").serialize();
-        // console.log(rForm);
-        //restController에 전송
-    //     $.ajax({
-    //         url: "ReviewInsert",
-    //         type: "post",
-    //         data: rForm,
-    //         success: function (res) {
-    //             console.log(res);
-    //             if(res != null){
-    //                 let str = "";
-    //                 str += `
-    //                 <div class="rev">
-    //                     <div id="rSpace" class="r_d">
-    //                         <div>
-    //                             <div>${res.user_id}</div>
-    //                 `;
-    //                 switch(res.rating){
-    //                     case 1:
-    //                         str += `<span>&#9733;&#9734;&#9734;&#9734;&#9734;</span>`;
-    //                         break;
-    //                     case 2:
-    //                         str += `<span>&#9733;&#9733;&#9734;&#9734;&#9734;</span>`;
-    //                         break;
-    //                     case 3:
-    //                         str += `<span>&#9733;&#9733;&#9733;&#9734;&#9734;</span>`;
-    //                         break;
-    //                     case 4:
-    //                         str += `<span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>`;
-    //                         break;
-    //                     default:
-    //                         str += `<span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>`;
-    //                 }
-    //                 str += `
-    //                             <div>${res.review_text}</div>
-    //                             <div>${res.crated_at}</div>
-    //                         </div>
-    //                         <img src="images/mesikdang.png" class="r_photo">
-    //                     </div>
-    //                 </div>
-    //                 `;
-    //                 $("#rs").prepend(str);
-    //                 //$("#comment").val("");
-    //                 $(".modalbg").hide();
-    //             } else {
-    //                 alert("댓글 작성 실패");
-    //                 $("#comment").val("");
-    //                 $("#comment").focus();
-    //             }
-    //         },
-    //         error: function (err) {
-    //             console.log(err);
-    //             alert("댓글 저장 실패");
-    //         }
-    //     })
-    })
-    $( ".star_rating span" ).click(function() {
+        });
+    });
+
+    $(".star_rating span").click(function () {
         $(this).parent().children("span").removeClass("on");
         $(this).addClass("on").prevAll("span").addClass("on");
         let s = $(this).data("star");
         console.log(s);
         $("#rating").val(s);
     });
-
 
 
 </script>
