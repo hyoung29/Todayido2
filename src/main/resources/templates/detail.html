@@ -115,15 +115,15 @@
     <!--  리뷰 등록  -->
     <div class="modalbg">
         <div class="modal">
-            <form th:action="@{reviewProc}" id="rform">
+            <form id="rform">
                 <input type="hidden" name="user_id" th:value="${session.user.user_id}">
                 <input type="hidden" name="store_num" th:value="${store.store_num}">
                 <h3 class="rev_text">리뷰작성</h3>
-                <textarea name="review_text" cols="40" rows="8" placeholder="내용"></textarea><br>
+                <textarea name="review_text" id="text" cols="40" rows="8" placeholder="내용"></textarea><br>
                 <!-- 리뷰사진 추가 -->
                 <div>
                 <label for="file">리뷰사진선택</label>
-                <input type="file" name="files" id="file" multiple>
+                <input type="file" name="files" id="file">
                 <input type="text" class="upload-name" value="파일선택" readonly><br>
                 </div>
                 <input type="hidden" name="rating" value="0" id="rating">
@@ -143,7 +143,7 @@
     <div id="rs">
         <th:block th:if="${#lists.isEmpty(rList)}">
             <div style="width: 100%">
-                게시글이 없습니다.
+                댓글이 없습니다
             </div>
         </th:block>
         <th:block th:unless="${#lists.isEmpty(rList)}">
@@ -162,12 +162,15 @@
                         <div th:text="${rev.review_text}"></div>
                         <div th:text="${rev.crated_at}"></div>
                     </div>
-                    <img src="images/mesikdang.png" class="r_photo">
+                    <th:block th:if="${rev.rv_sysname != null}">
+                        <img th:src="@{upload/}+${rev.rv_sysname}" class="r_photo">
+                    </th:block>
                 </div>
             </div>
         </th:block>
         </th:block>
     </div>
+    <div class="paging" th:utext="${paging}"></div>
 </div>
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
@@ -201,16 +204,26 @@
     })
 
     $("#drbtn").click(function () {
-        const rForm = $("#rform").serialize();
-        console.log(rForm);
-        //restController에 전송
+        let form = new FormData();
+        let files = $("#file")[0];
+        form.append("user_id", [[${session.user.user_id}]]);
+        form.append("store_num", [[${store.store_num}]]);
+        form.append("review_text", $("#text").val());
+        form.append("files", files.files[0]);
+        form.append("rating", $("#rating").val());
+        console.log(form);
+
         $.ajax({
-            url: "ReviewInsert",
+            url: "reviewInsert",
             type: "post",
-            data: rForm,
+            data: form,
+            enctype: "multipart/form-data",
+            contentType: false,
+            processData: false,
+            cache: false,
             success: function (res) {
                 console.log(res);
-                if(res != null){
+                if (res != null) {
                     let str = "";
                     str += `
                     <div class="rev">
@@ -218,7 +231,7 @@
                             <div>
                                 <div>${res.user_id}</div>
                     `;
-                    switch(res.rating){
+                    switch (res.rating) {
                         case 1:
                             str += `<span>&#9733;&#9734;&#9734;&#9734;&#9734;</span>`;
                             break;
@@ -238,7 +251,7 @@
                                 <div>${res.review_text}</div>
                                 <div>${res.crated_at}</div>
                             </div>
-                            <img src="images/mesikdang.png" class="r_photo">
+                            <img src="upload/${res.rv_sysname}" class="r_photo">
                         </div>
                     </div>
                     `;
@@ -253,18 +266,17 @@
             },
             error: function (err) {
                 console.log(err);
-                alert("댓글 저장 실패");
             }
-        })
-    })
-    $( ".star_rating span" ).click(function() {
+        });
+    });
+
+    $(".star_rating span").click(function () {
         $(this).parent().children("span").removeClass("on");
         $(this).addClass("on").prevAll("span").addClass("on");
         let s = $(this).data("star");
         console.log(s);
         $("#rating").val(s);
     });
-
 
 
 </script>

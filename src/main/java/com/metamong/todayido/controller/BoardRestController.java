@@ -10,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -38,10 +40,10 @@ public class BoardRestController {
         List<BoardFileDto> fList = bServ.delFile(bFile, session);
         return fList;
     }
-    @PostMapping("ReviewInsert")
-    public ReviewDto ReviewInsert(ReviewDto review){
-        log.info("ReviewInsert");
-        review = dServ.ReviewInsert(review);
+    @PostMapping("reviewInsert")
+    public ReviewDto reviewInsert(@RequestParam("files")MultipartFile files, ReviewDto review, HttpSession session){
+        log.info("reviewInsert");
+        review = dServ.ReviewInsert(files, review, session);
         return review;
     }
 }
