@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.metamong.todayido.dao.StoreDao">
+    <insert id="insertStore" parameterType="StoreDto">
+        INSERT INTO store
+        VALUES(#{store_name}, #{store_telephone}, #{store_adress}, #{store_category_id}, #{average_rating}, #{store_description},
+               #{open_time}, #{closed_day}, #{owner_name}, #{business_num}, current_timestamp, null, #{position_x}, #{position_y})
+    </insert>
+
+    <update id="updateStore">
+        <!-- 필요한 내용 추가 -->
+    </update>
+
+    <delete id="deleteStore">
+        <!-- 필요한 내용 추가 -->
+    </delete>
+
+    <select id="findById" resultType="StoreDto" parameterType="int">
+        SELECT * FROM Store WHERE store_id=#{store_id}
+    </select>
+
+    <select id="findAll" resultType="StoreDto">
+        SELECT store_id, store_name, store_telephone, store_adress, store_category_id, average_rating, store_description,
+               open_time, closed_day, owner_name, business_num, created_at, updated_at, position_x, position_y FROM Store
+    </select>
+
+    <select id="selectStore" resultType="StoreDto" parameterType="Integer">
+        SELECT * FROM Store WHERE store_num=#{store_num}
+    </select>
+</mapper>

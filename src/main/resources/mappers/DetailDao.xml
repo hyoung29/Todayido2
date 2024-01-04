@@ -18,4 +18,7 @@
     <select id="selectLastReview" resultType="ReviewDto" parameterType="Integer">
         SELECT * FROM review WHERE review_num=#{review_num}
     </select>
+    <select id="selectMenu" resultType="com.metamong.todayido.dto.MenuDto">
+        SELECT * FROM menu WHERE store_num=#{store_num}
+    </select>
 </mapper>
