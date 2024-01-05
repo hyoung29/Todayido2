@@ -2,6 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>콘텐츠 정보 보기</title>
     <script src="js/jquery-3.7.1.min.js"></script>
@@ -46,7 +47,7 @@
     <div class="cView"> <!-- 상세 정보 background -->
         <div class="c-dak"> <!--성원닭갈비-->
             <img src="images/sungdak.png" alt="성원닭갈비" style="width: 100%">
-            <h1 style="font-size: 35px; margin-top: -2px">성원닭갈비<span
+            <h1>성원닭갈비<span
                     style="color: #005224; font-size: 25px">(4.1)</span></h1>
             <div class="stats">
                 <p>조회 수: 100 회</p>
@@ -92,71 +93,75 @@
 
         <!-- 가게 영업 시간-->
         <div class="store-hour">
-            <style>
-                .store-hour {
-                    height: 140px;
-                    border-radius: 40px;
-                    background: #D9D9D9;
-                    margin-top: 15%;
-                }
-            </style>
             <div class="c-time">
                 <div style="margin: 0 30px; font-size: 18px; font-weight: bolder; line-height: 3;">영업 시간</div>
                 <p style="margin: 0 30px;">매일 11:00 ~ 23:00 (22:00 라스트 오더)<br>휴일: 연중 무휴</p>
             </div>
+
             <div style="text-align: right;">
-                <button type="button" class="res" style="margin-top: 45px; font-size: 18px;
+                    <div class="user-info">
+                        <div class="user-info-sub" th:object="${session.user}"></div>
+                    </div>
+
+                    <th:block th:if="${session.user != null}">
+                        <button type="button" class="res" style="margin-top: 45px; font-size: 18px;
                         background-color: white; border-style: none; text-underline: dash;"
-                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <img src="images/schedule.png">예약하기
-                </button>
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title" id="staticBackdropLabel">예약하기</h1>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Add your form or content here -->
-                                <form id="reservationForm">
-                                    <div class="mb-3 text-center">
-                                        <label for="date" class="form-label">날짜:</label>
-                                        <input type="text" id="date" name="date" class="form-control datepicker"
-                                               data-date-format="yyyy-mm-dd" required>
-                                    </div>
+                                data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <img src="images/schedule.png">예약하기
+                        </button>
 
-                                    <div class="mb-3 text-center">
-                                        <label for="people" class="form-label">인원수:</label>
-                                        <input type="number" id="people" name="people" class="form-control" min="1"
-                                               required>
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title" id="staticBackdropLabel">예약하기</h1>
                                     </div>
+                                    <div class="modal-body">
+                                        <!-- Add your form or content here -->
+                                        <form id="reservationForm" th:action="@{reservProc}" method="post">
+                                            <div class="mb-3 text-center">
+                                                <label for="date" class="form-label">날짜:</label>
+                                                <input type="text" id="date" name="date" class="form-control datepicker"
+                                                       data-date-format="yyyy-mm-dd" required>
+                                            </div>
 
-                                    <div class="mb-3 text-center">
-                                        <label for="time" class="form-label">시간:</label>
-                                        <input type="time" id="time" name="time" class="form-control" required>
-                                    </div>
+                                            <div class="mb-3 text-center">
+                                                <label for="people" class="form-label">인원수:</label>
+                                                <input type="number" id="people" name="people" class="form-control"
+                                                       min="1"
+                                                       required>
+                                            </div>
 
-                                    <div class="btn-class">
-                                        <div class="child">
-                                            <!-- 예약하기 button -->
-                                            <button type="button" class="btn btn-primary" id="saveReservation">저장
-                                            </button>
-                                            <!-- 예약 취소하기 button -->
-                                            <button type="button" class="btn btn-secondary" id="cancelReservation">취소
-                                            </button>
-                                            <!-- 닫기 button -->
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기
-                                            </button>
-                                        </div>
+                                            <div class="mb-3 text-center">
+                                                <label for="time" class="form-label">시간:</label>
+                                                <input type="time" id="time" name="time" class="form-control" required>
+                                            </div>
+
+                                            <div class="btn-class">
+                                                <div class="child">
+                                                    <!-- 예약하기 button -->
+                                                    <button class="btn btn-primary" id="saveReservation">
+                                                        저장
+                                                    </button>
+                                                    <!-- 예약 취소하기 button -->
+                                                    <button type="button" class="btn btn-secondary"
+                                                            id="cancelReservation">취소
+                                                    </button>
+                                                    <!-- 닫기 button -->
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">닫기
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
+                                    <div class="modal-footer">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </th:block>
             </div>
 
             <div class="c-smp">
@@ -180,8 +185,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 <!-- Your custom scripts here -->
-<script>
-    $(document).ready(function() {
+<script th:inline="javascript">
+    $(document).ready(function () {
         $('#date').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true
