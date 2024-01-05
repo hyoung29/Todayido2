@@ -100,21 +100,24 @@ public class BoardController {
     }
 
     @GetMapping("cCategory")
-    public String cCategory() {
+    public ModelAndView cCategory(int store_category_id) {
         log.info("cCategory()");
-        return "cCategory";
+        ModelAndView mv = dServ.getStoreList(store_category_id);
+        return mv;
     }
 
     @GetMapping("bCategory")
-    public String bCategory() {
+    public ModelAndView bCategory(int store_category_id) {
         log.info("bCategory()");
-        return "bCategory";
+        ModelAndView mv = dServ.getStoreList(store_category_id);
+        return mv;
     }
 
     @GetMapping("pCategory")
-    public String pCategory() {
+    public ModelAndView pCategory(int store_category_id) {
         log.info("pCategory()");
-        return "pCategory";
+        ModelAndView mv = dServ.getStoreList(store_category_id);
+        return mv;
     }
 
     @GetMapping("reservForm")

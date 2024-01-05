@@ -13,46 +13,31 @@
 </header>
 <section>
     <div class="content">
-        <form class="login-form">
+        <form class="ctgy-form">
             <div class="Category">
                 <ul class="category">
                     <li><h3>카테고리</h3></li>
-                    <li><a href="rCategory">식당</a></li>
-                    <li><a href="cCategory">카페</a></li>
-                    <li><a href="bCategory"><b>술집</b></a></li>
-                    <li><a href="pCategory">장소</a></li>
+                    <li><a th:href="@{rCategory(store_category_id=1)}">식당</a></li>
+                    <li><a th:href="@{cCategory(store_category_id=2)}">카페</a></li>
+                    <li><a th:href="@{bCategory(store_category_id=3)}"><b>술집</b></a></li>
+                    <li><a th:href="@{pCategory(store_category_id=4)}">장소</a></li>
                 </ul>
             </div>
-            <img src="images/bar.png" width="600px">
+            <img src="images/bar.png" width="1000px">
             <h3>추천 술집</h3>
             <div class="recommend">
-                <div class="bcontent">
-                    <img src="images/today.png">
-                    <p class="bstar">4.4</p>
-                    <p class="bname">오늘 술집</p>
-                    <p class="bplace">청담동</p>
-                    <p class="bmenu">모듬전, 맥주, 치킨</p>
-                </div>
-                <div class="bcontent">
-                    <img src="images/crown.png">
-                    <p class="bstar">4.5</p>
-                    <p class="bname">크라운호프</p>
-                    <p class="bplace">청담동</p>
-                    <p class="bmenu">치킨, 맥주, 소주</p>
-                </div>
-                <div class="bcontent">
-                    <img src="images/maul.png">
-                    <p class="bstar">4.7</p>
-                    <p class="bname">마을회관포차</p>
-                    <p class="bplace">청담동</p>
-                    <p class="bmenu">삼겹살, 곱창, 소주</p>
-                </div>
-                <div class="bcontent">
-                    <img src="images/dongne.png">
-                    <p class="bstar">4.2</p>
-                    <p class="bname">동네 술집</p>
-                    <p class="bplace">청담동</p>
-                    <p class="bmenu">삼겹살, 곱창, 소주</p>
+                <div class="ctcontent">
+                    <th:block th:each="sLt:${sList}">
+                        <div class="ritem">
+                            <img src="images/crown.png" class="ctimg">
+                            <a th:href="@{detail(store_num=${sLt.store_num})}">
+                                <p th:text="${sLt.average_rating}" class="rstar"></p>
+                                <p th:text="${sLt.store_name}" class="rname"></p>
+                                <p th:text="${sLt.store_adress}" class="rplace"></p>
+                                <p th:text="${sLt.store_description}" class="rmenu"></p>
+                            </a>
+                        </div>
+                    </th:block>
                 </div>
             </div>
         </form>
