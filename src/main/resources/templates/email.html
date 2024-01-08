@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div style="margin:100px;">
+    <p>아래 코드를 회원가입 창으로 돌아가 입력해주세요.</p><br>
+    <div align="center" style="border:1px solid black; font-family:verdana;">
+        <h3 style="color:blue"> 회원가입 인증 코드 입니다. </h3>
+        <div style="font-size:130%" th:text="${code}"></div>
+    </div>
+    <br>
+</div>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+</html>

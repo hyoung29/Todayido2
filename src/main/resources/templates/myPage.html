@@ -18,12 +18,11 @@
 </header>
 <section>
     <div class="login-form">
-        <div class="prof">
-            <h1>홍길동님</h1>
-            <h3 class="my">내정보</h3>
+        <div class="user-info">
+            <div th:text="홍길동님"></div>
         </div>
         <div class="resv">
-            <h6>예약 현황</h6>
+            <h3>예약 현황</h3>
             <div class="resv_d">
                 <div class="rcontent">
                     <img src="images/mesikdang.png" class="pt">
@@ -33,7 +32,7 @@
                     <p class="rmenu">모듬전, 맥주, 치킨 등</p>
                 </div>
             </div>
-            <div>
+            <div class="resv-btn">
                 <!-- Add input elements for date, time, and number of people -->
                 <input type="button" value="예약변경" class="resv-change" id="rchange">
                 <input type="button" value="예약취소" class="resv-cancel">

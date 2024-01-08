@@ -13,11 +13,11 @@
 </header>
 <section>
         <div class="content">
-            <form th:action="@{findUserIdresult}" method="post" class="login-form">
-                <h2 class="login-header">아이디찾기</h2>
-                <input autofocus class="login-input" name="user_name" placeholder="이름" required type="text">
+            <form th:action="@{}" method="post" class="login-form">
+                <h2 class="login-header">비밀번호 재설정</h2>
+                <input autofocus class="login-input" name="user_id" placeholder="아이디" required type="text">
                 <input class="login-input" name="user_pnum" placeholder="핸드폰번호('-'없이 입력)" required type="text" onkeyup="addHypen(this)">
-                <input class="login-btn" id="id-find" type="submit" value="아이디찾기">
+                <input class="login-btn" id="id-find" type="submit" value="비밀번호 재설정">
                 <div class="find"><a th:href="@{userLogin}">로그인</a></div>
                 <div class="join"><a th:href="@{userJoin}">회원가입</a></div>
                 <div style="height: 30px"></div>

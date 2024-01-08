@@ -13,21 +13,25 @@
     <th:block th:insert="~{ownerfragments::header(${session.owner})}" />
 </header>
 <section>
-    <div class="login-form">
+    <form class="login-form">
         <div class="prof">
             <h1>사업주님</h1>
             <h3 class="my">내 가게</h3>
         </div>
         <div class="owner-info">
             <b><div>가게 이름</div></b>
-            <div th:text="${owner.store_name}"/><br>
+
             <b><div>사업자 번호</div></b>
-            <div th:text="${owner.business_num}"/><br>
+
             <b><div>대표자</div></b>
-            <div th:text="${owner.owner_name}"/><br>
+
         </div>
-        <div class="login-btn"><a th:href="@{ownerModify}">내정보수정</a></div>
-    </div>
+        <div class="btn-area">
+            <input type="submit" class="login-btn" value="수정">
+            <input type="reset" class="login-btn" value="초기화">
+            <input type="button" class="login-btn" value="취소" id="backbtn">
+        </div>
+    </form>
 </section>
 <footer>
     <th:block th:insert="~{fragments::footer}" />

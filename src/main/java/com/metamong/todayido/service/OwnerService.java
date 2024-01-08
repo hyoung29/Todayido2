@@ -7,7 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.Files;
@@ -100,6 +103,14 @@ public class OwnerService {
             // 업로드 실패 메시지를 반환
             return "File upload failed.";
         }
+    }
+    // OwnerDao 가져오기
+    public ModelAndView getOwner(int business_num){
+        log.info("ownerSelect()");
+        ModelAndView mv = new ModelAndView();
+        OwnerDto owner = oDao.ownerSelect(business_num);
+        mv.addObject("owner", owner);
+        return mv;
     }
 }
 
