@@ -13,8 +13,8 @@ public class ReservDto {
         private String user_id;
         private String resevation_id;
         private int Store_num;
-        private Timestamp reservation_date;
-        private Timestamp resevation_time;
+        private String reservation_date;
+        private String resevation_time;
         private String resevation_person;
 
 

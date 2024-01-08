@@ -120,22 +120,23 @@
                                     <div class="modal-body">
                                         <!-- Add your form or content here -->
                                         <form id="reservationForm" th:action="@{reservProc}" method="post">
+                                            <input type="hidden" name="store_num" th:value="${store.store_num}">
                                             <div class="mb-3 text-center">
                                                 <label for="date" class="form-label">날짜:</label>
-                                                <input type="text" id="date" name="date" class="form-control datepicker"
+                                                <input type="text" id="date" name="reservation_date" class="form-control datepicker"
                                                        data-date-format="yyyy-mm-dd" required>
                                             </div>
 
                                             <div class="mb-3 text-center">
                                                 <label for="people" class="form-label">인원수:</label>
-                                                <input type="number" id="people" name="people" class="form-control"
+                                                <input type="number" id="people" name="resevation_person" class="form-control"
                                                        min="1"
                                                        required>
                                             </div>
 
                                             <div class="mb-3 text-center">
                                                 <label for="time" class="form-label">시간:</label>
-                                                <input type="time" id="time" name="time" class="form-control" required>
+                                                <input type="time" id="time" name="resevation_time" class="form-control" required>
                                             </div>
 
                                             <div class="btn-class">
@@ -190,45 +191,6 @@
         $('#date').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true
-        });
-
-        $('#reservationForm').submit(function (event) {
-            event.preventDefault();
-
-            // 서버에 예약 데이터 전송 및 예약 수정 처리 로직
-            // 아래 코드는 예시로, 실제로는 서버와의 통신을 통해 데이터를 전송하고,
-            // 서버에서는 해당 데이터를 받아 처리해야 합니다.
-
-            var formData = {
-                date: $('#date').val(),
-                people: $('#people').val(),
-                time: $('#time').val()
-            };
-
-            // Ajax를 사용하여 서버로 데이터 전송
-            $.ajax({
-                type: 'POST',
-                url: '/reservation/saveOrUpdate',  // 수정 또는 신규 예약을 구분할 수 있는 엔드포인트
-                data: formData,
-                success: function (response) {
-                    // 서버로부터의 응답을 처리
-                    // 여기에서는 성공 시 메시지를 표시하도록 예시로 작성했습니다.
-                    $('#successMessageText').text('예약이 완료되었습니다.');
-                    $('#successMessage').show();
-                },
-                error: function (error) {
-                    // 에러 처리
-                    console.error('Error:', error);
-                }
-            });
-        });
-
-        // 예약 취소하기 버튼 클릭 이벤트 처리
-        $('#cancelReservation').click(function () {
-            // 취소 처리 로직을 추가하세요.
-            // 아래는 예시로 취소 시 메시지를 표시하는 코드입니다.
-            alert('예약이 취소되었습니다.');
-            $('#staticBackdrop').modal('hide');  // 모달 닫기
         });
     });
 </script>
