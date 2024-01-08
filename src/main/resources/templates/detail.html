@@ -134,10 +134,17 @@
 </div>
 <!-- 리뷰쓰기 버튼 -->
 <th:block th:if="${session.user != null}">
-    <input type="button" value="리뷰쓰기" class="revproc">
+    <input type="button" value="리뷰쓰기" class="revproc" >
 </th:block>
 <div class="review">
-    <h5 style="margin-left: 15px">리뷰</h5>
+<!--------------리뷰 모달창-------------------->
+<!--    <div id="myModal" class="review_modal">-->
+<!--        <span class="modal-close" onclick="closeModal()">&times;</span>-->
+<!--        <p>삭제하시겠습니까?</p>-->
+<!--        <button onclick="deleteItem()">예</button>-->
+<!--        <button onclick="closeModal()">아니오</button>-->
+<!--    </div>-->
+
 
     <!--  리뷰 등록  -->
     <th:block th:if="${session.user != null}">
@@ -170,6 +177,7 @@
     </th:block>
     <!--  리뷰 출력 부분  -->
     <div id="rs">
+
         <th:block th:if="${#lists.isEmpty(rList)}">
             <div style="width: 100%">
                 댓글이 없습니다
@@ -177,6 +185,16 @@
         </th:block>
         <th:block th:unless="${#lists.isEmpty(rList)}">
             <th:block th:each="rev:${rList}">
+                <label>
+                    <input type="checkbox" th:id="'cb'+${rev.review_num}" name="color" value="blue" th:onclick="toggleModal([[${rev.review_num}]])">
+                    리뷰
+                </label>
+                <div th:id="'myModal'+${rev.review_num}" class="review_modal">
+                    <span class="modal-close" th:onclick="closeModal([[${rev.review_num}]])">&times;</span>
+                    <p>삭제하시겠습니까?</p>
+                    <button th:onclick="deleteItem([[${rev.review_num}]])">예</button>
+                    <button th:onclick="closeModal([[${rev.review_num}]])">아니오</button>
+                </div>
                 <div class="rev" id="load-rlist">
                     <div id="rSpace" class="r_d">
                         <div>
@@ -205,6 +223,69 @@
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
 </body>
+<!---------------------리뷰 모달---------------------->
+<script th:inline="javascript">
+    // 모달 표시/숨김 토글 함수
+    function toggleModal(num) {
+        var modal = document.getElementById('myModal'+num);
+        var checkbox = document.querySelector('#cb'+num);
+
+        if (checkbox.checked) {
+            modal.style.display = 'block';
+        } else {
+            modal.style.display = 'none';
+        }
+    }
+
+    // 모달 닫기 함수
+    function closeModal(num) {
+        var modal = document.getElementById('myModal'+num);
+        modal.style.display = 'none';
+    }
+
+    // 삭제 함수 (예 버튼 클릭 시 호출)
+    function deleteItem(num) {
+        // 여기에서 실제로 삭제하는 로직을 추가할 수 있습니다.
+        alert('리뷰가 삭제되었습니다.' + num);
+
+        // 삭제 로직을 여기에 추가하십시오.
+        $.ajax({
+            url: "detail",
+            type: "post",
+            data: from,
+            enctype: "multipart/form-data",
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (res){
+                console.log(res);
+                if(res != null){
+                    let str = '';
+                    $("#someContainer").append(str);
+                }
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+
+
+
+
+        // 모달 닫기
+        closeModal();
+    }
+
+    // 모달 외부 클릭 시 닫기
+    window.onclick = function(event) {
+        var modal = document.getElementById('myModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+</script>
+
+<!-----------------------------리뷰삭제 모달창 ------------------------------->
 <script th:inline="javascript">
     $("#file").on("change", function () {
         //파일 선택창에서 업로드할 파일을 선택한 다음

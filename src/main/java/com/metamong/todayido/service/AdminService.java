@@ -1,12 +1,18 @@
 package com.metamong.todayido.service;
+
 import com.metamong.todayido.dao.AdminDao;
+import com.metamong.todayido.dao.DetailDao;
 import com.metamong.todayido.dto.AdminDto;
+import com.metamong.todayido.dto.ReviewDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import static net.sf.jsqlparser.util.validation.metadata.NamedObject.view;
 
 @Service
 @Slf4j
@@ -17,14 +23,14 @@ public class AdminService {
 
 //    private final BCryptPasswordEncoder pEncoder = new BCryptPasswordEncoder();
 
-    public String adminloginProc(AdminDto admin, HttpSession session, RedirectAttributes rttr){
+    public String adminloginProc(AdminDto admin, HttpSession session, RedirectAttributes rttr) {
         log.info("adminloginProc()");
         String view = null;
         String msg = null;
 
 //        String rPwd = admin.getAdmin_pw();
         admin = aDao.selectAdminIdPw(admin);
-        if(admin != null){
+        if (admin != null) {
             session.setAttribute("admin", admin);
             view = "redirect:adindex";
             msg = "로그인 성공";
@@ -39,7 +45,6 @@ public class AdminService {
         }
 
 
-
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
@@ -49,5 +54,13 @@ public class AdminService {
         session.invalidate();
         return "redirect:/";
     }
+
+//    /* 댓글 삭제 */
+    public String  deleteReview(int review_num){
+      String  result = aDao.deleteReview(review_num);
+      return "ok";
+  }
 }
+
+
 

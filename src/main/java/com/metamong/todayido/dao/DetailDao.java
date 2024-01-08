@@ -22,4 +22,10 @@ public interface DetailDao {
     List<StoreDto> selectStoreList(int store_category_id);
 
     List<MenuDto> selectMenu(int store_num);
+
+
+
+
+
+
 }

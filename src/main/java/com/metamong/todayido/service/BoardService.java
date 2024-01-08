@@ -5,17 +5,10 @@ import com.metamong.todayido.dao.UserDao;
 import com.metamong.todayido.dto.BoardDto;
 import com.metamong.todayido.dto.BoardFileDto;
 import com.metamong.todayido.dto.SearchDto;
-import com.metamong.todayido.dto.ReviewDto;
 import com.metamong.todayido.util.PagingUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -25,10 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
@@ -178,41 +167,42 @@ public class BoardService {
         return mv;
     }
 
-    //게시글 삭제(파일목록, 댓글목록 삭제)
-    public String deleteBoard(int b_num, HttpSession session, RedirectAttributes rttr) {
-        log.info("deleteBoard()");
-        //트랜젝션
-        TransactionStatus status = manager.getTransaction(definition);
-        String view = null;
-        String msg = null;
-        try {
-            //0. 파일 삭제 목록 구하기
-            List<String> fList = bDao.selectFnameList(b_num);
-            //1. 파일 목록 삭제
-            bDao.deleteFiles(b_num);
-            //1. 댓글 목록 삭제
-            bDao.deleteReplies(b_num);
-            //2. 게시글 삭제
-            bDao.deleteBoard(b_num);
-            //파일 삭제 처리
-            if (fList.size() != 0) {
-                deleteFiles(fList, session);
-            }
 
-            manager.commit(status);
-
-            view = "redirect:boardList?pageNum=1";
-            msg = "삭제 성공";
-        } catch (Exception e) {
-            e.printStackTrace();
-            manager.rollback(status);
-
-            view = "redirect:boardDetail?b_num=" + b_num;
-            msg = "삭제 실패";
-        }
-        rttr.addFlashAttribute("msg", msg);
-        return view;
-    }
+//    게시글 삭제(파일목록, 댓글목록 삭제)
+//    public String deleteBoard(int b_num, HttpSession session, RedirectAttributes rttr) {
+//        log.info("deleteBoard()");
+//        //트랜젝션
+//        TransactionStatus status = manager.getTransaction(definition);
+//        String view = null;
+//        String msg = null;
+//        try {
+//            //0. 파일 삭제 목록 구하기
+//            List<String> fList = bDao.selectFnameList(b_num);
+//            //1. 파일 목록 삭제
+//            bDao.deleteFiles(b_num);
+//            //1. 댓글 목록 삭제
+//            bDao.deleteReplies(b_num);
+//            //2. 게시글 삭제
+//            bDao.deleteBoard(b_num);
+//            //파일 삭제 처리
+//            if (fList.size() != 0) {
+//                deleteFiles(fList, session);
+//            }
+//
+//            manager.commit(status);
+//
+//            view = "redirect:boardList?pageNum=1";
+//            msg = "삭제 성공";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            manager.rollback(status);
+//
+//            view = "redirect:boardDetail?b_num=" + b_num;
+//            msg = "삭제 실패";
+//        }
+//        rttr.addFlashAttribute("msg", msg);
+//        return view;
+//    }
 
     private void deleteFiles(List<String> fList, HttpSession session) throws Exception {
         log.info("deleteFiles()");
@@ -241,15 +231,16 @@ public class BoardService {
         mv.setViewName("qnaEdit");
         return mv;
     }
-    public List<BoardFileDto> delFile(BoardFileDto bFile, HttpSession session){
+
+    public List<BoardFileDto> delFile(BoardFileDto bFile, HttpSession session) {
         log.info("delFile()");
         List<BoardFileDto> fList = null;
         String realPath = session.getServletContext().getRealPath("/");
         realPath += "upload/" + bFile.getBf_sysname();
         try {//파일 삭제
             File file = new File(realPath);
-            if(file.exists()){
-                if(file.delete()){
+            if (file.exists()) {
+                if (file.delete()) {
                     //해당 파일 정보 삭제(DB)
                     bDao.deleteFile(bFile.getBf_sysname());
                     //나머지 파일 목록 다시 가져오기
@@ -261,7 +252,8 @@ public class BoardService {
         }
         return fList;
     }
-    public String updateBoard(List<MultipartFile> files, BoardDto board, HttpSession session, RedirectAttributes rttr){
+
+    public String updateBoard(List<MultipartFile> files, BoardDto board, HttpSession session, RedirectAttributes rttr) {
         log.info("updateBoard()");
         TransactionStatus status = manager.getTransaction(definition);
         String view = null;
