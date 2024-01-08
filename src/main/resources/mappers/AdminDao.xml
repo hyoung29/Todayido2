@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.metamong.todayido.dao.AdminDao">
+
     <select id="selectPassword" resultType="java.lang.String">
 
     </select>
     <select id="selectAdmin" resultType="com.metamong.todayido.dto.AdminDto">
 
     </select>
+
+<select id="selectAdminIdPw" resultType="AdminDto" parameterType="AdminDto">
+        SELECT * FROM admin WHERE admin_id = #{admin_id} AND admin_pw = #{admin_pw}
+</select>
+
 </mapper>
+
+

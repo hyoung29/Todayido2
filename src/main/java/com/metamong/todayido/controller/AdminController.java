@@ -1,5 +1,4 @@
 package com.metamong.todayido.controller;
-
 import com.metamong.todayido.dto.AdminDto;
 import com.metamong.todayido.service.AdminService;
 import jakarta.servlet.http.HttpSession;
@@ -21,10 +20,15 @@ public class AdminController {
         log.info("adminLogin()");
         return "adminLogin";
     }
-    @PostMapping("adminlogininProc")
+    @PostMapping("adminloginProc")
     public String adminloginProc(AdminDto admin, HttpSession session, RedirectAttributes rttr) {
         log.info("adminloginProc()");
         String view = aServ.adminloginProc(admin, session, rttr);
         return view;
+    }
+    @GetMapping("adindex")
+    public String adindex() {
+        log.info("adindex");
+        return "adindex";
     }
 }
