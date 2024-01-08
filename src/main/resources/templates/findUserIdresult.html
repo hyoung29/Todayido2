@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,9 @@
         <th:block th:unless="${findId == null}">
             <p th:text="${findId}"></p>
         </th:block>
-        <div class="join"><a th:href="@{userLogin}">로그인</a></div>
+        <div class="find"><a th:href="@{userLogin}">로그인</a></div>
+        <div class="join"><a th:href="@{userJoin}">회원가입</a></div>
+        <div style="height: 30px"></div>
     </div>
 </section>
 <footer>

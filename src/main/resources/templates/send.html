@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>보내기</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+</head>
+<body>
+<input type="email" id="mail" name="email" placeholder="메일주소">
+<button id="sendbtn">전송</button>
+<br>
+<input type="text" id="auth_in" placeholder="인증코드">
+<button id="auth">인증확인</button>
+</body>
+<script th:inline="javascript">
+    let code = "";
+    $("#sendbtn").click(function () {
+        let maddr = $("#mail").val();
+        if (maddr == "") {
+            alert("메일 주소를 입력하세요.");
+            return;
+        }
+
+        mObj = {"email": maddr, "test": 1};
+
+        $.ajax({
+            url: "mailConfirm",
+            type: "post",
+            data: JSON.stringify(mObj),
+            contentType: "application/json",
+            success: function (res) {
+                console.log(res);
+                code = res;
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    })
+
+    $("#auth").click(function(){
+        let ucode = $("#auth_in").val();
+        if(ucode == code){
+            alert("인증완료");//비밀번호 재설정 화면으로 이동(location.href 사용)
+        }
+    })
+</script>
+</html>

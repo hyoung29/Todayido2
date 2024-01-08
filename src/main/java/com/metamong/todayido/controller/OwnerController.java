@@ -1,11 +1,13 @@
 package com.metamong.todayido.controller;
 
 import com.metamong.todayido.dto.OwnerDto;
+import com.metamong.todayido.dto.UserDto;
 import com.metamong.todayido.service.OwnerService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,6 +77,11 @@ public class OwnerController {
         } else {
         }
         return "redirect:/";
+    }
+    @GetMapping("ownerModify")
+    public String ownerModify(){
+        log.info("ownerModify()");
+        return "ownerModify";
     }
 }
 

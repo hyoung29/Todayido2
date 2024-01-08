@@ -425,7 +425,7 @@ section {
 }
 
 .find a {
-    margin: 7px 0 0 10px;
+    margin: 10px;
     float: left;
     font-size: 12px;
     text-decoration: none;
@@ -440,7 +440,7 @@ section {
 }
 
 .join a {
-    margin: 7px 0 0 10px;
+    margin: 10px;
     float: right;
     font-size: 12px;
     text-decoration: none;
@@ -465,7 +465,10 @@ section {
     color: white;
     background-color: #0D6EFD;
 }
-
+.login-btn a {
+    text-decoration: none;
+    color: white;
+}
 .login-btn:hover {
     background: #0b5ed7;
 }
@@ -502,12 +505,10 @@ section {
     text-decoration: none;
     align-items: baseline;
 }
-
-.category a {
+.category a:hover {
     font-weight: bold;
     color: darkgreen;
 }
-
 .recommend {
     display: inline-flex;
 }
@@ -524,6 +525,9 @@ section {
 
 .owner-content {
     float: right;
+}
+.owner-info {
+
 }
 
 /*은정*/
@@ -734,6 +738,7 @@ font.pno {
 }
 
 .btn-area {
+    display: inline-flex;
     margin: 0 auto;
     width: 300px;
     text-align: center;
