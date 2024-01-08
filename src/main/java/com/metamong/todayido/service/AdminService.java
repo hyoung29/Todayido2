@@ -26,7 +26,6 @@ public class AdminService {
         String rPwd = admin.getAdmin_pw();
         String encPwd = aDao.selectPassword(admin.getAdmin_pw());
         if(encPwd != null){
-
             if(pEncoder.matches(rPwd, encPwd)){
                 admin = aDao.selectAdmin(admin.getAdmin_pw());
                 session.setAttribute("admin", admin);

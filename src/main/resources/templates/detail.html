@@ -7,31 +7,36 @@
     <script src="js/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        body{
+        body {
             height: auto;
         }
-        .main-image{
+
+        .main-image {
             width: 500px;
             height: 300px;
             background-color: #5b5b5b;
             margin: 30px auto 0 auto;
         }
-        .review{
-            width: 500px;
+
+        .review {
+            width: 550px;
             height: 100%;
             background-color: #97cbff;
             margin: 0 auto;
             margin-bottom: 20px;
         }
-        .rev{
+
+        .rev {
             width: 450px;
             height: 100%;
             margin: 25px auto;
             background-color: white;
             padding: 10px;
             border-radius: 10px;
+            display: none;
         }
-        .revproc{
+
+        .revproc {
             width: 80px;
             height: 30px;
             background-color: white;
@@ -40,11 +45,13 @@
             margin-bottom: 20px;
             border-radius: 10px;
         }
-        .modalbg{
+
+        .modalbg {
             display: none;
             text-align: center;
         }
-        .modal{
+
+        .modal {
             width: 350px;
             height: 280px;
             background-color: white;
@@ -53,10 +60,12 @@
             left: 50%;
             transform: translateX(-50%);
         }
-        input{
+
+        input {
             border: solid 1px #246C34;
         }
-        .dr, .close_rev{
+
+        .dr, .close_rev {
             margin-top: 10px;
             border: solid 1px #246C34;
             background: transparent;
@@ -64,40 +73,56 @@
             width: 50px;
             height: 25px;
         }
-        #file{
+
+        #file {
             display: none;
         }
-        .r_photo{
+
+        .r_photo {
             width: 100px;
             height: 130px;
             margin-left: auto;
         }
+
         .r_d {
             display: flex;
         }
-        .rev_text{
+
+        .rev_text {
             margin: 10px;
         }
+
         .star_rating {
-            font-size:0;
-            letter-spacing:-4px;
-        }
-        .star_rating span {
-            font-size:22px;
-            letter-spacing:0;
-            display:inline-block;
-            margin-left:5px;
-            color:#ccc;
-            text-decoration:none;
-            cursor: pointer;
-        }
-        .star_rating span:first-child {
-            margin-left:0;
-        }
-        .star_rating span.on {
-            color:#777;
+            font-size: 0;
+            letter-spacing: -4px;
         }
 
+        .star_rating span {
+            font-size: 22px;
+            letter-spacing: 0;
+            display: inline-block;
+            margin-left: 5px;
+            color: #ccc;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .star_rating span:first-child {
+            margin-left: 0;
+        }
+
+        .star_rating span.on {
+            color: #777;
+        }
+        .load-more {
+            margin: 10px auto 0 auto; /* 여기서 10px은 위쪽 여백입니다. */
+            border: solid 1px #246C34;
+            background: white;
+            border-radius: 10px;
+            width: 75px;
+            height: 30px;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -108,37 +133,41 @@
 
 </div>
 <!-- 리뷰쓰기 버튼 -->
+<th:block th:if="${session.user != null}">
     <input type="button" value="리뷰쓰기" class="revproc">
+</th:block>
 <div class="review">
     <h5 style="margin-left: 15px">리뷰</h5>
 
     <!--  리뷰 등록  -->
-    <div class="modalbg">
-        <div class="modal">
-            <form id="rform">
-                <input type="hidden" name="user_id" th:value="${session.user.user_id}">
-                <input type="hidden" name="store_num" th:value="${store.store_num}">
-                <h3 class="rev_text">리뷰작성</h3>
-                <textarea name="review_text" id="text" cols="40" rows="8" placeholder="내용"></textarea><br>
-                <!-- 리뷰사진 추가 -->
-                <div>
-                <label for="file">리뷰사진선택</label>
-                <input type="file" name="files" id="file">
-                <input type="text" class="upload-name" value="파일선택" readonly><br>
-                </div>
-                <input type="hidden" name="rating" value="0" id="rating">
-                <p class="star_rating">
-                    <span data-star="1">★</span>
-                    <span data-star="2">★</span>
-                    <span data-star="3">★</span>
-                    <span data-star="4">★</span>
-                    <span data-star="5">★</span>
-                </p>
-                <input type="button" value="등록" class="dr" id="drbtn">
-                <input type="button" value="닫기" class="close_rev" id="cbtn">
-            </form>
+    <th:block th:if="${session.user != null}">
+        <div class="modalbg">
+            <div class="modal">
+                <form id="rform">
+                    <input type="hidden" name="user_id" id="user_id" th:value="${session.user.user_id}">
+                    <input type="hidden" name="store_num" id="store_num" th:value="${store.store_num}">
+                    <h3 class="rev_text">리뷰작성</h3>
+                    <textarea name="review_text" id="text" cols="40" rows="8" placeholder="내용"></textarea><br>
+                    <!-- 리뷰사진 추가 -->
+                    <div>
+                        <label for="file">리뷰사진선택</label>
+                        <input type="file" name="files" id="file">
+                        <input type="text" class="upload-name" value="파일선택" readonly><br>
+                    </div>
+                    <input type="hidden" name="rating" value="0" id="rating">
+                    <p class="star_rating">
+                        <span data-star="1">★</span>
+                        <span data-star="2">★</span>
+                        <span data-star="3">★</span>
+                        <span data-star="4">★</span>
+                        <span data-star="5">★</span>
+                    </p>
+                    <input type="button" value="등록" class="dr" id="drbtn">
+                    <input type="button" value="닫기" class="close_rev" id="cbtn">
+                </form>
+            </div>
         </div>
-    </div>
+    </th:block>
     <!--  리뷰 출력 부분  -->
     <div id="rs">
         <th:block th:if="${#lists.isEmpty(rList)}">
@@ -147,37 +176,37 @@
             </div>
         </th:block>
         <th:block th:unless="${#lists.isEmpty(rList)}">
-        <th:block th:each="rev:${rList}">
-            <div class="rev">
-                <div id="rSpace" class="r_d">
-                    <div>
-                        <div th:text="${rev.user_id}"></div>
-                        <div th:switch="${rev.rating}">
-                            <span th:case="1">&#9733;&#9734;&#9734;&#9734;&#9734;</span>
-                            <span th:case="2">&#9733;&#9733;&#9734;&#9734;&#9734;</span>
-                            <span th:case="3">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
-                            <span th:case="4">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                            <span th:case="5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <th:block th:each="rev:${rList}">
+                <div class="rev" id="load-rlist">
+                    <div id="rSpace" class="r_d">
+                        <div>
+                            <div th:text="${rev.user_id}"></div>
+                            <div th:switch="${rev.rating}">
+                                <span th:case="1">&#9733;&#9734;&#9734;&#9734;&#9734;</span>
+                                <span th:case="2">&#9733;&#9733;&#9734;&#9734;&#9734;</span>
+                                <span th:case="3">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
+                                <span th:case="4">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                                <span th:case="5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            </div>
+                            <div th:text="${rev.review_text}"></div>
+                            <div th:text="${rev.crated_at}"></div>
                         </div>
-                        <div th:text="${rev.review_text}"></div>
-                        <div th:text="${rev.crated_at}"></div>
+                        <th:block th:if="${rev.rv_sysname != null}">
+                            <img th:src="@{upload/}+${rev.rv_sysname}" class="r_photo">
+                        </th:block>
                     </div>
-                    <th:block th:if="${rev.rv_sysname != null}">
-                        <img th:src="@{upload/}+${rev.rv_sysname}" class="r_photo">
-                    </th:block>
                 </div>
-            </div>
-        </th:block>
+            </th:block>
         </th:block>
     </div>
-    <div class="paging" th:utext="${paging}"></div>
+    <button class="load-more" id="load-more">더보기</button>
 </div>
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
 </body>
 <script th:inline="javascript">
-    $("#file").on("change", function (){
+    $("#file").on("change", function () {
         //파일 선택창에서 업로드할 파일을 선택한 다음
         //'열기' 버튼을 누르면 change 이벤트가 발생.
         let files = $("#file")[0].files;
@@ -185,9 +214,9 @@
 
         let fileName = "";//출력할 문장 저장 변수
 
-        if(files.length > 1){
+        if (files.length > 1) {
             fileName = `${files[0].name} 외 ${files.length - 1}개`;
-        } else if(files.length == 1){
+        } else if (files.length == 1) {
             fileName = files[0].name;
         } else {
             fileName = "파일선택";
@@ -195,19 +224,19 @@
         $(".upload-name").val(fileName);
     });
 
-    $(".revproc").click(function (e){
+    $(".revproc").click(function (e) {
         e.preventDefault();
         $(".modalbg").show();
     })
-    $(".close_rev").click(function (){
+    $(".close_rev").click(function () {
         $(".modalbg").hide();
     })
 
     $("#drbtn").click(function () {
         let form = new FormData();
         let files = $("#file")[0];
-        form.append("user_id", [[${session.user.user_id}]]);
-        form.append("store_num", [[${store.store_num}]]);
+        form.append("user_id", $("#user_id").val());
+        form.append("store_num", $("#store_num").val());
         form.append("review_text", $("#text").val());
         form.append("files", files.files[0]);
         form.append("rating", $("#rating").val());
@@ -278,6 +307,26 @@
         $("#rating").val(s);
     });
 
+    $(function (){
+        var numToShow = 3; // 한 번에 보여줄 리뷰 수
+        var reviews = $('.rev');
 
+        reviews.slice(0, numToShow).show();
+
+        $('#load-more').click(function (e) {
+            e.preventDefault();
+            var hiddenReviews = reviews.filter(':hidden');
+
+            if (hiddenReviews.length <= numToShow) {
+                $(this).hide(); // 숨겨진 리뷰가 numToShow 이하일 때 더보기 버튼 숨기기
+            }
+
+            hiddenReviews.slice(0, numToShow).show();
+        });
+
+        if (reviews.length <= numToShow) {
+            $('#load-more').hide(); // 리뷰가 numToShow 이하일 때 더보기 버튼 숨기기
+        }
+    });
 </script>
 </html>

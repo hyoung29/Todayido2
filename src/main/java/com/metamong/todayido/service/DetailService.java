@@ -85,4 +85,12 @@ public class DetailService {
         // 경로 : .../.../.../webapp/upload/ ~.jpg
         files.transferTo(file);//하드디스크에 저장
     }
+
+    public ModelAndView getStoreList(int store_category_id){
+        log.info("getStoreList");
+        ModelAndView mv = new ModelAndView();
+        List<StoreDto> sList = dDao.selectStoreList(store_category_id);
+        mv.addObject("sList", sList);
+        return mv;
+    }
 }

@@ -93,27 +93,31 @@ public class BoardController {
     }
 
     @GetMapping("rCategory")
-    public String rCategory() {
+    public ModelAndView rCategory(int store_category_id) {
         log.info("rCategory()");
-        return "rCategory";
+        ModelAndView mv = dServ.getStoreList(store_category_id);
+        return mv;
     }
 
     @GetMapping("cCategory")
-    public String cCategory() {
+    public ModelAndView cCategory(int store_category_id) {
         log.info("cCategory()");
-        return "cCategory";
+        ModelAndView mv = dServ.getStoreList(store_category_id);
+        return mv;
     }
 
     @GetMapping("bCategory")
-    public String bCategory() {
+    public ModelAndView bCategory(int store_category_id) {
         log.info("bCategory()");
-        return "bCategory";
+        ModelAndView mv = dServ.getStoreList(store_category_id);
+        return mv;
     }
 
     @GetMapping("pCategory")
-    public String pCategory() {
+    public ModelAndView pCategory(int store_category_id) {
         log.info("pCategory()");
-        return "pCategory";
+        ModelAndView mv = dServ.getStoreList(store_category_id);
+        return mv;
     }
 
     @GetMapping("reservForm")
@@ -129,11 +133,5 @@ public class BoardController {
         ModelAndView mv = dServ.getReview(store_num);
         return mv;
     }
-//    @PostMapping("reviewProc")
-//    public String reviewProc(@RequestPart List<MultipartFile> files, ReviewDto review, HttpSession session, RedirectAttributes rttr){
-//        log.info("reviewProc()");
-//        String view = dServ.reviewProc(files, review, session, rttr);
-//        return view;
-//    }
 }
 

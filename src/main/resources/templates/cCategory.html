@@ -13,46 +13,31 @@
 </header>
 <section>
     <div class="content">
-        <form class="login-form">
+        <form class="ctgy-form">
             <div class="Category">
                 <ul class="category">
                     <li><h3>카테고리</h3></li>
-                    <li><a href="rCategory">식당</a></li>
-                    <li><a href="cCategory"><b>카페</b></a></li>
-                    <li><a href="bCategory">술집</a></li>
-                    <li><a href="pCategory">장소</a></li>
+                    <li><a th:href="@{rCategory(store_category_id=1)}">식당</a></li>
+                    <li><a th:href="@{cCategory(store_category_id=2)}"><b>카페</b></a></li>
+                    <li><a th:href="@{bCategory(store_category_id=3)}">술집</a></li>
+                    <li><a th:href="@{pCategory(store_category_id=4)}">장소</a></li>
                 </ul>
             </div>
-            <img src="images/cafe.png" width="600px">
+            <img src="images/cafe.png" width="1000px">
             <h3>추천 카페</h3>
             <div class="recommend">
-                <div class="ccontent">
-                    <img src="images/star.png">
-                    <p class="cstar">4.9</p>
-                    <p class="cname">스타벅스</p>
-                    <p class="cplace">청담동</p>
-                    <p class="cmenu">아메리카노, 카페라떼</p>
-                </div>
-                <div class="ccontent">
-                    <img src="images/39.png">
-                    <p class="cstar">4.8</p>
-                    <p class="cname">디저트 39</p>
-                    <p class="cplace">학익동</p>
-                    <p class="cmenu">딸기라떼, 민트초코라떼</p>
-                </div>
-                <div class="ccontent">
-                    <img src="images/2sume.png">
-                    <p class="cstar">4.4</p>
-                    <p class="cname">투썸플레이스</p>
-                    <p class="cplace">용현동</p>
-                    <p class="cmenu">케이크, 아메리카노</p>
-                </div>
-                <div class="ccontent">
-                    <img src="images/bback.png">
-                    <p class="cstar">3.9</p>
-                    <p class="cname">빽다방</p>
-                    <p class="cplace">도화동</p>
-                    <p class="cmenu">빽커피, 녹차빽스치노</p>
+                <div class="ctcontent">
+                    <th:block th:each="sLt:${sList}">
+                        <div class="ritem">
+                            <img src="images/39.png" class="ctimg">
+                            <a th:href="@{detail(store_num=${sLt.store_num})}" class="ritem">
+                                <p th:text="${sLt.average_rating}" class="rstar"></p>
+                                <p th:text="${sLt.store_name}" class="rname"></p>
+                                <p th:text="${sLt.store_adress}" class="rplace"></p>
+                                <p th:text="${sLt.store_description}" class="rmenu"></p>
+                            </a>
+                        </div>
+                    </th:block>
                 </div>
             </div>
         </form>

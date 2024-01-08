@@ -18,4 +18,5 @@ public interface DetailDao {
 
     StoreDto selectStore(int storeNum);
 
+    List<StoreDto> selectStoreList(int store_category_id);
 }
