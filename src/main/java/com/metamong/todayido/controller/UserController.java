@@ -60,11 +60,5 @@ public class UserController {
         log.info("findUserId()");
         return "findUserId";
     }
-    @PostMapping("findUserIdresult")
-    public String findUserIdresult(UserDto user, Model model){
-        log.info("findUserIdresult()");
-        String view = uServ.findUserId(user, model);
-        return view;
-    }
 
 }
