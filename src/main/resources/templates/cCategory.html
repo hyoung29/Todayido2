@@ -30,7 +30,7 @@
                     <th:block th:each="sLt:${sList}">
                         <div class="ritem">
                             <img src="images/39.png" class="ctimg">
-                            <a th:href="@{detail(store_num=${sLt.store_num})}">
+                            <a th:href="@{detail(store_num=${sLt.store_num})}" class="ritem">
                                 <p th:text="${sLt.average_rating}" class="rstar"></p>
                                 <p th:text="${sLt.store_name}" class="rname"></p>
                                 <p th:text="${sLt.store_adress}" class="rplace"></p>
