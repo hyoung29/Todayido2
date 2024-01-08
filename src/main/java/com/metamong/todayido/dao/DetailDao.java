@@ -1,5 +1,6 @@
 package com.metamong.todayido.dao;
 
+import com.metamong.todayido.dto.MenuDto;
 import com.metamong.todayido.dto.ReviewDto;
 import com.metamong.todayido.dto.StoreDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,4 +20,6 @@ public interface DetailDao {
     StoreDto selectStore(int storeNum);
 
     List<StoreDto> selectStoreList(int store_category_id);
+
+    List<MenuDto> selectMenu(int store_num);
 }
