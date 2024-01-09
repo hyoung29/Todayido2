@@ -19,9 +19,15 @@ public class MailController {
     @Autowired
     private MailService mServ;
 
-    @GetMapping("updateUserPwd")
-    public String home(){
+    @GetMapping("send")
+    public String send(){
+        log.info ("send()");
         return "send";
+    }
+    @GetMapping("updateUserPwd")
+    public String updateUserPwd(){
+        log.info("updateUserPwd()");
+        return "updateUserPwd";
     }
 
     @PostMapping("mailConfirm")
