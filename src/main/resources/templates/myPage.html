@@ -19,18 +19,38 @@
 <section>
     <div class="login-form">
         <div class="user-info">
-            <div th:text="홍길동님"></div>
+            <div th:text="${user.user_name}+'님'"></div>
         </div>
         <div class="resv">
             <h3>예약 현황</h3>
             <div class="resv_d">
+<!--                <div class="rcontent">-->
+<!--                    <img src="images/mesikdang.png" class="pt">-->
+<!--                    <p th:text="${store.average_rating}" class="rstar"></p>-->
+<!--                    <p th:text="${store.store_name}" class="rname">미식당</p>-->
+<!--                    <p th:text="${sotre.store_adress}" class="rplace">용현동</p>-->
+<!--                    <p th:text="${store.store_description}" class="rmenu">모듬전, 맥주, 치킨 등</p>-->
+<!--                </div>-->
                 <div class="rcontent">
-                    <img src="images/mesikdang.png" class="pt">
-                    <p class="rstar">4.4</p>
-                    <p class="rname">미식당</p>
-                    <p class="rplace">용현동</p>
-                    <p class="rmenu">모듬전, 맥주, 치킨 등</p>
-                </div>
+                    <th:block th:if="${#lists.isEmpty(reList)}">
+                        <div style="width:100%">
+                            예약 내역이 없습니다.
+                        </div>
+
+                    </th:block>
+                    <th:block th:unless="${#lists.isEmpty(reList)}">
+                        <th:block th:each="reserv:${reList}">
+                            <div class="d-in-row">
+                                <div class="t-no p-10" th:text="${reserv.reservation_num}"></div>
+                                <div class="t-title p-30">
+                                    <a th:href="@{content(store_num=${reserv.store_num})}"
+                                       th:text="${reserv.store_name}"></a>
+                                </div>
+                                <div class="t-name p-15" th:text="${bitem.user_id}"></div>
+                                <div class="t-date p-30" th:text="${bitem.create_at}"></div>
+                            </div>
+                        </th:block>
+                    </th:block>
             </div>
             <div class="resv-btn">
                 <!-- Add input elements for date, time, and number of people -->

@@ -120,13 +120,6 @@ public class BoardController {
         return mv;
     }
 
-    @GetMapping("reservForm")
-    public String reservForm(int store_num, Model model) {
-        log.info("reservForm()");
-        //DB에서 가게 정보(dto 등) 가져오기
-        //정보를 model에 넣기
-        return "reservForm";
-    }
     @GetMapping("detail")
     public ModelAndView detail(int store_num){
         log.info("detail()");

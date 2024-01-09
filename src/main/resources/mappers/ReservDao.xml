@@ -6,4 +6,13 @@
         INSERT INTO Reservation VALUES (#{user_id},NULL,#{store_num},#{reservation_date},#{resevation_time},#{resevation_person})
     </insert>
 
+    <select id="selectStoreList" resultType="StoreDto" parameterType="integer">
+        SELECT * FROM store WHERE store_num=#{store_num}
+    </select>
+
+    <select id="selectReserv" resultType="ReservDto" parameterType="integer">
+        SELECT * FROM reservation WHERE store_num=#{store_num} order by reservation_num desc
+    </select>
+
+
 </mapper>
