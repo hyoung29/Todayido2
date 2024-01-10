@@ -2,17 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.metamong.todayido.dao.AdminDao">
 
-    <select id="selectPassword" resultType="java.lang.String">
+    <update id="updatereply" parameterType="boardDto">
+        UPDATE qna
+        SET qna_reply=#{qna_reply}
+        WHERE qna_num=#{qna_num}
+    </update>
 
-    </select>
-    <select id="selectAdmin" resultType="com.metamong.todayido.dto.AdminDto">
-
-    </select>
-
-<select id="selectAdminIdPw" resultType="AdminDto" parameterType="AdminDto">
+    <select id="selectAdminIdPw" resultType="AdminDto" parameterType="AdminDto">
         SELECT * FROM admin WHERE admin_id = #{admin_id} AND admin_pw = #{admin_pw}
-</select>
-
+    </select>
+    <select id="selectaqnaCnt" resultType="Integer" parameterType="SearchDto">
+        SELECT count(*) FROM qna
+        <if test="colname != null and colname != ''">
+            WHERE ${colname} LIKE CONCAT('%',#{keyword},'%')
+        </if>
+    </select>
+    <select id="selectAqnaList" resultType="BoardDto" parameterType="SearchDto">
+        SELECT * FROM qna
+        <if test="colname != null and colname != ''">
+            WHERE ${colname} LIKE CONCAT('%',#{keyword},'%')
+        </if>
+        order by qna_num desc
+        LIMIT #{pageNum}, #{listCnt}
+    </select>
+    <select id="selectAqna" resultType="BoardDto" parameterType="Integer">
+        SELECT * FROM qna WHERE qna_num=#{qna_num}
+    </select>
+    <select id="selectAdmin" resultType="AdminDto" parameterType="SearchDto">
+        SELECT * FROM admin WHERE admin_auth=#{admin_auth}
+    </select>
 </mapper>
 
 

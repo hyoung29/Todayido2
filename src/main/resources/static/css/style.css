@@ -969,547 +969,578 @@ span.file-title {
 }
 
 
-    /*-----------------여기부터 은정---------------*/
-    @media only screen and (max-width: 768px)
-        .content {
-            max-width: 100%;
-        }
-
-        .board-form, .write-form {
-            max-width: 360px;
-            padding: 0px;
-        }
-
-        .title-row .t-date, .title-row .t-view, .data-row .t-date, .data-row .t-view {
-        }
-
-        .p-10 {
-            width: 20%;
-
-        }
-
-        .p-15 {
-            width: 25%;
-
-        }
-
-        .p-30 {
-            width: 55%;
-
-        }
-
-        .p-85 {
-            width: 75%;
-
-        }
-
-        .dp-30, .dp-20, .dp-15, .dp-10 {
-            width: 75%;
-
-        }
-
-        .filebox label {
-            text-align: center;
-            width: 100%;
-        }
-
-        .filebox .upload-name {
-            width: 100%;
-        }
-
-        .top-home {
-            display: none;
-        }
-
-
-    /*태욱*/
-
-    .modal-change {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border: 1px solid #ccc;
-        background-color: #fff;
-        padding: 20px;
-        z-index: 1000;
-    }
-
-    .modal-change1 {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 900;
-        text-align: center;
-    }
-
-
-    .modal-title {
-        margin: 0 auto;
-    }
-
-    .mb-3 .form-control {
-        width: 200px;
-        margin: 0 auto;
-    }
-
-    label.form-label {
-        text-align: center;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .btn-primary {
-        background: #0d6efd;
-        color: white;
-        border-radius: 10px;
-        border: none;
-        height: 40px;
-        width: 60px;
-
-    }
-
-    .btn-primary {
-        margin: 0 auto;
-        height: 40px;
-        width: 100px;
-    }
-
-    .btn-center {
-        margin: 0 auto;
-    }
-
-    .btn-reserve {
-        margin: 20px auto;
-        background: #0d6efd;
-        padding: 6px 12px;
-        color: white;
-        border-radius: 10px;
-        border: none;
-        height: 40px;
-        width: 100px;
-
-    }
-
-    .btn-secondary {
-        border: none;
-        background: grey;
-        border-radius: 10px;
-        height: 40px;
-        width: 60px;
-        color: white;
-    }
-
-    .btn-class {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .btn-map a {
-        text-align: center;
-        text-decoration: none;
-        margin: 0 auto;
-        color: white;
-        border-radius: 10px;
-        border: 1px;
-        height: 35px;
-        width: 135px;
-        justify-content: center;
-        display: flex;
-        align-items: center;
-        box-sizing: border-box;
-    }
-
-    .resv-change {
-        text-decoration: none;
-        margin: 0 auto;
-        background: #0d6efd;
-        color: white;
-        border-radius: 10px;
-        border: 1px;
-        height: 22px;
-        width: auto;
-        justify-content: center;
-        display: inline-flex;
-        align-items: center;
-
-    }
-
-    .resv-change:hover {
-        color: black;
-
-    }
-
-    .resv-change1 {
-        text-decoration: none;
-        margin: 0 auto;
-        background: #0d6efd;
-        color: white;
-        border-radius: 10px;
-        border: 1px;
-        height: 40px;
-        width: 100px;
-        justify-content: center;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .resv-cancle1 {
-        text-decoration: none;
-        margin: 0 auto;
-        background: #0d6efd;
-        color: white;
-        border-radius: 10px;
-        border: 1px;
-        height: 40px;
-        width: 100px;
-        justify-content: center;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .resv-cancel {
-        text-decoration: none;
-        margin: 0 auto;
-        background: #0d6efd;
-        color: white;
-        border-radius: 10px;
-        border: 1px;
-        height: 22px;
-        width: auto;
-        justify-content: center;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .resv-cancel:hover {
-        color: black;
-    }
-
-    .resv-btn {
-        padding: 10px;
-    }
-
-    #map {
-        margin: 0 auto;
-    }
-
-
-    .st-rg {
-        margin-bottom: 15px;
-    }
-
-
-    .st-rg input {
-        width: 150px;
-        height: 25px;
-    }
-
-    .st-rg label {
-        display: inline-block;
-        width: 100px;
-        text-align: center;
-        margin-bottom: 5px;
-    }
-
-    .st-rgbt input {
-        display: inline-flex;
-        margin: 25px;
-    }
-
-    .modyfy {
-        text-align: center;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    /**/
-
-    .btn-area .paging {
-        opacity: 0.8;
-        text-align: center;
-    }
-
-    .btn-writeupload {
-        padding: 10px 16px;
-        font-size: 24px;
-        color: #FFF;
-        border-color: #57442E;
-        margin-top: 10px;
-        border-radius: 20px;
-        background: #57442E;
-        width: 118px;
-        height: 53px;
-        flex-shrink: 0;
-        text-align: center;
-        font-style: normal;
-        font-weight: 700;
-        float: left;
-
-    }
-
-    .btn-writereset {
-        padding: 10px 16px;
-        font-size: 24px;
-        color: #FFF;
-        border-color: #A48868;
-        margin-top: 10px;
-        border-radius: 20px;
-        background: #A48868;
-        width: 118px;
-        height: 53px;
-        flex-shrink: 0;
-        text-align: center;
-        font-style: normal;
-        font-weight: 700;
-        float: left;
-        margin-left: 10px;
-
-    }
-
-    .btn-writeback {
-        padding: 10px 16px;
-        font-size: 24px;
-        color: #FFF;
-        border-color: #487657;
-        margin-top: 10px;
-        border-radius: 20px;
-        background: #487657;
-        width: 118px;
-        height: 53px;
-        flex-shrink: 0;
-        text-align: center;
-        font-style: normal;
-        font-weight: 700;
-        float: right;
-    }
-
-    .btn-writeedit {
-        padding: 10px 16px;
-        font-size: 24px;
-        color: #FFF;
-        margin-top: 10px;
-        border-radius: 20px;
-        border-color: #57442E;
-        background: #57442E;
-        width: 118px;
-        height: 53px;
-        flex-shrink: 0;
-        text-align: center;
-        font-style: normal;
-        font-weight: 700;
-    }
-
-    .wr-btn {
-        padding: 10px 16px;
-        font-size: 18px;
-        width: 120px;
-        height: 40px;
-        flex-shrink: 0;
-        border-radius: 15px;
-        background: #CBE6D1;
-        border-color: #CBE6D1;
-        margin-top: 10px;
-        border: none;
-        text-align: center;
-        font-style: normal;
-        font-weight: 700;
-        color: black;
-        line-height: normal;
-        margin-left: 1280px;
-
-    }
-
-    .qnalist-form {
-        text-align: center;
-        max-width: 1500px;
-        max-height: fit-content;
-        padding: 15px;
-        margin: 50px auto;
-        background-color: #FFF;
-        OPACITY: 0.8;
-    }
-
-    .st-rg {
-        display: block;
-    }
-
-    .st-rgbt {
-
-    }
-
-
-    /*수진*/
-
-    .cView {
-        background: white;
-        max-width: fit-content;
-        max-height: fit-content;
-        margin: auto;
-        padding: 100px;
-        margin-top: 70px;
-        margin-bottom: 70px;
-    }
-
-    .sld img {
-        width: 100%;
-        height: 450px;
-    }
-
-    .bx-pager {
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    .bx-pager-item {
-        display: inline-block;
-        margin: 0 5px;
-    }
-
-    .bx-pager-link {
-        display: block;
-        width: 50px;
-        height: 50px;
-        background: #ccc;
-        text-align: center;
-        line-height: 50px;
-        border-radius: 50%;
-        cursor: pointer;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .bx-wrapper .bx-pager {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 999;
-    }
-
-    .bx-controls.bx-has-controls-direction .bx-controls-direction a {
-        margin: -80px; /* 버튼 간격 조정 */
-        position: absolute;
-        top: 65%;
-        width: 32px;
-        height: 32px;
-        text-indent: -9999px;
-        z-index: 9999;
-    }
-
-    #keyword-title {
-        width: 150px;
-        height: 25px;
-        flex-shrink: 0;
-        border-radius: 32.8px;
-        border: 0.656px solid #000;
-        background: #FFF;
-    }
-
-    #sel {
-        width: 75px;
-        height: 25px;
-        flex-shrink: 0;
-        border-radius: 15px;
-        border: 0.656px solid #000;
-        background: #FFF;
-        text-align: center;
-    }
-
-    .cont-menu {
-        border-radius: 40px;
-        background: #D9D9D9;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        height: 250px;
-        margin-top: 100px;
-    }
-
-    .cont-menu .mnu, .pay, .com {
-        font-family: Inter;
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 600;
-        text-align: center;
-        word-wrap: break-word;
-        padding: 20px;
-        flex: 1;
-        margin: 0 1px 150px;
-        flex-direction: column;
-        box-sizing: border-box;
-    }
-
-    .com {
-        margin-top: -13.5px;
-    }
-
-    .cont-menu .mnu p,
-    .cont-menu .pay p,
-    .cont-menu .com p {
-        margin: 0 12px;
-        white-space: nowrap;
-    }
-
-    .mu {
-        border-bottom: solid 1px #5b5b5b;
-    }
-
-    .ttl {
-        text-align: center;
-        color: #555555;
-        font-size: 18px
-    }
-
-    .tt {
-        text-align: left;
-        color: #555555;
-        font-size: 18px
-    }
-
-    .nn {
-        font-size: 15px;
-        text-align: left;
-    }
-
-    /* 영업 시간, 주소 박스 */
-
-    .cont-mm {
-        position: relative;
-        border-radius: 40px;
-        background: #D9D9D9;
-        margin-top: 5%;
-        height: auto;
-        display: grid;
-        align-items: end;
-        margin: inherit;
-        padding: 30px 20px 0px 20px;
-        bottom: 30px;
-    }
-
-    .store-hour { /* 영업 시간, 주소 */
-        font-size: 20px;
-        font-weight: bolder;
-        margin-top: -130px;
-        text-align: center;
-    }
-
-    .sh { /* DB */
-        height: 90px;
-        font-size: large;
-        font-family: fantasy; /* 숫자 굵기 */
-        margin-top: 30px;
-    }
+/*-----------------여기부터 은정---------------*/
+@media only screen and (max-width: 768px)
+
+.content {
+    max-width: 100%;
+}
+
+.board-form, .write-form {
+    max-width: 360px;
+    padding: 0px;
+}
+
+.title-row .t-date, .title-row .t-view, .data-row .t-date, .data-row .t-view {
+}
+
+.p-10 {
+    width: 20%;
+
+}
+
+.p-15 {
+    width: 25%;
+
+}
+
+.p-30 {
+    width: 55%;
+
+}
+
+.p-85 {
+    width: 75%;
+
+}
+
+.dp-30, .dp-20, .dp-15, .dp-10 {
+    width: 75%;
+
+}
+
+.filebox label {
+    text-align: center;
+    width: 100%;
+}
+
+.filebox .upload-name {
+    width: 100%;
+}
+
+.top-home {
+    display: none;
+}
+
+
+/*태욱*/
+
+.modal-change {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal-change1 {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 900;
+    text-align: center;
+}
+
+
+.modal-title {
+    margin: 0 auto;
+}
+
+.mb-3 .form-control {
+    width: 200px;
+    margin: 0 auto;
+}
+
+label.form-label {
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-primary {
+    background: #0d6efd;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    height: 40px;
+    width: 60px;
+
+}
+
+.btn-primary {
+    margin: 0 auto;
+    height: 40px;
+    width: 100px;
+}
+
+.btn-center {
+    margin: 0 auto;
+}
+
+.btn-reserve {
+    margin: 20px auto;
+    background: #0d6efd;
+    padding: 6px 12px;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    height: 40px;
+    width: 100px;
+
+}
+
+.btn-secondary {
+    border: none;
+    background: grey;
+    border-radius: 10px;
+    height: 40px;
+    width: 60px;
+    color: white;
+}
+
+.btn-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-map a {
+    text-align: center;
+    text-decoration: none;
+    margin: 0 auto;
+    color: white;
+    border-radius: 10px;
+    border: 1px;
+    height: 35px;
+    width: 135px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.resv-change {
+    text-decoration: none;
+    margin: 0 auto;
+    background: #0d6efd;
+    color: white;
+    border-radius: 10px;
+    border: 1px;
+    height: 22px;
+    width: auto;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+
+}
+
+.resv-change:hover {
+    color: black;
+
+}
+
+.resv-change1 {
+    text-decoration: none;
+    margin: 0 auto;
+    background: #0d6efd;
+    color: white;
+    border-radius: 10px;
+    border: 1px;
+    height: 40px;
+    width: 100px;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+}
+
+.resv-cancle1 {
+    text-decoration: none;
+    margin: 0 auto;
+    background: #0d6efd;
+    color: white;
+    border-radius: 10px;
+    border: 1px;
+    height: 40px;
+    width: 100px;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+}
+
+.resv-cancel {
+    text-decoration: none;
+    margin: 0 auto;
+    background: #0d6efd;
+    color: white;
+    border-radius: 10px;
+    border: 1px;
+    height: 22px;
+    width: auto;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+}
+
+.resv-cancel:hover {
+    color: black;
+}
+
+.resv-btn {
+    padding: 10px;
+}
+
+#map {
+    margin: 0 auto;
+}
+
+
+.st-rg {
+    margin-bottom: 15px;
+}
+
+
+.st-rg input {
+    width: 150px;
+    height: 25px;
+}
+
+.st-rg label {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.st-rgbt input {
+    display: inline-flex;
+    margin: 25px;
+}
+
+.modyfy {
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/**/
+
+.btn-area .paging {
+    opacity: 0.8;
+    text-align: center;
+}
+
+.btn-writeupload {
+    padding: 10px 16px;
+    font-size: 24px;
+    color: #FFF;
+    border-color: #57442E;
+    margin-top: 10px;
+    border-radius: 20px;
+    background: #57442E;
+    width: 118px;
+    height: 53px;
+    flex-shrink: 0;
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    float: left;
+
+}
+
+.btn-writereset {
+    padding: 10px 16px;
+    font-size: 24px;
+    color: #FFF;
+    border-color: #A48868;
+    margin-top: 10px;
+    border-radius: 20px;
+    background: #A48868;
+    width: 118px;
+    height: 53px;
+    flex-shrink: 0;
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    float: left;
+    margin-left: 10px;
+
+}
+
+.btn-writeback {
+    padding: 10px 16px;
+    font-size: 24px;
+    color: #FFF;
+    border-color: #487657;
+    margin-top: 10px;
+    border-radius: 20px;
+    background: #487657;
+    width: 118px;
+    height: 53px;
+    flex-shrink: 0;
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    float: right;
+}
+
+.btn-writeedit {
+    padding: 10px 16px;
+    font-size: 24px;
+    color: #FFF;
+    margin-top: 10px;
+    border-radius: 20px;
+    border-color: #57442E;
+    background: #57442E;
+    width: 118px;
+    height: 53px;
+    flex-shrink: 0;
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.wr-btn {
+    padding: 10px 16px;
+    font-size: 18px;
+    width: 120px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: #CBE6D1;
+    border-color: #CBE6D1;
+    margin-top: 10px;
+    border: none;
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    color: black;
+    line-height: normal;
+    margin-left: 1280px;
+
+}
+
+.qnalist-form {
+    text-align: center;
+    max-width: 1500px;
+    max-height: fit-content;
+    padding: 15px;
+    margin: 50px auto;
+    background-color: #FFF;
+    OPACITY: 0.8;
+}
+
+.st-rg {
+    display: block;
+}
+
+.st-rgbt {
+
+}
+
+
+/*수진*/
+
+.cView {
+    background: white;
+    max-width: fit-content;
+    max-height: fit-content;
+    margin: auto;
+    padding: 100px;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.sld img {
+    width: 100%;
+    height: 450px;
+}
+
+.bx-pager {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.bx-pager-item {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.bx-pager-link {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: #ccc;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.bx-wrapper .bx-pager {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+}
+
+.bx-controls.bx-has-controls-direction .bx-controls-direction a {
+    margin: -80px; /* 버튼 간격 조정 */
+    position: absolute;
+    top: 65%;
+    width: 32px;
+    height: 32px;
+    text-indent: -9999px;
+    z-index: 9999;
+}
+
+#keyword-title {
+    width: 150px;
+    height: 25px;
+    flex-shrink: 0;
+    border-radius: 32.8px;
+    border: 0.656px solid #000;
+    background: #FFF;
+}
+
+#sel {
+    width: 75px;
+    height: 25px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    border: 0.656px solid #000;
+    background: #FFF;
+    text-align: center;
+}
+
+.cont-menu {
+    border-radius: 40px;
+    background: #D9D9D9;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 250px;
+    margin-top: 100px;
+}
+
+.cont-menu .mnu, .pay, .com {
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    text-align: center;
+    word-wrap: break-word;
+    padding: 20px;
+    flex: 1;
+    margin: 0 1px 150px;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.com {
+    margin-top: -13.5px;
+}
+
+.cont-menu .mnu p,
+.cont-menu .pay p,
+.cont-menu .com p {
+    margin: 0 12px;
+    white-space: nowrap;
+}
+
+.mu {
+    border-bottom: solid 1px #5b5b5b;
+}
+
+.ttl {
+    text-align: center;
+    color: #555555;
+    font-size: 18px
+}
+
+.tt {
+    text-align: left;
+    color: #555555;
+    font-size: 18px
+}
+
+.nn {
+    font-size: 15px;
+    text-align: left;
+}
+
+/* 영업 시간, 주소 박스 */
+
+.cont-mm {
+    position: relative;
+    border-radius: 40px;
+    background: #D9D9D9;
+    margin-top: 5%;
+    height: auto;
+    display: grid;
+    align-items: end;
+    margin: inherit;
+    padding: 30px 20px 0px 20px;
+    bottom: 30px;
+}
+
+.store-hour { /* 영업 시간, 주소 */
+    font-size: 20px;
+    font-weight: bolder;
+    margin-top: -130px;
+    text-align: center;
+}
+
+.sh { /* DB */
+    height: 90px;
+    font-size: large;
+    font-family: fantasy; /* 숫자 굵기 */
+    margin-top: 30px;
+}
+
+.qtit {
+    width: 600px;
+    height: 50px;
+    margin: 20px;
+    background: white;
+    border: solid 2px black;
+}
+
+.qcon {
+    width: 600px;
+    height: 400px;
+    background: white;
+    border: solid 2px black;
+}
+
+.rqna {
+    width: 600px;
+    height: 40px;
+    background: white;
+    border: solid 2px black;
+}
+
+.qrep {
+    text-align: center;
+    width: 600px;
+    height: 60px;
+    background: white;
+    border: solid 2px black;
+}

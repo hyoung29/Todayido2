@@ -1,0 +1,67 @@
+<!--글쓰기 페이지-->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <th:block th:insert="~{adminfragments::header(${session.admin})}"/>
+</header>
+<!-------------------------- 헤더부분---------------------------->
+
+<section>
+
+    <div class="content">
+        <form class="write-form"
+              method="post" enctype="multipart/form-data">
+            <div class="user-info">
+                <div class="user-info-sub" th:object="${session.user}"></div>
+            </div>
+
+            <h2 class="login-header">QnA 답글</h2>
+
+            <!--작성자(로그인 한 id), 제목, 내용, 파일-->
+
+            <!--로그인 한 상태에서 글수정 권한-->
+            <input type="hidden" name="user_id" th:value="${session.admin.admin_id}">
+
+            <input type="hidden" name="qna_num" th:value="${board.qna_num}">
+            <div th:text="'제목 : '+${board.qna_title}" class="qtit"></div>
+            <div th:text="'내용 : '+${board.qna_contents}" class="qcon"></div>
+
+            <!--파일 업로드부분-->
+        </form>
+
+        <th:block th:if="${board.qna_reply == null}">
+            <form th:action="@{replyProc}" method="post">
+                <h2>답글 쓰기</h2>
+                <!--            보내는 컬럼의 이름을 name의 이름이랑 똑같이 써야함 -->
+                <input type="hidden" name="qna_num" th:value="${board.qna_num}">
+                <textarea name="qna_reply" id="text" cols="80" rows="8" placeholder="내용"></textarea><br>
+                <input type="submit" class="rqna" id="rqna" value="답글쓰기">
+            </form>
+        </th:block>
+
+<!--        답글 출력       -->
+        <th:block th:if="${board.qna_reply != null}">
+            <div class="qrep">
+                <div th:text="'답글 : '+${board.qna_reply}"></div>
+            </div>
+        </th:block>
+    </div>
+</section>
+
+<footer>
+    <th:block th:insert="~{adminfragments::footer}"/>
+</footer>
+
+</body>
+<script th:inline="javascript">
+
+</script>
+</html>

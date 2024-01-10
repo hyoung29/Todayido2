@@ -1,5 +1,7 @@
 package com.metamong.todayido.controller;
 import com.metamong.todayido.dto.AdminDto;
+import com.metamong.todayido.dto.BoardDto;
+import com.metamong.todayido.dto.SearchDto;
 import com.metamong.todayido.service.AdminService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -30,5 +36,26 @@ public class AdminController {
     public String adindex() {
         log.info("adindex");
         return "adindex";
+    }
+
+    @GetMapping("agnalist")
+    public ModelAndView aqnalist(SearchDto sdto, HttpSession session){
+        log.info("aqnalist");
+        ModelAndView mv = aServ.getAqnaList(sdto, session);
+        return mv;
+    }
+
+    @GetMapping("aqnaEdit")
+    public ModelAndView aqnaEdit(int qna_num) {
+        log.info("aqnaEdit");
+        ModelAndView mv = aServ.updateReply(qna_num);
+        return mv;
+    }
+
+    @PostMapping("replyProc")
+    public String updateProc(BoardDto board, HttpSession session, RedirectAttributes rttr){
+        log.info("updateProc");
+        String view = aServ.updateReply(board, session, rttr);
+        return view;
     }
 }

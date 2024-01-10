@@ -17,7 +17,7 @@
 </head>
 <body>
 <header>
-    <th:block th:insert="~{adminfragments::header(${session.admin})}" />
+    <th:block th:insert="~{fragments::header(${session.user})}" />
 </header>
 <!----------------------header----------------------------------->
 
