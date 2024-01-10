@@ -10,8 +10,8 @@
         SELECT * FROM store WHERE store_num=#{store_num}
     </select>
 
-    <select id="selectReserv" resultType="ReservDto" parameterType="integer">
-        SELECT * FROM reservation WHERE store_num=#{store_num} order by reservation_num desc
+    <select id="selectReserv" resultType="ReservDto" parameterType="String">
+        SELECT * FROM reservation WHERE user_id=#{user_id} order by resevation_id desc
     </select>
 
 

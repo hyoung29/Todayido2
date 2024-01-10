@@ -12,7 +12,7 @@ public interface ReservDao {
     //예약하기 메소드
     void insertReserv (ReservDto rdto);
 
-    ReservDto selectReserv(int reservationNum);
+    List<ReservDto> selectReserv(String user_id);
 
     List<StoreDto> selectStoreList(int storeNum);
 

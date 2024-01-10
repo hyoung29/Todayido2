@@ -11,11 +11,11 @@ import java.sql.Timestamp;
 
 public class ReservDto {
         private String user_id;
-        private String resevation_id;
+        private int resevation_id;
         private int Store_num;
         private String reservation_date;
         private String resevation_time;
-        private String resevation_person;
+        private int resevation_person;
 
 
     }

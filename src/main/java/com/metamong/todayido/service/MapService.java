@@ -60,14 +60,13 @@ public class MapService {
 
         return view;
     }
-    public ModelAndView getReservation(int reservation_num){
-        log.info("getReservation()");
+    public ModelAndView getReservList(HttpSession session){
+        log.info("getReservList()");
         ModelAndView mv = new ModelAndView();
-        ReservDto reserv = rDao.selectReserv(reservation_num);
-        mv.addObject("reservation", reserv);
+        UserDto user = (UserDto)session.getAttribute("user");
 
-        List<StoreDto> sList = rDao.selectStoreList(reservation_num);
-        mv.addObject("sList", sList);
+        List<ReservDto> reList = rDao.selectReserv(user.getUser_id());
+        mv.addObject("reList", reList);
 
         mv.setViewName("myPage");
         return mv;
