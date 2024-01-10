@@ -2,64 +2,32 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>TodayIdo</title>
-    <!-- CSS 파일 링크 추가 -->
-    <link rel="stylesheet" href="style.css">
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-<div class="se-area">
-    <form class="search-box" th:action="@{/search}">
-        <input id="keyword" name="keyword" placeholder="오늘 뭐하지?" onkeypress="checkEnter(event)">
-    </form>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
+</header>
+<!-- 검색 폼 -->
+<form th:action="@{/search}" method="get">
+    <input type="text" name="keyword" placeholder="가게 이름 또는 번호를 입력하세요">
+    <button type="submit">검색</button>
+<!-- 검색 결과 -->
+<div th:if="${searchResults}">
+    <div th:each="result : ${searchResults}">
+        <div>
+            <img th:src="${result.storeImageUrl}" alt="Store Image">
+            <h3 th:text="${result.storeName}"></h3>
+            <p th:text="${result.storeAddress}"></p>
+            <p th:text="${result.storeTelephone}"></p>
+        </div>
+    </div>
 </div>
-<div class="popup">
-    <p>관련 검색어를 찾을 수 없습니다.</p>
-</div>
-
-<!-- JavaScript -->
-<script th:inline="javascript">
-    /*<![CDATA[*/
-
-    // 키 입력 이벤트 처리
-    function checkEnter(event) {
-        if (event.key === 'Enter') {
-            searchKeyword(event);
-        }
-    }
-
-    // 검색어로 검색
-    function searchKeyword(event) {
-        event.preventDefault();
-        var keyword = document.getElementById('keyword').value;
-
-        /* 예시 데이터, 실제로는 서버에서 데이터를 가져와야 함 */
-        var results = [
-            { title: '레스토랑', category: '식당' },
-            { title: '음식점', category: '음식' },
-            { title: '관련 검색어 없음', category: '기타' }
-        ];
-
-        processSearchResults(results);
-    }
-
-    // 검색 결과 처리
-    function processSearchResults(results) {
-        var popup = document.querySelector('.popup');
-        popup.style.display = 'none'; // 기본적으로 팝업 숨기기
-
-        var containsCategory = results.some(function(result) {
-            return result.category === '식당' || result.category === '음식';
-        });
-
-        if (containsCategory) {
-            window.location.href = 'rCategory.html'; // 해당 페이지로 이동
-        } else {
-            popup.style.display = 'block'; // 팝업 표시
-        }
-    }
-
-    /*]]>*/
-</script>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
 </body>
 </html>

@@ -13,7 +13,7 @@ public class StoreDto {
     private String store_telephone;
     private String store_adress;
     private int store_category_id;
-    private Long average_rating;
+    private float average_rating;
     private String store_description;
     private String open_time;
     private String closed_day;
