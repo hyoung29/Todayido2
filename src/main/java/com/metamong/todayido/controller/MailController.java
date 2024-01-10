@@ -19,17 +19,26 @@ public class MailController {
     @Autowired
     private MailService mServ;
 
-    @GetMapping("send")
-    public String send(){
-        log.info ("send()");
-        return "send";
+    @GetMapping("userSend")
+    public String userSend(){
+        log.info ("userSend()");
+        return "userSend";
+    }
+    @GetMapping("ownerSend")
+    public String ownerSend(){
+        log.info ("ownerSend()");
+        return "ownerSend";
     }
     @GetMapping("updateUserPwd")
     public String updateUserPwd(){
         log.info("updateUserPwd()");
         return "updateUserPwd";
     }
-
+    @GetMapping("updateOwnerPwd")
+    public String updateOwnerPwd(){
+        log.info("updateOwnerPwd()");
+        return "updateOwnerPwd";
+    }
     @PostMapping("mailConfirm")
     @ResponseBody
     public String mailConfirm(@RequestBody Map<String, Object> mail) throws MessagingException, UnsupportedEncodingException {

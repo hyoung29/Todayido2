@@ -78,7 +78,11 @@ public class OwnerController {
         }
         return "redirect:/";
     }
-
+    @GetMapping("pModify")
+    public String pModify(){
+        log.info("pModify()");
+        return "pModify";
+    }
     @GetMapping("ownerModify")
     public String ownerModify() {
         log.info("ownerModify()");
