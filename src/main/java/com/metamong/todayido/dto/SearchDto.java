@@ -10,4 +10,6 @@ public class SearchDto {
     private String keyword;
     private int pageNum=1;
     private int listCnt;
+    private int store_num;
+    private String store_name;
 }

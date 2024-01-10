@@ -43,65 +43,70 @@
 <header>
     <th:block th:insert="~{fragments::header(${session.user})}"/>
 </header>
-<!-- 성원닭갈비 -->
-<div class="cView">
-    <div class="c-dak">
-        <img th:src="@{/images/sungdak.png}" style="width: 100%">
-        <h1 th:text="${store.store_name + '(' + store.average_rating + ')'}"
-            style="font-size: 35px; margin-top: -2px"></h1>
-        <h4 th:text="${store.store_telephone}" style="margin-top: -20px"></h4>
-        <div class="sl" style="margin: 50px">
-            <h3>대표메뉴</h3>
-            <div class="sld">
-                <!-- 이미지 슬라이더 또는 대표 메뉴 이미지들 -->
-                <div><img th:src="@{/images/dak.jpg}"></div>
-                <div><img th:src="@{/images/sdk.jpg}"></div>
-            </div>
-        </div>
-    </div>
-    <!-- 메뉴&설명 -->
-    <th:block>
-        <div class="cont-menu">
-            <div class="mnu">
-                <p class="mu">메뉴</p>
-                <div class="tt">
-                    <p th:each="menu:${mList}" th:text="${menu.menu_name}"></p>
-                </div>
-            </div>
-            <div class="pay">
-                <p class="mu">가격</p>
-                <div class="ttl">
-                    <p th:each="menu:${mList}" th:text="${menu.menu_price}"></p>
-                </div>
-            </div>
-            <div class="com">
-                <p class="mu">설명</p>
-                <div class="nn">
-                    <p th:each="menu:${mList}" th:text="${menu.menu_descripton}"></p>
+<section>
+    <!-- 성원닭갈비 -->
+    <div class="cView">
+        <div class="c-dak">
+            <img th:src="@{/images/sungdak.png}" style="width: 100%">
+            <h1>
+                <span th:text="${store.store_name}" style="font-weight: bolder; font-size: 35px;"></span>
+                <span th:text="${'(' + store.average_rating + ')'}" style="font-size: 30px; color: #246C34"></span>
+            </h1>
+            <h5 th:text="${store.store_telephone}"></h5>
+            <div class="sl" style="margin: 50px">
+                <h3>대표메뉴</h3>
+                <div class="sld">
+                    <!-- 이미지 슬라이더 또는 대표 메뉴 이미지들 -->
+                    <div><img th:src="@{/images/dak.jpg}"></div>
+                    <div><img th:src="@{/images/sdk.jpg}"></div>
                 </div>
             </div>
         </div>
-    </th:block>
+        <!-- 메뉴&설명 -->
+        <th:block>
+            <div class="cont-menu">
+                <div class="mnu">
+                    <p class="mu">메뉴</p>
+                    <div class="tt">
+                        <p th:each="menu:${mList}" th:text="${menu.menu_name}"></p>
+                    </div>
+                </div>
+                <div class="pay">
+                    <p class="mu">가격</p>
+                    <div class="ttl">
+                        <p th:each="menu : ${mList}">
+                            <span th:text="${menu.menu_price} + '원'"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="com">
+                    <p class="mu">설명</p>
+                    <div class="nn">
+                        <p th:each="menu:${mList}" th:text="${menu.menu_descripton}"></p>
+                    </div>
+                </div>
+            </div>
+        </th:block>
 
-    <!-- 영업 시간 -->
-    <div class="cont-mm">
-        <div class="store-hour">영업 시간</div>
-        <div class="sh">
-            <div>시간: <span th:text="${store.open_time}"></span></div>
-            <div>휴무일: <span th:text="${store.closed_day}"></span></div>
-        </div>
-
-        <div style="text-align: right;">
-            <div class="user-info">
-                <div class="user-info-sub" th:object="${session.user}"></div>
+        <!-- 영업 시간 -->
+        <div class="cont-mm">
+            <div class="store-hour">영업 시간</div>
+            <div class="sh">
+                <div>시간: <span th:text="${store.open_time}"></span></div>
+                <div>휴무일: <span th:text="${store.closed_day}"></span></div>
             </div>
 
-            <th:block th:if="${session.user != null}">
-                <button type="button" class="res" style="margin-top: 45px; font-size: 18px;
+            <div style="text-align: right;">
+                <div class="user-info">
+                    <div class="user-info-sub" th:object="${session.user}"></div>
+                </div>
+
+                <th:block th:if="${session.user != null}">
+                    <button type="button" class="res" style="font-size: 18px;
                         background-color: white; border-style: none; text-underline: dash;"
-                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <img src="images/schedule.png">예약하기
-                </button>
+                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <img src="images/schedule.png">예약하기
+                    </button>
 
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                      tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -116,8 +121,7 @@
                                     <input type="hidden" name="store_num" th:value="${store.store_num}">
                                     <div class="mb-3 text-center">
                                         <label for="date" class="form-label">날짜:</label>
-                                        <input type="text" id="date" name="reservation_date"
-                                               class="form-control datepicker"
+                                        <input type="text" id="date" name="reservation_date" class="form-control datepicker"
                                                data-date-format="yyyy-mm-dd" required>
                                     </div>
 
@@ -130,50 +134,49 @@
 
                                     <div class="mb-3 text-center">
                                         <label for="time" class="form-label">시간:</label>
-                                        <input type="time" id="time" name="resevation_time" class="form-control"
-                                               required>
+                                        <input type="time" id="time" name="resevation_time" class="form-control" required>
                                     </div>
 
-                                    <div class="btn-class">
-                                        <div class="child">
-                                            <!-- 예약하기 button -->
-                                            <button class="btn btn-primary" id="saveReservation">
-                                                저장
-                                            </button>
-                                            <!-- 예약 취소하기 button -->
-                                            <button type="button" class="btn btn-secondary"
-                                                    id="cancelReservation">취소
-                                            </button>
-                                            <!-- 닫기 button -->
-                                            <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">닫기
-                                            </button>
+                                        <div class="btn-class">
+                                            <div class="child">
+                                                <!-- 예약하기 button -->
+                                                <button class="btn btn-primary" id="saveReservation">
+                                                    저장
+                                                </button>
+                                                <!-- 예약 취소하기 button -->
+                                                <button type="button" class="btn btn-secondary"
+                                                        id="cancelReservation">취소
+                                                </button>
+                                                <!-- 닫기 button -->
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">닫기
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
                             </div>
                         </div>
                     </div>
+                </th:block>
+            </div>
+            <!-- 주소 -->
+            <div class="cont-mm">
+                <div class="store-hour">주소</div>
+                <div class="sh"><span th:text="${store.store_adress}"></span></div>
+                <!-- Map 페이지 -->
+                <div style="margin-top: -13%; font-size: 18px; text-align: right; height: 0px">
+                    <img src="images/map.png"> <a th:href="@{map(store_num=${store_num})}">위치보기</a>
                 </div>
-            </th:block>
-        </div>
-        <!-- 주소 -->
-        <div class="cont-mm">
-            <div class="store-hour">주소</div>
-            <div style="height: 90px; font-size: large; margin-top: 30px;"><span th:text="${store.store_adress}"></span>
             </div>
-            <!-- Map 페이지 -->
-            <div style="margin-top: -13%; font-size: 18px; text-align: right; height: 0px">
-                <img src="images/map.png"> <a th:href="@{map(store_num=${store_num})}">위치보기</a>
-            </div>
+            <!-- 리뷰 -->
+
+
         </div>
     </div>
-    <!-- 리뷰 -->
-
-
-</div>
+</section>
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
 </footer>

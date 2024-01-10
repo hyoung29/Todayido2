@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script>
+        $(function () {
+            //bxSlider 설정
+            $(".sld").bxSlider({
+                auto: false, //수동 순환
+                slideWidth: 600 //슬라이더 가로 길이.
+            });
+
+            //메시지 출력
+            let m = null;
+            if (m != null) {
+                alert(m);
+            }
+        });
+    </script>
+    <script th:inline="javascript">
+        $(function () {
+            let m = [[${msg}]];
+            if (m != null) {
+                alert(m);
+            }
+        });
+    </script>
+    <!-- 수진_슬라이더 설정_여기 까지 -->
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
+</header>
+<section>
+    <div class="content">
+        <form class="login-form">
+            <div class="Category">
+                <ul class="category">
+                    <li><h3>카테고리</h3></li>
+                    <li><a href="rCategory"><b>식당</b></a></li>
+                    <li th:each="restaurant : ${restaurants}">
+                        <a th:href="@{/details/{id}(id=${restaurant.id})}">
+                            <p th:text="${restaurant.name}"></p>
+                        </a>
+                    </li>
+                    <li><a href="cCategory">카페</a></li>
+                    <li><a href="bCategory">술집</a></li>
+                    <li><a href="pCategory">장소</a></li>
+                </ul>
+            </div>
+            <img src="images/restaurant.png" width="600px">
+    <h3>추천 식당</h3>
+    <div class="recommend">
+        <!-- 식당 목록 -->
+    </div>
+    <!-- 카페 -->
+    <div class="Category">
+        <ul class="category">
+            <!-- 내용 -->
+        </ul>
+    </div>
+    <img src="images/cafe.png" width="600px">
+    <h3>추천 카페</h3>
+    <div class="recommend">
+        <!-- 카페 목록 -->
+    </div>
+    <!-- 술집 -->
+    <div class="Category">
+        <ul class="category">
+            <!-- 내용 -->
+        </ul>
+    </div>
+    <img src="images/bar.png" width="600px">
+    <h3>추천 술집</h3>
+    <div class="recommend">
+        <!-- 술집 목록 -->
+    </div>
+    <!-- 장소 -->
+    <div class="Category">
+        <ul class="category">
+            <!-- 내용 -->
+        </ul>
+    </div>
+    <img src="images/place.png" width="600px">
+    <h3>추천 장소</h3>
+    <div class="recommend">
+        <!-- 장소 목록 -->
+    </div>
+    </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+</html>
