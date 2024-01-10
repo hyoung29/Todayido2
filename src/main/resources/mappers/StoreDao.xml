@@ -27,4 +27,10 @@
     <select id="selectStore" resultType="StoreDto" parameterType="Integer">
         SELECT * FROM Store WHERE store_num=#{store_num}
     </select>
+
+    <select id="searchStore" resultType="storeDto">
+        SELECT store_name, store_telephone, store_adress, store_num, menu_name
+            AS representative_menu, menufile.mn_sysname AS menu_image FROM store LEFT JOIN menu ON store.store_num = menu.store_num
+            LEFT JOIN menufile ON menu.menu_num = menufile.menu_num WHERE store_name LIKE CONCAT('%', #{keyword}, '%') OR menu_name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
 </mapper>

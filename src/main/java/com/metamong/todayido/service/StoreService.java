@@ -2,6 +2,7 @@ package com.metamong.todayido.service;
 
 import com.metamong.todayido.dao.DetailDao;
 import com.metamong.todayido.dto.MenuDto;
+import com.metamong.todayido.dto.ReviewDto;
 import com.metamong.todayido.dto.StoreDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,12 @@ public class StoreService {
         StoreDto store = dDao.selectStore(store_num);
         mv.addObject("store", store);
         List<MenuDto> mList = dDao.selectMenu(store_num);
-
         mv.addObject("mList", mList);
+        List<ReviewDto> rList = dDao.selectReview(store_num);
+        mv.addObject("rList", rList);
+
         mv.setViewName("content");
         return mv;
     }
 }
+

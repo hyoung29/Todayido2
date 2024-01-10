@@ -1357,9 +1357,9 @@ label.form-label {
     max-width: fit-content;
     max-height: fit-content;
     margin: auto;
-    padding: 100px;
+    padding: 100px 100px 1000px; /* 값 수정 */
     margin-top: 70px;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
 }
 
 .sld img {
@@ -1494,7 +1494,7 @@ label.form-label {
     position: relative;
     border-radius: 40px;
     background: #D9D9D9;
-    margin-top: 10%;
+    margin-top: 13%; /* 5%에서 13%로 수정 */
     height: 150px;
     display: grid;
     align-items: end;

@@ -48,11 +48,9 @@
     <div class="cView">
         <div class="c-dak">
             <img th:src="@{/images/sungdak.png}" style="width: 100%">
-            <h1>
-                <span th:text="${store.store_name}" style="font-weight: bolder; font-size: 35px;"></span>
-                <span th:text="${'(' + store.average_rating + ')'}" style="font-size: 30px; color: #246C34"></span>
-            </h1>
-            <h5 th:text="${store.store_telephone}"></h5>
+            <h1 th:text="${store.store_name + '(' + store.average_rating + ')'}"
+                style="font-size: 35px; margin-top: -2px"></h1>
+            <h4 th:text="${store.store_telephone}"></h4>
             <div class="sl" style="margin: 50px">
                 <h3>대표메뉴</h3>
                 <div class="sld">
@@ -74,9 +72,7 @@
                 <div class="pay">
                     <p class="mu">가격</p>
                     <div class="ttl">
-                        <p th:each="menu : ${mList}">
-                            <span th:text="${menu.menu_price} + '원'"></span>
-                        </p>
+                        <p th:each="menu:${mList}" th:text="${menu.menu_price}"></p>
                     </div>
                 </div>
                 <div class="com">
@@ -108,34 +104,37 @@
                         <img src="images/schedule.png">예약하기
                     </button>
 
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title" id="staticBackdropLabel">예약하기</h1>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Add your form or content here -->
-                                <form id="reservationForm" th:action="@{reservProc}" method="post">
-                                    <input type="hidden" name="store_num" th:value="${store.store_num}">
-                                    <div class="mb-3 text-center">
-                                        <label for="date" class="form-label">날짜:</label>
-                                        <input type="text" id="date" name="reservation_date" class="form-control datepicker"
-                                               data-date-format="yyyy-mm-dd" required>
-                                    </div>
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title" id="staticBackdropLabel">예약하기</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Add your form or content here -->
+                                    <form id="reservationForm" th:action="@{reservProc}" method="post">
+                                        <input type="hidden" name="store_num" th:value="${store.store_num}">
+                                        <div class="mb-3 text-center">
+                                            <label for="date" class="form-label">날짜:</label>
+                                            <input type="text" id="date" name="reservation_date"
+                                                   class="form-control datepicker"
+                                                   data-date-format="yyyy-mm-dd" required>
+                                        </div>
 
-                                    <div class="mb-3 text-center">
-                                        <label for="people" class="form-label">인원수:</label>
-                                        <input type="number" id="people" name="resevation_person" class="form-control"
-                                               min="1"
-                                               required>
-                                    </div>
+                                        <div class="mb-3 text-center">
+                                            <label for="people" class="form-label">인원수:</label>
+                                            <input type="number" id="people" name="resevation_person"
+                                                   class="form-control"
+                                                   min="1"
+                                                   required>
+                                        </div>
 
-                                    <div class="mb-3 text-center">
-                                        <label for="time" class="form-label">시간:</label>
-                                        <input type="time" id="time" name="resevation_time" class="form-control" required>
-                                    </div>
+                                        <div class="mb-3 text-center">
+                                            <label for="time" class="form-label">시간:</label>
+                                            <input type="time" id="time" name="resevation_time" class="form-control"
+                                                   required>
+                                        </div>
 
                                         <div class="btn-class">
                                             <div class="child">
@@ -172,8 +171,10 @@
                 </div>
             </div>
             <!-- 리뷰 -->
-
-
+            <div class="cont-mm">
+                <div class="store-hour">리뷰</div>
+                <div class="sh"><span th:text="${review.store_}"></span></div>
+            </div>
         </div>
     </div>
 </section>

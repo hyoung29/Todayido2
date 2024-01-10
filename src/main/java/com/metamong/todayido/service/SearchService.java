@@ -1,20 +1,23 @@
 package com.metamong.todayido.service;
 
+import com.metamong.todayido.dao.StoreDao;
+import com.metamong.todayido.dto.StoreDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Arrays;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SearchService {
 
-    private List<String> staticData = Arrays.asList("식당", "장소명", "분위기");
+    private final StoreDao storeDao;
 
-    public List<String> searchByKeyword(String keyword) {
-        // 검색어(keyword)를 포함하는 항목들을 반환
-        return staticData.stream()
-                .filter(data -> data.contains(keyword))
-                .collect(Collectors.toList());
+    @Autowired
+    public SearchService(StoreDao storeDao) {
+        this.storeDao = storeDao;
+    }
+//  검색 결과 목록
+    public List<StoreDto> searchStore(String keyword) {
+        return storeDao.searchStore(keyword);
     }
 }
-
