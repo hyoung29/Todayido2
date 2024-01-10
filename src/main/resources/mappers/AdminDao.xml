@@ -13,6 +13,14 @@
         SELECT * FROM admin WHERE admin_id = #{admin_id} AND admin_pw = #{admin_pw}
 </select>
 
+    <!--    카테고리 리뷰 삭제 DAO-->
+    <delete id="deleteReview" parameterType="AdminDto">
+        DELETE
+        FROM review
+        WHERE review_num = #{review_num}
+    </delete>
+
+
 </mapper>
 
 

@@ -1,30 +1,22 @@
 package com.metamong.todayido.controller;
-
 import com.metamong.todayido.dto.BoardDto;
-import com.metamong.todayido.dto.BoardFileDto;
-import com.metamong.todayido.dto.ReviewDto;
 import com.metamong.todayido.dto.SearchDto;
 import com.metamong.todayido.service.BoardService;
 import com.metamong.todayido.service.DetailService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
 import java.util.List;
 
 @Controller
 @Slf4j
+@ResponseBody
 
 
 
@@ -60,7 +52,7 @@ public class BoardController {
     @Autowired
     private BoardService bServ;
 
-//    작성글 리스트로 불러오기
+    //    작성글 리스트로 불러오기
     @GetMapping("qnalist")
     public ModelAndView boardList(SearchDto sdto, HttpSession session) {
         log.info("boardList()");
@@ -127,11 +119,23 @@ public class BoardController {
         //정보를 model에 넣기
         return "reservForm";
     }
+
     @GetMapping("detail")
-    public ModelAndView detail(int store_num){
+    public ModelAndView detail(int store_num) {
         log.info("detail()");
         ModelAndView mv = dServ.getReview(store_num);
         return mv;
     }
-}
+//    @PostMapping("/deleteReview")
+
+//    public String deleteReview(@RequestParam Integer review_num) {
+//        try {
+//            reviewService.deleteReview(review_num);
+//            return "리뷰 삭제 성공";
+//        } catch (Exception e) {
+//            return "리뷰 삭제 실패: " + e.getMessage();
+//        }
+//}
+    }
+
 

@@ -12,7 +12,7 @@ public class BoardDto {
     private String qna_title;
     private String qna_contents;
     private String user_id;
-    private String create_at;
+    private Timestamp create_at;
     private Timestamp update_at;
     private String qna_reply;
 }
