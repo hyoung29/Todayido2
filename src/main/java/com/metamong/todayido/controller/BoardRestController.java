@@ -1,7 +1,9 @@
 package com.metamong.todayido.controller;
 
+import com.metamong.todayido.dto.BoardDto;
 import com.metamong.todayido.dto.BoardFileDto;
 import com.metamong.todayido.dto.ReviewDto;
+import com.metamong.todayido.service.AdminService;
 import com.metamong.todayido.service.BoardService;
 import com.metamong.todayido.service.DetailService;
 import com.metamong.todayido.service.UserService;
@@ -27,6 +29,9 @@ public class BoardRestController {
 
     @Autowired
     private DetailService dServ;
+
+    @Autowired
+    private AdminService aServ;
 
     @GetMapping("idCheck")
     public String idCheck(String user_id){

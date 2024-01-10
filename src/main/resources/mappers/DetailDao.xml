@@ -8,8 +8,7 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         INSERT INTO review
-        VALUES (null, #{user_id}, #{store_num}, #{rating}, #{review_text}, null, default, default, #{rv_oriname},
-        #{rv_sysname})
+        VALUES (null, #{user_id}, #{store_num}, #{rating}, #{review_text}, null, default, default, #{rv_oriname}, #{rv_sysname})
     </insert>
 
 

@@ -9,9 +9,36 @@
 
     </select>
 
-<select id="selectAdminIdPw" resultType="AdminDto" parameterType="AdminDto">
+    <update id="updatereply" parameterType="boardDto">
+        UPDATE qna
+        SET qna_reply=#{qna_reply}
+        WHERE qna_num=#{qna_num}
+    </update>
+
+    <select id="selectAdminIdPw" resultType="AdminDto" parameterType="AdminDto">
         SELECT * FROM admin WHERE admin_id = #{admin_id} AND admin_pw = #{admin_pw}
 </select>
+
+    <select id="selectaqnaCnt" resultType="Integer" parameterType="SearchDto">
+        SELECT count(*) FROM qna
+        <if test="colname != null and colname != ''">
+            WHERE ${colname} LIKE CONCAT('%',#{keyword},'%')
+        </if>
+    </select>
+    <select id="selectAqnaList" resultType="BoardDto" parameterType="SearchDto">
+        SELECT * FROM qna
+        <if test="colname != null and colname != ''">
+            WHERE ${colname} LIKE CONCAT('%',#{keyword},'%')
+        </if>
+        order by qna_num desc
+        LIMIT #{pageNum}, #{listCnt}
+    </select>
+    <select id="selectAqna" resultType="BoardDto" parameterType="Integer">
+        SELECT * FROM qna WHERE qna_num=#{qna_num}
+    </select>
+    <select id="selectAdmin" resultType="AdminDto" parameterType="SearchDto">
+        SELECT * FROM admin WHERE admin_auth=#{admin_auth}
+    </select>
 
     <!--    카테고리 리뷰 삭제 DAO-->
     <delete id="deleteReview" parameterType="AdminDto">
@@ -19,7 +46,6 @@
         FROM review
         WHERE review_num = #{review_num}
     </delete>
-
 
 </mapper>
 
