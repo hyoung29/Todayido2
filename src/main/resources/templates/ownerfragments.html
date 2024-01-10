@@ -16,8 +16,8 @@
         <nav class="top-right">
             <ul>
                 <th:block th:if="${owner == null}">
-                    <li><a th:href="@{ownerLogin}">로그인</a></li>
-                    <li><a th:href="@{ownerJoin}">회원가입</a></li>
+                    <li><a th:href="@{ownerLogin}">사업주로그인</a></li>
+                    <li><a th:href="@{ownerJoin}">사업주회원가입</a></li>
                 </th:block>
                 <th:block th:unless="${owner == null}">
                     <li th:text="${owner.owner_name}+'님'"></li>
@@ -30,7 +30,7 @@
                     <th:block th:unless="${owner == null}">
                         <a th:href="@{ownerPage(business_num=${owner.business_num})}">내 가게 보기</a>
                         <a th:href="@{pdetail}">내 가게 등록</a>
-                        <a th:href="@{pModify}">내 가게 수정 </a>
+                        <a th:href="@{pModify}">내 가게 수정</a>
                     </th:block>
                     <div style="width: 150px"/>
                 </div>

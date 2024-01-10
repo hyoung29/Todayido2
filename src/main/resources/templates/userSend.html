@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
+</header>
+<section>
+    <div class="login-form">
+        <h2 class="login-header">비밀번호찾기</h2>
+        <input type="email" id="mail" name="email" placeholder="메일주소" class="login-input">
+        <button id="sendbtn" class="login-btn">전송</button>
+        <br>
+        <input type="text" id="auth_in" placeholder="인증코드" class="login-input">
+        <button id="auth" class="login-btn">인증확인</button>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+<script th:inline="javascript">
+    let code = ``;
+    $("#sendbtn").click(function () {
+        let maddr = $("#mail").val();
+        if (maddr == "") {
+            alert("메일 주소를 입력하세요.");
+            return;
+        } else {
+            alert("메일주소로 인증코드를 발송했습니다");
+        }
+
+        mObj = {"email": maddr, "test": 1};
+
+        $.ajax({
+            url: "mailConfirm",
+            type: "post",
+            data: JSON.stringify(mObj),
+            contentType: "application/json",
+            success: function (res) {
+                console.log(res);
+                code = res;
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    })
+
+    $("#auth").click(function () {
+        let ucode = $("#auth_in").val();
+        if (ucode == code) {
+            alert("인증완료");//비밀번호 재설정 화면으로 이동(location.href 사용)
+            location.href = "updateUserPwd";
+        }
+    })
+</script>
+</html>

@@ -5,7 +5,6 @@
     <title>가게 정보/등록 하기</title>
     <script src="js/jquery-3.7.1.min.js"></script>
     <link href="css/style.css" rel="stylesheet">
-
     <script>
         function showRegistrationConfirmation() {
             var confirmation = confirm("등록하시겠습니까?");
@@ -35,7 +34,6 @@
 <header>
     <th:block th:insert="~{ownerfragments::header(${session.owner})}"/>
 </header>
-
 <section>
     <form th:action="@{/submit}" method="post" enctype="multipart/form-data" class="login-form">
         <h1>가게 등록 페이지</h1>

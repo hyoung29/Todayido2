@@ -493,7 +493,7 @@ section {
     border: none;
     border-radius: 5px;
     margin: 10px auto;
-    display: block;
+    display: inline-flex;
     width: auto;
     height: auto;
     padding: 10px;
@@ -558,17 +558,16 @@ section {
 }
 
 .owner-title {
-    display: inline-block;
+    font-weight: bold;
     float: left;
+    margin: 10px;
 }
 
 .owner-content {
     float: right;
+    margin: 10px;
 }
 
-.owner-info {
-
-}
 
 /*은정*/
 

@@ -14,13 +14,13 @@
 <section>
     <div class="content">
         <div method="post" class="login-form">
-            <h2 class="login-header">비밀번호 재설정</h2>
-            <input autofocus class="login-input" name="user_id" placeholder="아이디" required type="text">
-            <input class="login-input" name="user_password" placeholder="새로운 비밀번호" required type="password">
+            <h2 class="login-header">사업주 비밀번호 재설정</h2>
+            <input autofocus class="login-input" name="business_num" placeholder="사업자번호" required type="text">
+            <input class="login-input" name="owner_pwd" placeholder="새로운 비밀번호" required type="password">
             <input class="login-input" name="check_password" placeholder="비밀번호 확인" required type="password">
             <input class="login-btn" id="id-find" type="submit" value="재설정">
-            <div class="find"><a th:href="@{userLogin}">로그인</a></div>
-            <div class="join"><a th:href="@{userJoin}">회원가입</a></div>
+            <div class="find"><a th:href="@{ownerLogin}">사업주 로그인</a></div>
+            <div class="join"><a th:href="@{ownerJoin}">사업주 회원가입</a></div>
             <div style="height: 30px"></div>
         </div>
     </div>

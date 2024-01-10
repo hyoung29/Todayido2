@@ -12,15 +12,18 @@
             margin: 20px;
             text-align: center;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
         }
+
         input {
             width: 250px;
             padding: 8px;
             margin-bottom: 10px;
         }
+
         button {
             background-color: #4CAF50;
             color: white;
@@ -28,10 +31,12 @@
             border: none;
             cursor: pointer;
         }
+
         .error-message {
             color: red;
             margin-top: 5px;
         }
+
         #confirmationMessage {
             display: none;
             color: green;
@@ -39,35 +44,33 @@
         }
     </style>
 </head>
-
 <body>
 <header>
     <th:block th:insert="~{ownerfragments::header(${session.owner})}"/>
 </header>
-
-<h2>가게 정보 수정</h2>
-
-<div class="modyfy">
-    <form id="pdetail">
-        <label for="storeName">가게 이름:</label>
-        <input type="text" id="storeName" name="name" required>
-
-        <label for="storeAddress">주소:</label>
-        <input type="text" id="storeAddress" name="address" required>
-
-        <label for="storePhone">전화번호:</label>
-        <input type="text" id="storePhone" name="phone" required> <br>
-
-        <div class="error-message" id="errorMessage"></div>
-
-        <button type="button" onclick="showConfirmation()">수정하기</button>
-        <div id="confirmationMessage">수정을 완료하시겠습니까?
-            <button onclick="confirmModification()">확인</button>
-            <button onclick="cancelModification()">취소</button>
-        </div>
-    </form>
-</div>
-
+<section>
+    <h2>가게 정보 수정</h2>
+    <div class="modyfy">
+        <form id="pdetail">
+            <label for="storeName">가게 이름:</label>
+            <input type="text" id="storeName" name="name" required>
+            <label for="storeAddress">주소:</label>
+            <input type="text" id="storeAddress" name="address" required>
+            <label for="storePhone">전화번호:</label>
+            <input type="text" id="storePhone" name="phone" required><br>
+            <div class="error-message" id="errorMessage"></div>
+            <button type="button" onclick="showConfirmation()">수정하기</button>
+            <div id="confirmationMessage">수정을 완료하시겠습니까?
+                <button onclick="confirmModification()">확인</button>
+                <button onclick="cancelModification()">취소</button>
+            </div>
+        </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
 <script>
     function showConfirmation() {
         var name = document.getElementById("storeName").value;
@@ -96,9 +99,4 @@
         document.getElementById("confirmationMessage").style.display = "none";
     }
 </script>
-</body>
-
-<footer>
-    <th:block th:insert="~{fragments::footer}"/>
-</footer>
 </html>
