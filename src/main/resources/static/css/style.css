@@ -1358,8 +1358,9 @@ label.form-label {
     max-height: fit-content;
     margin: auto;
     padding: 100px;
+    padding-bottom:15%;
     margin-top: 70px;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
 }
 
 .sld img {
@@ -1494,7 +1495,7 @@ label.form-label {
     position: relative;
     border-radius: 40px;
     background: #D9D9D9;
-    margin-top: 10%;
+    margin-top: 5%;
     height: 150px;
     display: grid;
     align-items: end;
