@@ -2,13 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.metamong.todayido.dao.AdminDao">
 
-    <select id="selectPassword" resultType="java.lang.String">
-
-    </select>
-    <select id="selectAdmin" resultType="com.metamong.todayido.dto.AdminDto">
-
-    </select>
-
     <update id="updatereply" parameterType="boardDto">
         UPDATE qna
         SET qna_reply=#{qna_reply}
