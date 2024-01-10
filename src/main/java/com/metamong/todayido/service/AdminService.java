@@ -156,5 +156,12 @@ public class AdminService {
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
+
+    //    /* 댓글 삭제 */
+    public String  deleteReview(int review_num){
+        String  result = aDao.deleteReview(review_num);
+        return "ok";
+    }
+
 }
 
