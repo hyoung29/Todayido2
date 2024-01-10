@@ -60,13 +60,15 @@ public class MapService {
 
         return view;
     }
-    public ModelAndView getReserv(int store_num){
-        log.info("getReserv()");
+    public ModelAndView getReservList(HttpSession session){
+        log.info("getReservList()");
         ModelAndView mv = new ModelAndView();
-        StoreDto store = dDao.selectStore(store_num);
-        mv.addObject("store", store);
+        UserDto user = (UserDto)session.getAttribute("user");
 
-        mv.setViewName("content");
+        List<ReservDto> reList = rDao.selectReserv(user.getUser_id());
+        mv.addObject("reList", reList);
+
+        mv.setViewName("myPage");
         return mv;
     }
 }

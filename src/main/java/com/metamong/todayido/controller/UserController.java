@@ -1,6 +1,9 @@
 package com.metamong.todayido.controller;
 
+import com.metamong.todayido.dto.ReservDto;
+import com.metamong.todayido.dto.SearchDto;
 import com.metamong.todayido.dto.UserDto;
+import com.metamong.todayido.service.MapService;
 import com.metamong.todayido.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -15,6 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
     @Autowired
     private UserService uServ;
+
+    @Autowired
+    private MapService mServ;
 
     @GetMapping("/")
     public String home(){
@@ -50,9 +57,10 @@ public class UserController {
         return view;
     }
     @GetMapping("myPage")
-    public String myPage(){
-        log.info("myPage()");
-        return "myPage";
+    public ModelAndView reservList(HttpSession session) {
+        log.info("reservList()");
+        ModelAndView mv = mServ.getReservList(session);
+        return mv;
     }
     @GetMapping("findUserId")
     public String findUserId(){

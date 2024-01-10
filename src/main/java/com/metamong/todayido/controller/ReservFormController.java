@@ -2,6 +2,7 @@ package com.metamong.todayido.controller;
 
 import com.metamong.todayido.dto.ReservDto;
 import com.metamong.todayido.dto.ReviewDto;
+import com.metamong.todayido.dto.SearchDto;
 import com.metamong.todayido.dto.UserDto;
 import com.metamong.todayido.service.DetailService;
 import com.metamong.todayido.service.MapService;

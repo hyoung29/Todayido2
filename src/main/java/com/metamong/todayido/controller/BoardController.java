@@ -112,30 +112,12 @@ public class BoardController {
         return mv;
     }
 
-    @GetMapping("reservForm")
-    public String reservForm(int store_num, Model model) {
-        log.info("reservForm()");
-        //DB에서 가게 정보(dto 등) 가져오기
-        //정보를 model에 넣기
-        return "reservForm";
-    }
-
     @GetMapping("detail")
     public ModelAndView detail(int store_num) {
         log.info("detail()");
         ModelAndView mv = dServ.getReview(store_num);
         return mv;
     }
-//    @PostMapping("/deleteReview")
-
-//    public String deleteReview(@RequestParam Integer review_num) {
-//        try {
-//            reviewService.deleteReview(review_num);
-//            return "리뷰 삭제 성공";
-//        } catch (Exception e) {
-//            return "리뷰 삭제 실패: " + e.getMessage();
-//        }
-//}
-    }
+}
 
 
