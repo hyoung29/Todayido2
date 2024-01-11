@@ -3,18 +3,32 @@
 <mapper namespace="com.metamong.todayido.dao.UserDao">
     <insert id="insertUser" parameterType="UserDto">
         INSERT INTO user
-        VALUES (#{user_id},#{user_name},#{user_password},#{user_pnum},DEFAULT,DEFAULT,#{user_address})
+        VALUES (#{user_id}, #{user_name}, #{user_password}, #{user_pnum}, DEFAULT, DEFAULT, #{user_address})
     </insert>
+    <update id="updateUserPwd" parameterType="UserDto">
+        UPDATE user
+        SET user_password=#{user_password}
+        WHERE user_id = #{user_id}
+    </update>
     <select id="selectId" resultType="Integer" parameterType="String">
-        SELECT count(*) FROM user WHERE user_id=#{user_id}
+        SELECT count(*)
+        FROM user
+        WHERE user_id = #{user_id}
     </select>
     <select id="selectPassword" resultType="String" parameterType="String">
-        SELECT user_password FROM user WHERE user_id=#{user_id}
+        SELECT user_password
+        FROM user
+        WHERE user_id = #{user_id}
     </select>
     <select id="selectUser" resultType="UserDto" parameterType="String">
-        SELECT * FROM user WHERE user_id=#{user_id}
+        SELECT *
+        FROM user
+        WHERE user_id = #{user_id}
     </select>
     <select id="selectUserId" resultType="String">
-        SELECT user_id FROM user WHERE user_name=#{user_name} AND user_pnum=#{user_pnum}
+        SELECT user_id
+        FROM user
+        WHERE user_name = #{user_name}
+          AND user_pnum = #{user_pnum}
     </select>
 </mapper>

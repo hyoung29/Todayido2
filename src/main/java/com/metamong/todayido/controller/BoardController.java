@@ -16,9 +16,6 @@ import java.util.List;
 
 @Controller
 @Slf4j
-@ResponseBody
-
-
 
 //메인페이지에서 문의사항클릭하면 문의사항 리스트 페이지로 이동
 public class BoardController {

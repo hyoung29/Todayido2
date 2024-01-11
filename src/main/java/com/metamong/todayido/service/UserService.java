@@ -18,18 +18,19 @@ public class UserService {
 
     private final BCryptPasswordEncoder pEncoder = new BCryptPasswordEncoder();
 
-    public String idCheck(String user_id){
+    public String idCheck(String user_id) {
         log.info("idCheck()");
         String result = null;
         int ucnt = uDao.selectId(user_id);
-        if(ucnt == 0){
+        if (ucnt == 0) {
             result = "ok";
         } else {
             result = "fail";
         }
         return result;
     }
-    public String userJoin(UserDto user, RedirectAttributes rttr){
+
+    public String userJoin(UserDto user, RedirectAttributes rttr) {
         log.info("userJoin()");
         String view = null;
         String msg = null;
@@ -41,22 +42,23 @@ public class UserService {
             uDao.insertUser(user);
             msg = "가입 성공";
             view = "redirect:userLogin";
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
-    public String userloginProc(UserDto user, HttpSession session, RedirectAttributes rttr){
+
+    public String userloginProc(UserDto user, HttpSession session, RedirectAttributes rttr) {
         log.info("userloginProc()");
         String view = null;
         String msg = null;
 
         String rPwd = user.getUser_password();
         String encPwd = uDao.selectPassword(user.getUser_id());
-        if(encPwd != null){
+        if (encPwd != null) {
 
-            if(pEncoder.matches(rPwd, encPwd)){
+            if (pEncoder.matches(rPwd, encPwd)) {
                 user = uDao.selectUser(user.getUser_id());
                 session.setAttribute("user", user);
                 view = "redirect:/";
@@ -86,6 +88,23 @@ public class UserService {
 
         String userId = uDao.selectUserId(user);
         model.addAttribute("findId", userId);
+
+        return view;
+    }
+
+    public String userPassUpdate(UserDto user) {
+        log.info("userPassUpdate()");
+        String view = null;
+
+        String encPwd = pEncoder.encode(user.getUser_password());
+        user.setUser_password(encPwd);
+        try {
+            uDao.updateUserPwd(user);
+            view = "userLogin";
+        } catch (Exception e) {
+            e.printStackTrace();
+            view = "updateUserPwd";
+        }
 
         return view;
     }

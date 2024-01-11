@@ -48,7 +48,7 @@ public class AdminController {
         return result;
     }
 
-    @GetMapping("agnalist")
+    @GetMapping("aqnalist")
     public ModelAndView aqnalist(SearchDto sdto, HttpSession session){
         log.info("aqnalist");
         ModelAndView mv = aServ.getAqnaList(sdto, session);
