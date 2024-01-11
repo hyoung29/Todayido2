@@ -32,20 +32,20 @@
                 <!--                    <p th:text="${store.store_description}" class="rmenu">모듬전, 맥주, 치킨 등</p>-->
                 <!--                </div>-->
                 <div class="rcontent">
-                    <th:block th:if="${#lists.isEmpty(reList)}">
+                    <th:block th:if="${#lists.isEmpty(Rlist)}">
                         <div style="width:100%">
                             예약 내역이 없습니다.
                         </div>
 
                     </th:block>
-                    <th:block th:unless="${#lists.isEmpty(reList)}">
-                        <th:block th:each="reserv:${reList}">
+                    <th:block th:unless="${#lists.isEmpty(Rlist)}">
+                        <th:block th:each="reserv:${Rlist}">
                             <div class="d-in-row">
                                 <img src="images/mesikdang.png" class="pt">
                                 <p th:text="${store.average_rating}" class="rstar"></p>
-                                <p th:text="${store.store_name}" class="rname">미식당</p>
-                                <p th:text="${sotre.store_adress}" class="rplace">용현동</p>
-                                <p th:text="${store.store_description}" class="rmenu">모듬전, 맥주, 치킨 등
+                                <p th:text="${store.store_name}" class="rname"></p>
+                                <p th:text="${sotre.store_adress}" class="rplace"></p>
+                                <p th:text="${store.store_description}" class="rmenu"></p>
                                 <div class="t-no p-10" th:text="${reserv.reservation_num}"></div>
                                 <div class="t-title p-30">
                                     <a th:href="@{content(store_num=${reserv.store_num})}"
