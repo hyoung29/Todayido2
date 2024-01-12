@@ -45,6 +45,12 @@
                 <input type="button" class="btn-writeback" value="out" id="backbtn">
             </div>
 
+            <!--        답글 출력       -->
+            <th:block th:if="${board.qna_reply != null}">
+                <div class="qrep">
+                    <div th:text="'답글 : '+${board.qna_reply}"></div>
+                </div>
+            </th:block>
         </form>
     </div>
 </section>
