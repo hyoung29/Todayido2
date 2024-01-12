@@ -6,124 +6,7 @@
     <title>TodayIdo</title>
     <script src="js/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        body {
-            height: auto;
-        }
 
-        .main-image {
-            width: 500px;
-            height: 300px;
-            background-color: #5b5b5b;
-            margin: 30px auto 0 auto;
-        }
-
-        .review {
-            width: 550px;
-            height: 100%;
-            background-color: #97cbff;
-            margin: 0 auto;
-            margin-bottom: 20px;
-        }
-
-        .rev {
-            width: 450px;
-            height: 100%;
-            margin: 25px auto;
-            background-color: white;
-            padding: 10px;
-            border-radius: 10px;
-            display: none;
-        }
-
-        .revproc {
-            width: 80px;
-            height: 30px;
-            background-color: white;
-            margin: 0 auto;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-
-        .modalbg {
-            display: none;
-            text-align: center;
-        }
-
-        .modal {
-            width: 350px;
-            height: 280px;
-            background-color: white;
-            border: solid 1px black;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        input {
-            border: solid 1px #246C34;
-        }
-
-        .dr, .close_rev {
-            margin-top: 10px;
-            border: solid 1px #246C34;
-            background: transparent;
-            border-radius: 10px;
-            width: 50px;
-            height: 25px;
-        }
-
-        #file {
-            display: none;
-        }
-
-        .r_photo {
-            width: 100px;
-            height: 130px;
-            margin-left: auto;
-        }
-
-        .r_d {
-            display: flex;
-        }
-
-        .rev_text {
-            margin: 10px;
-        }
-
-        .star_rating {
-            font-size: 0;
-            letter-spacing: -4px;
-        }
-
-        .star_rating span {
-            font-size: 22px;
-            letter-spacing: 0;
-            display: inline-block;
-            margin-left: 5px;
-            color: #ccc;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .star_rating span:first-child {
-            margin-left: 0;
-        }
-
-        .star_rating span.on {
-            color: #777;
-        }
-        .load-more {
-            margin: 10px auto 0 auto; /* 여기서 10px은 위쪽 여백입니다. */
-            border: solid 1px #246C34;
-            background: white;
-            border-radius: 10px;
-            width: 75px;
-            height: 30px;
-            display: block;
-        }
-    </style>
 </head>
 <body>
 <header>
@@ -134,17 +17,9 @@
 </div>
 <!-- 리뷰쓰기 버튼 -->
 <th:block th:if="${session.user != null}">
-    <input type="button" value="리뷰쓰기" class="revproc" >
+    <input type="button" value="리뷰쓰기" class="revproc">
 </th:block>
 <div class="review">
-<!--------------리뷰 모달창-------------------->
-<!--    <div id="myModal" class="review_modal">-->
-<!--        <span class="modal-close" onclick="closeModal()">&times;</span>-->
-<!--        <p>삭제하시겠습니까?</p>-->
-<!--        <button onclick="deleteItem()">예</button>-->
-<!--        <button onclick="closeModal()">아니오</button>-->
-<!--    </div>-->
-
 
     <!--  리뷰 등록  -->
     <th:block th:if="${session.user != null}">
@@ -177,7 +52,7 @@
     </th:block>
     <!--  리뷰 출력 부분  -->
     <div id="rs">
-
+        <h5>리뷰</h5><br>
         <th:block th:if="${#lists.isEmpty(rList)}">
             <div style="width: 100%">
                 댓글이 없습니다
@@ -186,8 +61,8 @@
         <th:block th:unless="${#lists.isEmpty(rList)}">
             <th:block th:each="rev:${rList}">
                 <label>
-                    <input type="checkbox" th:id="'cb'+${rev.review_num}" name="color" value="blue" th:onclick="toggleModal([[${rev.review_num}]])">
-                    리뷰
+                    <input type="checkbox" th:id="'cb'+${rev.review_num}" name="color" value="blue"
+                           th:onclick="toggleModal([[${rev.review_num}]])">
                 </label>
                 <div th:id="'myModal'+${rev.review_num}" class="review_modal">
                     <span class="modal-close" th:onclick="closeModal([[${rev.review_num}]])">&times;</span>
@@ -223,12 +98,13 @@
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
 </body>
-<!---------------------리뷰 모달---------------------->
+<!---------------------리뷰삭제 모달 start---------------------->
 <script th:inline="javascript">
     // 모달 표시/숨김 토글 함수
     function toggleModal(num) {
-        var modal = document.getElementById('myModal'+num);
-        var checkbox = document.querySelector('#cb'+num);
+
+        var modal = document.getElementById('myModal' + num);
+        var checkbox = document.querySelector('#cb' + num);
 
         if (checkbox.checked) {
             modal.style.display = 'block';
@@ -239,53 +115,32 @@
 
     // 모달 닫기 함수
     function closeModal(num) {
-        var modal = document.getElementById('myModal'+num);
+        var modal = document.getElementById('myModal' + num);
         modal.style.display = 'none';
     }
 
     // 삭제 함수 (예 버튼 클릭 시 호출)
     function deleteItem(num) {
-        // 여기에서 실제로 삭제하는 로직을 추가할 수 있습니다.
-        alert('리뷰가 삭제되었습니다.' + num);
-
-        // 삭제 로직을 여기에 추가하십시오.
         $.ajax({
-            url: "detail",
+            url: "deleteReviewProc",
             type: "post",
-            data: from,
-            enctype: "multipart/form-data",
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function (res){
+            data: {review_num: num},
+            success: function (res) {
                 console.log(res);
-                if(res != null){
-                    let str = '';
-                    $("#someContainer").append(str);
+                if (res == "ok") {
+                    closeModal(num);
+                    alert('리뷰가 삭제되었습니다.');
+                    location.href = `detail?store_num=[[${store.store_num}]]`;
                 }
             },
             error: function (err) {
                 console.error(err);
             }
         });
-
-
-
-
-        // 모달 닫기
-        closeModal();
     }
-
-    // 모달 외부 클릭 시 닫기
-    window.onclick = function(event) {
-        var modal = document.getElementById('myModal');
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    };
 </script>
 
-<!-----------------------------리뷰삭제 모달창 ------------------------------->
+<!-----------------------------리뷰삭제 모달 end ------------------------------->
 <script th:inline="javascript">
     $("#file").on("change", function () {
         //파일 선택창에서 업로드할 파일을 선택한 다음
@@ -336,7 +191,8 @@
                 if (res != null) {
                     let str = "";
                     str += `
-                    <div class="rev">
+
+                <div class="rev">
                         <div id="rSpace" class="r_d">
                             <div>
                                 <div>${res.user_id}</div>
@@ -388,7 +244,7 @@
         $("#rating").val(s);
     });
 
-    $(function (){
+    $(function () {
         var numToShow = 3; // 한 번에 보여줄 리뷰 수
         var reviews = $('.rev');
 

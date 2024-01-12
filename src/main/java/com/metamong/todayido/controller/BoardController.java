@@ -91,6 +91,7 @@ public class BoardController {
         return mv;
     }
 
+
     @GetMapping("cCategory")
     public ModelAndView cCategory(int store_category_id) {
         log.info("cCategory()");

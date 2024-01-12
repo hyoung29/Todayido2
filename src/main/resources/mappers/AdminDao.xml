@@ -34,7 +34,7 @@
     </select>
 
     <!--    카테고리 리뷰 삭제 DAO-->
-    <delete id="deleteReview" parameterType="AdminDto">
+    <delete id="deleteReview" parameterType="Integer">
         DELETE
         FROM review
         WHERE review_num = #{review_num}

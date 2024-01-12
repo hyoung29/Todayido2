@@ -1574,3 +1574,119 @@ label.form-label {
     font-weight: 500;
     line-height: normal;
 }
+body {
+    height: auto;
+}
+
+.main-image {
+    width: 500px;
+    height: 300px;
+    background-color: #5b5b5b;
+    margin: 30px auto 0 auto;
+}
+
+.review {
+    width: 550px;
+    height: 100%;
+    background-color: #97cbff;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.rev {
+    width: 450px;
+    height: 100%;
+    margin: 25px auto;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: none;
+}
+
+.revproc {
+    width: 80px;
+    height: 30px;
+    background-color: white;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.modalbg {
+    display: none;
+    text-align: center;
+}
+
+.modal {
+    width: 350px;
+    height: 280px;
+    background-color: white;
+    border: solid 1px black;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+input {
+    border: solid 1px #246C34;
+}
+
+.dr, .close_rev {
+    margin-top: 10px;
+    border: solid 1px #246C34;
+    background: transparent;
+    border-radius: 10px;
+    width: 50px;
+    height: 25px;
+}
+
+#file {
+    display: none;
+}
+
+.r_photo {
+    width: 100px;
+    height: 130px;
+    margin-left: auto;
+}
+
+.r_d {
+    display: flex;
+}
+
+.rev_text {
+    margin: 10px;
+}
+
+.star_rating {
+    font-size: 0;
+    letter-spacing: -4px;
+}
+
+.star_rating span {
+    font-size: 22px;
+    letter-spacing: 0;
+    display: inline-block;
+    margin-left: 5px;
+    color: #ccc;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.star_rating span:first-child {
+    margin-left: 0;
+}
+
+.star_rating span.on {
+    color: #777;
+}
+.load-more {
+    margin: 10px auto 0 auto; /* 여기서 10px은 위쪽 여백입니다. */
+    border: solid 1px #246C34;
+    background: white;
+    border-radius: 10px;
+    width: 75px;
+    height: 30px;
+    display: block;
+}
