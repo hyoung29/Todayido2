@@ -65,8 +65,8 @@ public class MapService {
         ModelAndView mv = new ModelAndView();
         UserDto user = (UserDto)session.getAttribute("user");
 
-        List<ReservDto> reList = rDao.selectReserv(user.getUser_id());
-        mv.addObject("reList", reList);
+        List<ReservDto> rList = rDao.selectReserv(user.getUser_id());
+        mv.addObject("rList", rList);
 
         mv.setViewName("myPage");
         return mv;

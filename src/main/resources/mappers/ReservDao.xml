@@ -11,7 +11,7 @@
     </select>
 
     <select id="selectReserv" resultType="ReservDto" parameterType="String">
-        SELECT * FROM reservation WHERE user_id=#{user_id} order by resevation_id desc
+        SELECT * FROM rlist WHERE user_id=#{user_id} order by resevation_id desc
     </select>
 
 

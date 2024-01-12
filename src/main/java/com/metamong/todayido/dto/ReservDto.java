@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 @Setter
 
 public class ReservDto {
+        private String Store_name;
         private String user_id;
         private int resevation_id;
         private int Store_num;

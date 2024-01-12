@@ -57,8 +57,8 @@ public class UserController {
         return view;
     }
     @GetMapping("myPage")
-    public ModelAndView reservList(HttpSession session) {
-        log.info("reservList()");
+    public ModelAndView myPage(HttpSession session) {
+        log.info("myPage()");
         ModelAndView mv = mServ.getReservList(session);
         return mv;
     }
