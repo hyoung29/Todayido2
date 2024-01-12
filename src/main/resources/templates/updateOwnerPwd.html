@@ -16,7 +16,6 @@
         <form method="post" class="login-form" th:action="@{ownerPassUpdate}">
             <h2 class="login-header">사업주 비밀번호 재설정</h2>
             <input type="hidden" name="business_num" th:value="${business_num}">
-            <input autofocus class="login-input" name="business_num" placeholder="사업자번호" required type="text">
             <input class="login-input" name="owner_pwd" placeholder="새로운 비밀번호" required type="password">
             <input class="login-input" name="check_password" placeholder="비밀번호 확인" required type="password">
             <input class="login-btn" id="id-find" type="submit" value="재설정">

@@ -51,6 +51,7 @@ public class MailController {
         String authCode = mServ.sendEmail((String) mail.get("email"));
         rMap.put("authCode", authCode);
         rMap.put("user_id", (String) mail.get("user_id"));
+        rMap.put("business_num", (String) mail.get("business_num"));
         return rMap;
     }
 }
