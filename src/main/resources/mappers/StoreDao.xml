@@ -3,28 +3,64 @@
 <mapper namespace="com.metamong.todayido.dao.StoreDao">
     <insert id="insertStore" parameterType="StoreDto">
         INSERT INTO store
-        VALUES(#{store_name}, #{store_telephone}, #{store_adress}, #{store_category_id}, #{average_rating}, #{store_description},
-               #{open_time}, #{closed_day}, #{owner_name}, #{business_num}, current_timestamp, null, #{position_x}, #{position_y})
+        VALUES (null,#{store_num},#{store_name}, #{store_telephone}, #{store_adress},
+                #{store_category_id}, #{average_rating},
+                #{store_description}, #{open_time}, #{closed_day},
+                #{owner_name}, #{business_num}, default, null,
+                #{position_x}, #{position_y})
     </insert>
 
-    <update id="updateStore">
-        <!-- 필요한 내용 추가 -->
+    <update id="updateStore" parameterType="StoreDto">
+        UPDATE store
+        SET store_num = #{store_num},
+            store_telephone = #{storeTelephone},
+            store_adress = #{storeAdress},
+            store_category_id = #{storeCategoryId},
+            average_rating = #{averageRating},
+            store_description = #{storeDescription},
+            open_time = #{openTime},
+            closed_day = #{closedDay},
+            owner_name = #{ownerName},
+            business_num = #{businessNum},
+            position_x = #{positionX},
+            position_y = #{positionY}
+        WHERE store_num = #{store_num}
     </update>
 
-    <delete id="deleteStore">
-        <!-- 필요한 내용 추가 -->
+    <delete id="deleteStore" parameterType="int">
+        DELETE
+        FROM store
+        WHERE store_num = #{num}
     </delete>
 
-    <select id="findByStore_num" resultType="StoreDto" parameterType="int">
-        SELECT * FROM Store WHERE store_num=#{store_num}
+    <select id="findById" resultType="StoreDto" parameterType="int">
+        SELECT *
+        FROM store
+        WHERE store_num = #{storeNum}
     </select>
 
     <select id="findAll" resultType="StoreDto">
-        SELECT store_num, store_name, store_telephone, store_adress, store_category_id, average_rating, store_description,
-               open_time, closed_day, owner_name, business_num, created_at, updated_at, position_x, position_y FROM Store
+        SELECT store_num,
+               store_name,
+               store_telephone,
+               store_adress,
+               store_category_id,
+               average_rating,
+               store_description,
+               open_time,
+               closed_day,
+               owner_name,
+               business_num,
+               created_at,
+               updated_at,
+               position_x,
+               position_y
+        FROM store
     </select>
 
     <select id="selectStore" resultType="StoreDto" parameterType="Integer">
-        SELECT * FROM Store WHERE store_num=#{store_num}
+        SELECT *
+        FROM store
+        WHERE store_num = #{store_num}
     </select>
 </mapper>
