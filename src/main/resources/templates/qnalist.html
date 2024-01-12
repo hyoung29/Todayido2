@@ -61,6 +61,17 @@
                             <div class="t-name p-15" th:text="${bitem.user_id}"></div>
                             <div class="t-date p-30" th:text="${bitem.create_at}"></div>
                         </div>
+                        <th:block th:if="${bitem.qna_reply != null}">
+                            <div class="d-in-row">
+                                <div class="t-no p-10">답변</div>
+                                <div class="t-title p-30">
+                                    <a th:href="@{aqnaEdit(qna_num=${bitem.qna_num})}"
+                                       th:text="${bitem.qna_reply}"></a>
+                                </div>
+                                <div class="t-name p-15" th:text="${bitem.user_id}"></div>
+                                <div class="t-date p-30" th:text="${bitem.create_at}"></div>
+                            </div>
+                        </th:block>
                     </th:block>
                 </th:block>
                 <div>

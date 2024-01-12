@@ -1,32 +1,25 @@
 package com.metamong.todayido.service;
 import com.metamong.todayido.dao.AdminDao;
-import com.metamong.todayido.dao.DetailDao;
 import com.metamong.todayido.dto.AdminDto;
-import com.metamong.todayido.dto.ReviewDto;
 import com.metamong.todayido.dto.BoardDto;
 import com.metamong.todayido.dto.SearchDto;
 import com.metamong.todayido.util.PagingUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import static net.sf.jsqlparser.util.validation.metadata.NamedObject.view;
 
 import java.util.List;
 
 @Service
 @Slf4j
 public class AdminService {
-    private final int lcnt = 5;
+    private final int lcnt = 4;
 
     @Autowired
     private AdminDao aDao;
@@ -71,14 +64,13 @@ public class AdminService {
         return "redirect:/";
     }
 
-    public ModelAndView getAqnaList(SearchDto sdto, HttpSession session) {
+    public ModelAndView getAqnaList(SearchDto sdto, HttpSession session, AdminDto admin_auth) {
         log.info("getAqnaList()");
         ModelAndView mv = new ModelAndView();
         //DB에서 게시글 가져오기
 
-//        AdminDto admin = aDao.selectAdmin(sdto);
-//        mv.addObject("admin", admin);
-
+        String admin = String.valueOf(admin(admin_auth));
+        mv.addObject("admin", admin);
         int num = sdto.getPageNum();
         if (sdto.getListCnt() == 0) {
             sdto.setListCnt(lcnt);
@@ -105,12 +97,17 @@ public class AdminService {
         return mv;
     }
 
+    private AdminDto admin(AdminDto admin_auth){
+        AdminDto admin = aDao.selectAdmin(admin_auth);
+        return admin;
+    }
+
     private String getPaging(SearchDto sdto) {
         String pageHtml = null;
         //전체 글개수 구하기(from DB)
         int maxNum = aDao.selectaqnaCnt(sdto);
         //페이지에 보여질 번호 개수
-        int pageCnt = 10;
+        int pageCnt = 4;
         //링크용 uri : 기본 - "boardList?
         // 검색 - "boardList?colname=b_title&keyword=4&
         String listName = "aqnalist?";
@@ -163,5 +160,27 @@ public class AdminService {
         return "ok";
     }
 
+
+    public String boardDelete(int qna_num, HttpSession session, RedirectAttributes rttr) {
+        log.info("boardDelete");
+        TransactionStatus status = manager.getTransaction(definition);
+        String view = null;
+        String msg = null;
+
+        try {
+            aDao.deleteBoard(qna_num);
+
+            manager.commit(status);
+            view = "redirect:aqnalist?pageNum=1";//첫번째 페이지로 넘어감
+            msg = "삭제되었습니다.";
+        }catch (Exception e){
+            e.printStackTrace();
+            manager.rollback(status);
+            view = "redirect:aqnaEdit?qna_num=" + qna_num;
+            msg = "삭제 실패";
+        }
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
 }
 

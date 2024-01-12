@@ -1,6 +1,5 @@
 package com.metamong.todayido.controller;
 import com.metamong.todayido.dto.AdminDto;
-import com.metamong.todayido.dto.ReviewDto;
 import com.metamong.todayido.dto.BoardDto;
 import com.metamong.todayido.dto.SearchDto;
 import com.metamong.todayido.service.AdminService;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @Slf4j
@@ -48,10 +45,10 @@ public class AdminController {
         return result;
     }
 
-    @GetMapping("agnalist")
-    public ModelAndView aqnalist(SearchDto sdto, HttpSession session){
+    @GetMapping("aqnalist")
+    public ModelAndView aqnalist(SearchDto sdto, HttpSession session, AdminDto admin_auth){
         log.info("aqnalist");
-        ModelAndView mv = aServ.getAqnaList(sdto, session);
+        ModelAndView mv = aServ.getAqnaList(sdto, session, admin_auth);
         return mv;
     }
 
@@ -66,6 +63,13 @@ public class AdminController {
     public String updateProc(BoardDto board, HttpSession session, RedirectAttributes rttr){
         log.info("updateProc");
         String view = aServ.updateReply(board, session, rttr);
+        return view;
+    }
+
+    @GetMapping("boardDelete")
+    public String boardDelete(int qna_num, HttpSession session, RedirectAttributes rttr){
+        log.info("boardDelete()");
+        String view = aServ.boardDelete(qna_num, session, rttr);
         return view;
     }
 }

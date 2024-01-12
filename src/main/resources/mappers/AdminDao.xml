@@ -29,7 +29,7 @@
     <select id="selectAqna" resultType="BoardDto" parameterType="Integer">
         SELECT * FROM qna WHERE qna_num=#{qna_num}
     </select>
-    <select id="selectAdmin" resultType="AdminDto" parameterType="SearchDto">
+    <select id="selectAdmin" resultType="AdminDto" parameterType="Integer">
         SELECT * FROM admin WHERE admin_auth=#{admin_auth}
     </select>
 
@@ -38,6 +38,9 @@
         DELETE
         FROM review
         WHERE review_num = #{review_num}
+    </delete>
+    <delete id="deleteBoard" parameterType="Integer">
+        DELETE FROM qna WHERE qna_num=#{qna_num}
     </delete>
 
 </mapper>
