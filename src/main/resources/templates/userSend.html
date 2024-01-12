@@ -14,8 +14,9 @@
 <section>
     <div class="login-form">
         <h2 class="login-header">비밀번호찾기</h2>
+        <input type="user_id" id="id" name="user_id" placeholder="아이디" class="login-input">
         <input type="email" id="mail" name="email" placeholder="메일주소" class="login-input">
-        <button id="sendbtn" class="login-btn">전송</button>
+        <button id="sendbtn" class="login-btn">인증코드전송</button>
         <br>
         <input type="text" id="auth_in" placeholder="인증코드" class="login-input">
         <button id="auth" class="login-btn">인증확인</button>
@@ -27,8 +28,10 @@
 </body>
 <script th:inline="javascript">
     let code = ``;
+    let user_id = "";
     $("#sendbtn").click(function () {
         let maddr = $("#mail").val();
+        let id = $("#id").val();
         if (maddr == "") {
             alert("메일 주소를 입력하세요.");
             return;
@@ -36,7 +39,7 @@
             alert("메일주소로 인증코드를 발송했습니다");
         }
 
-        mObj = {"email": maddr, "test": 1};
+        mObj = {"email": maddr, "user_id": id};
 
         $.ajax({
             url: "mailConfirm",
@@ -45,7 +48,8 @@
             contentType: "application/json",
             success: function (res) {
                 console.log(res);
-                code = res;
+                code = res.authCode;
+                user_id = res.user_id;
             },
             error: function (err) {
                 console.log(err);
@@ -57,7 +61,7 @@
         let ucode = $("#auth_in").val();
         if (ucode == code) {
             alert("인증완료");//비밀번호 재설정 화면으로 이동(location.href 사용)
-            location.href = "updateUserPwd";
+            location.href = `updateUserPwd?user_id=${user_id}`;
         }
     })
 </script>

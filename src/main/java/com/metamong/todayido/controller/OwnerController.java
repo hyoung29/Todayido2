@@ -90,6 +90,12 @@ public class OwnerController {
         log.info("ownerModify()");
         return "ownerModify";
     }
+    @PostMapping("ownerPassUpdate")
+    public String ownerPassUpdate(OwnerDto owner){
+        log.info("ownerPassUpdate()");
+        String view = oServ.ownerPassUpdate(owner);
+        return view;
+    }
 
     @PostMapping("pModifyl")
     public String updatePDetail(@RequestParam("file") MultipartFile file,
@@ -108,6 +114,5 @@ public class OwnerController {
 
         return "redirect:/";
     }
-
 }
 

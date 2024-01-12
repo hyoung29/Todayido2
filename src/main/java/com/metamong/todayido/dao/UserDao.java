@@ -19,4 +19,7 @@ public interface UserDao {
 
     //회원 아이디 가져오는 메소드
     String selectUserId(UserDto user);
+
+    //회원 비밀번호 재설정
+    void updateUserPwd(UserDto user);
 }

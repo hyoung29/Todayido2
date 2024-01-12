@@ -13,96 +13,20 @@
 </header>
 <section>
     <div class="content">
-        <div method="post" class="login-form">
+        <form method="post" class="login-form" th:action="@{ownerPassUpdate}">
             <h2 class="login-header">사업주 비밀번호 재설정</h2>
-            <input autofocus class="login-input" name="business_num" placeholder="사업자번호" required type="text">
+            <input type="hidden" name="business_num" th:value="${business_num}">
             <input class="login-input" name="owner_pwd" placeholder="새로운 비밀번호" required type="password">
             <input class="login-input" name="check_password" placeholder="비밀번호 확인" required type="password">
             <input class="login-btn" id="id-find" type="submit" value="재설정">
             <div class="find"><a th:href="@{ownerLogin}">사업주 로그인</a></div>
             <div class="join"><a th:href="@{ownerJoin}">사업주 회원가입</a></div>
             <div style="height: 30px"></div>
-        </div>
+        </form>
     </div>
 </section>
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
 </body>
-<script>
-    /* 아이디 찾기 */
-    //아이디 & 스토어 값 저장하기 위한 변수
-    // 아이디 값 받고 출력하는 ajax
-    function findId_click() {
-        var name = $('#name').val()
-        var phone = $('#phone').val()
-
-        $.ajax({
-            url: "./find_id",
-            type: "POST",
-            data: {"name": name, "phone": phone},
-            success: function (data) {
-                if (data == 0) {
-                    $('#id_value').text("회원 정보를 확인해주세요!");
-                    $('#name').val('');
-                    $('#phone').val('');
-                } else {
-                    $('#id_value').text(data);
-                    $('#name').val('');
-                    $('#phone').val('');
-
-                }
-            },
-            error: function () {
-                alert("에러입니다");
-            }
-        })
-    }
-
-    const modal = document.getElementById("modal")
-    const btnModal = document.getElementById("find_id")
-
-    btnModal.addEventListener("click", e => {
-        modal.style.display = "flex"
-    })
-
-
-    const closeBtn = modal.querySelector(".close-area")
-    closeBtn.addEventListener("click", e => {
-        modal.style.display = "none"
-    })
-
-    modal.addEventListener("click", e => {
-        const evTarget = e.target
-        if (evTarget.classList.contains("modal-overlay")) {
-            modal.style.display = "none"
-        }
-    })
-
-    function addHypen(obj) {
-        var number = obj.value.replace(/[^0-9]/g, "");
-        var phone = "";
-
-        if (number.length < 4) {
-            return number;
-        } else if (number.length < 7) {
-            phone += number.substr(0, 3);
-            phone += "-";
-            phone += number.substr(3);
-        } else if (number.length < 11) {
-            phone += number.substr(0, 3);
-            phone += "-";
-            phone += number.substr(3, 3);
-            phone += "-";
-            phone += number.substr(6);
-        } else {
-            phone += number.substr(0, 3);
-            phone += "-";
-            phone += number.substr(3, 4);
-            phone += "-";
-            phone += number.substr(7);
-        }
-        obj.value = phone;
-    }
-</script>
 </html>

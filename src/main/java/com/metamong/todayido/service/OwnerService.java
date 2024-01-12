@@ -42,7 +42,7 @@ public class OwnerService {
     @Autowired
     private TransactionDefinition definition;
 
-    public String ownerJoin(OwnerDto owner, RedirectAttributes rttr){
+    public String ownerJoin(OwnerDto owner, RedirectAttributes rttr) {
         log.info("OwnerJoin()");
         String view = null;
         String msg = null;
@@ -54,22 +54,23 @@ public class OwnerService {
             oDao.insertOwner(owner);
             msg = "가입 성공";
             view = "redirect:ownerLogin";
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
-    public String ownerloginProc(OwnerDto owner, HttpSession session, RedirectAttributes rttr){
+
+    public String ownerloginProc(OwnerDto owner, HttpSession session, RedirectAttributes rttr) {
         log.info("ownerloginProc()");
         String view = null;
         String msg = null;
 
         String rPwd = owner.getOwner_pwd();
         String encPwd = oDao.selectPassword(owner.getBusiness_num());
-        if(encPwd != null){
+        if (encPwd != null) {
 
-            if(pEncoder.matches(rPwd, encPwd)){
+            if (pEncoder.matches(rPwd, encPwd)) {
                 owner = oDao.selectOwner(owner.getBusiness_num());
                 session.setAttribute("owner", owner);
                 view = "redirect:pindex";
@@ -123,6 +124,7 @@ public class OwnerService {
         return view;
     }
 
+
     private void fileUpload(List<MultipartFile> files, HttpSession session, int bNum) throws Exception {
         //이 메소드의 예외처리(파일 저장 실패, 파일 정보 저장 실패)를 호출한 메소드에서 처리하도록 throws를 사용
         log.info("fileUpload()");
@@ -160,12 +162,29 @@ public class OwnerService {
     }
 
     // OwnerDao 가져오기
-    public ModelAndView getOwner(int business_num){
+    public ModelAndView getOwner(int business_num) {
         log.info("ownerSelect()");
         ModelAndView mv = new ModelAndView();
         OwnerDto owner = oDao.ownerSelect(business_num);
         mv.addObject("owner", owner);
         return mv;
+    }
+
+    public String ownerPassUpdate(OwnerDto owner) {
+        log.info("ownerPassUpdate()");
+        String view = null;
+
+        String encPwd = pEncoder.encode(owner.getOwner_pwd());
+        owner.setOwner_pwd(encPwd);
+        try {
+            oDao.updateOwnerPwd(owner);
+            view = "ownerLogin";
+        } catch (Exception e) {
+            e.printStackTrace();
+            view = "updateOwnerPwd";
+        }
+
+        return view;
     }
 
     public String updatepModify(MultipartFile file, OwnerDto pdetail, HttpSession session, RedirectAttributes rttr) {
@@ -194,4 +213,3 @@ public class OwnerService {
         }
     }
 }
-

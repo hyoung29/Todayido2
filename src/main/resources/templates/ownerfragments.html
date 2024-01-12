@@ -20,7 +20,7 @@
                     <li><a th:href="@{ownerJoin}">사업주회원가입</a></li>
                 </th:block>
                 <th:block th:unless="${owner == null}">
-                    <li th:text="${owner.owner_name}+'님'"></li>
+                    <li th:text="${owner.owner_name}+'사장님'"></li>
                     <li><a th:href="@{logout}">로그아웃</a></li>
                 </th:block>
                 <input class="burger-check" id="burger-check" type="checkbox" />

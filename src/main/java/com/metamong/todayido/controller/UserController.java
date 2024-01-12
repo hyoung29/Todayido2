@@ -68,4 +68,10 @@ public class UserController {
         return "findUserId";
     }
 
+    @PostMapping("userPassUpdate")
+    public String userPassUpdate(UserDto user){
+        log.info("userPassUpdate()");
+        String view = uServ.userPassUpdate(user);
+        return view;
+    }
 }
