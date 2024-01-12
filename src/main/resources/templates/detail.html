@@ -24,7 +24,7 @@
     <!--  리뷰 등록  -->
     <th:block th:if="${session.user != null}">
         <div class="modalbg">
-            <div class="modal">
+            <div class="r_modal">
                 <form id="rform">
                     <input type="hidden" name="user_id" id="user_id" th:value="${session.user.user_id}">
                     <input type="hidden" name="store_num" id="store_num" th:value="${store.store_num}">
