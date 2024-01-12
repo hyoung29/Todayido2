@@ -27,7 +27,6 @@ public class DetailService {
     TransactionDefinition definition;
 
 
-    private int lcnt = 5;
 
     public ModelAndView getReview(int store_num){
         log.info("getReview()");

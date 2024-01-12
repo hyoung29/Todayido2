@@ -17,4 +17,6 @@ public interface StoreDao {
     void deleteStore(Long id);
     // 가게 정보 가져오기
     StoreDto selectStore(int storeNum);
+
+    void insertStore(StoreDto store);
 }

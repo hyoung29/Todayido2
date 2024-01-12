@@ -5,69 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/jquery-3.7.1.min.js"></script>
     <link href="css/style.css" rel="stylesheet">
+
     <title>가게 정보 수정</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            text-align: center;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input {
-            width: 250px;
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-        }
-        .error-message {
-            color: red;
-            margin-top: 5px;
-        }
-        #confirmationMessage {
-            display: none;
-            color: green;
-            margin-top: 10px;
-        }
-    </style>
 </head>
 
 <body>
 <header>
     <th:block th:insert="~{ownerfragments::header(${session.owner})}"/>
 </header>
+<section>
+    <div class="login-form">
+        <h2>가게 정보 수정</h2>
+        <form id="pdetail">
+            <div class="st-rg">
+                <label for="storeName">가게 이름 :</label>
+                <input type="text" id="storeName" name="store_name" required>
+            </div>
+            <div class="st-rg">
+                <label for="storeAddress">주&nbsp;&nbsp;&nbsp;소 :</label>
+                <input type="text" id="storeAddress" name="store_adress" required>
+            </div>
 
-<h2>가게 정보 수정</h2>
+            <div class="st-rg">
+                <label for="phoneNumber">전화번호 :</label>
+                <input type="tel" id="phoneNumber" name="store_telephone" required>
+            </div>
+            <div class="st-not">
+                <label for="storeCategoryId">가게카테고리 :</label>
+                <input type="text" id="storeCategoryId" name="store_category_id" required>
+            </div>
 
-<div class="modyfy">
-    <form id="pdetail">
-        <label for="storeName">가게 이름:</label>
-        <input type="text" id="storeName" name="name" required>
+            <div class="st-not">
+                <label for="averageRating">별점 :</label>
+                <input type="number" id="averageRating" name="average_rating" required>
+            </div>
 
-        <label for="storeAddress">주소:</label>
-        <input type="text" id="storeAddress" name="address" required>
+            <div class="st-rg">
+                <label for="storeDescription">메뉴 :</label>
+                <input type="text" id="storeDescription" name="store_description" required>
+            </div>
 
-        <label for="storePhone">전화번호:</label>
-        <input type="text" id="storePhone" name="phone" required> <br>
+            <div class="st-rg">
+                <label for="openTime">오픈시간 :</label>
+                <input type="text" id="openTime" name="open_time" required>
+            </div>
 
-        <div class="error-message" id="errorMessage"></div>
+            <div class="st-rg">
+                <label for="closedDay">휴무일 :</label>
+                <input type="text" id="closedDay" name="closed_day" required>
+            </div>
 
-        <button type="button" onclick="showConfirmation()">수정하기</button>
-        <div id="confirmationMessage">수정을 완료하시겠습니까?
-            <button onclick="confirmModification()">확인</button>
-            <button onclick="cancelModification()">취소</button>
-        </div>
-    </form>
-</div>
+            <input type="hidden" id="positionX" name="position_x">
+            <input type="hidden" id="positionY" name="position_Y">
 
+
+            <div class="file-pd">
+                <label for="file"></label>
+                <input type="file" name="files" id="file" multiple>
+            </div>
+            <div class="error-message" id="errorMessage"></div>
+            <div class="mody-btn">
+                <button type="button" onclick="showConfirmation()" class="login-btn">수정하기</button>
+            </div>
+            <div id="confirmationMessage">수정을 완료하시겠습니까?
+                <button onclick="confirmModification()">확인</button>
+                <button onclick="cancelModification()">취소</button>
+            </div>
+        </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
 <script>
     function showConfirmation() {
         var name = document.getElementById("storeName").value;
@@ -96,9 +106,4 @@
         document.getElementById("confirmationMessage").style.display = "none";
     }
 </script>
-</body>
-
-<footer>
-    <th:block th:insert="~{fragments::footer}"/>
-</footer>
 </html>
