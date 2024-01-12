@@ -53,6 +53,9 @@
                 <div th:text="'답글 : '+${board.qna_reply}"></div>
             </div>
         </th:block>
+        <div>
+            <button class="rqna" id="delQbtn">삭제</button>
+        </div>
     </div>
 </section>
 
@@ -62,6 +65,12 @@
 
 </body>
 <script th:inline="javascript">
-
+    $("#delQbtn").click(function (){
+        let con = confirm("게시글을 삭제합니다.");
+        if (con == true){
+            let qnanum = [[${board.qna_num}]];
+            location.href = `/boardDelete?qna_num=${qnanum}`;
+        }
+    });
 </script>
 </html>

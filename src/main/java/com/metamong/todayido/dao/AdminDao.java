@@ -21,9 +21,11 @@ public interface AdminDao {
 
     BoardDto selectAqna(int qnaNum);
 
-    AdminDto selectAdmin(SearchDto sdto);
+    AdminDto selectAdmin(AdminDto admin);
 
     void updatereply(BoardDto board);
+
+    void deleteBoard(int qnaNum);
 }
 
 

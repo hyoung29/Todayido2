@@ -38,13 +38,6 @@
                       placeholder="내용을 적어주세요." value="내용:"
                       class="write-input ta" th:text="${board.qna_contents}"></textarea>
 
-            <!--파일 업로드부분-->
-            <div class="filebox">
-                <label for="file">Edit</label>
-                <input type="file" name="files" id="file" multiple>
-                <input type="text" class="upload-name" value="파일선택" readonly>
-            </div>
-
             <!--글쓰기 업로드 뒤로가기 수정 버튼-->
             <div class="btn-area"> <!-- 업로드 수정 닫기 업로드 버튼-->
                 <input type="submit" class="btn-writeedit" value="Edit">
@@ -52,6 +45,12 @@
                 <input type="button" class="btn-writeback" value="out" id="backbtn">
             </div>
 
+            <!--        답글 출력       -->
+            <th:block th:if="${board.qna_reply != null}">
+                <div class="qrep">
+                    <div th:text="'답글 : '+${board.qna_reply}"></div>
+                </div>
+            </th:block>
         </form>
     </div>
 </section>
@@ -67,26 +66,6 @@
 </body>
 
 <script th:inline="javascript">
-
-    //파일명 처리용 함수
-    $("#file").on("change", function () {
-        //파일 선택창에서 업로드할 파일을 선택한 다음
-        //'열기' 버튼을 누르면 change 이벤트가 발생.
-        //console.log($("#file"));
-        let files = $("#file")[0].files;
-        console.log(files);
-
-        let fileName = "";//출력할 문장 저장 변수
-
-        if (files.length > 1) {
-            fileName = `${files[0].name} 외 ${files.length - 1}개`;
-        } else if (files.length == 1) {
-            fileName = files[0].name;
-        } else {
-            fileName = "파일선택";
-        }
-        $(".upload-name").val(fileName);
-    });
     $("#backbtn").click(function () {
         let url = "/qnalist?";
 

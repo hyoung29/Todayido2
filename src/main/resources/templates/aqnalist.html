@@ -68,7 +68,7 @@
                                     <a th:href="@{aqnaEdit(qna_num=${bitem.qna_num})}"
                                        th:text="${bitem.qna_reply}"></a>
                                 </div>
-                                <div class="t-name p-15" th:text="${bitem.user_id}"></div>
+                                <div class="t-name p-15" th:text="${session.admin.admin_id}"></div>
                                 <div class="t-date p-30" th:text="${bitem.create_at}"></div>
                             </div>
                         </th:block>

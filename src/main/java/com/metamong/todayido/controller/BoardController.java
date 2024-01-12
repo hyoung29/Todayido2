@@ -16,10 +16,6 @@ import java.util.List;
 
 @Controller
 @Slf4j
-@ResponseBody
-
-
-
 //메인페이지에서 문의사항클릭하면 문의사항 리스트 페이지로 이동
 public class BoardController {
 
@@ -35,9 +31,9 @@ public class BoardController {
 
     //글쓰기 프로세스 완료되면 list페이지로 이동
     @PostMapping("WriteProc")
-    public String writeProc(@RequestPart List<MultipartFile> files, BoardDto board, HttpSession session, RedirectAttributes rttr) {
+    public String writeProc(BoardDto board, RedirectAttributes rttr) {
         log.info("writeProc()");
-        String view = bServ.boardWrite(files, board, session, rttr);
+        String view = bServ.boardWrite(board, rttr);
         return view;
     }
 
@@ -70,9 +66,9 @@ public class BoardController {
 
     //글 수정 프로세스
     @PostMapping("updateProc")
-    public String updateBoard(@RequestPart List<MultipartFile> files, BoardDto board, HttpSession session, RedirectAttributes rttr) {
+    public String updateBoard(BoardDto board,RedirectAttributes rttr) {
         log.info("UpdateProc()");
-        String view = bServ.updateBoard(files, board, session, rttr);
+        String view = bServ.updateBoard(board, rttr);
         return view;
     }
 

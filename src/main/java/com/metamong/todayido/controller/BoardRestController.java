@@ -25,13 +25,9 @@ public class BoardRestController {
     private UserService mServ;
 
     @Autowired
-    private BoardService bServ;
-
-    @Autowired
     private DetailService dServ;
 
-    @Autowired
-    private AdminService aServ;
+    ;
 
     @GetMapping("idCheck")
     public String idCheck(String user_id){
@@ -39,12 +35,7 @@ public class BoardRestController {
         String result = mServ.idCheck(user_id);
         return result;
     }
-    @PostMapping("delFile")
-    public List<BoardFileDto> delFile(BoardFileDto bFile, HttpSession session){
-        log.info("delFile()");
-        List<BoardFileDto> fList = bServ.delFile(bFile, session);
-        return fList;
-    }
+
     @PostMapping("reviewInsert")
     public ReviewDto reviewInsert(@RequestParam("files")MultipartFile files, ReviewDto review, HttpSession session){
         log.info("reviewInsert");
