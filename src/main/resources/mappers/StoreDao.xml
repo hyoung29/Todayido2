@@ -6,8 +6,7 @@
         VALUES (null,#{store_num},#{store_name}, #{store_telephone}, #{store_adress},
                 #{store_category_id}, #{average_rating},
                 #{store_description}, #{open_time}, #{closed_day},
-                #{owner_name}, #{business_num}, default, null,
-                #{position_x}, #{position_y})
+                #{owner_name}, #{business_num}, default, null)
     </insert>
 
     <update id="updateStore" parameterType="StoreDto">
@@ -22,8 +21,6 @@
             closed_day = #{closedDay},
             owner_name = #{ownerName},
             business_num = #{businessNum},
-            position_x = #{positionX},
-            position_y = #{positionY}
         WHERE store_num = #{store_num}
     </update>
 
@@ -53,11 +50,8 @@
                business_num,
                created_at,
                updated_at,
-               position_x,
-               position_y
         FROM store
     </select>
-
     <select id="selectStore" resultType="StoreDto" parameterType="Integer">
         SELECT *
         FROM store

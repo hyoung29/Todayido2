@@ -70,15 +70,6 @@ public class OwnerController {
         return "pdetail";
     }
 
-    @PostMapping("pProc")
-    public String pProc(@RequestParam("file") List<MultipartFile> file,
-                        StoreDto pdetail, HttpSession session,
-                        RedirectAttributes rttr) {
-        log.info("pProc()");
-        String view = oServ.pdetail(file, pdetail, session, rttr);
-        return view;
-    }
-
     @GetMapping("pModify")
     public String pModify(){
         log.info("pModify()");
@@ -90,6 +81,7 @@ public class OwnerController {
         log.info("ownerModify()");
         return "ownerModify";
     }
+
     @PostMapping("ownerPassUpdate")
     public String ownerPassUpdate(OwnerDto owner){
         log.info("ownerPassUpdate()");

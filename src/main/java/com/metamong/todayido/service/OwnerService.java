@@ -94,7 +94,7 @@ public class OwnerService {
         return "redirect:/";
     }
 
-    public String pdetail(List<MultipartFile> file, StoreDto pdetail, HttpSession session, RedirectAttributes rttr) {
+    public String pdetail(List<MultipartFile> file, StoreDto store, HttpSession session, RedirectAttributes rttr) {
         log.info("pdetail");
         String view = null;
         String msg = null;
@@ -102,8 +102,8 @@ public class OwnerService {
         TransactionStatus status = manager.getTransaction(definition);
 
         try {
-            sDao.insertStore(pdetail);
-            fileUpload(file, session, pdetail.getStore_num());
+            sDao.insertStore(store);
+            fileUpload(file, session, store.getStore_num());
 
             manager.commit(status);//최종 승인
 
