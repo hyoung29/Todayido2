@@ -2,10 +2,7 @@ package com.metamong.todayido.service;
 
 import com.metamong.todayido.dao.OwnerDao;
 import com.metamong.todayido.dao.StoreDao;
-import com.metamong.todayido.dto.BoardFileDto;
-import com.metamong.todayido.dto.OwnerDto;
-import com.metamong.todayido.dto.ReviewDto;
-import com.metamong.todayido.dto.StoreDto;
+import com.metamong.todayido.dto.*;
 import jakarta.mail.Store;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -94,7 +91,7 @@ public class OwnerService {
         return "redirect:/";
     }
 
-    public String pdetail(List<MultipartFile> file, StoreDto pdetail, HttpSession session, RedirectAttributes rttr) {
+    public String pdetail(StoreDto store, RedirectAttributes rttr) {
         log.info("pdetail");
         String view = null;
         String msg = null;
@@ -102,8 +99,8 @@ public class OwnerService {
         TransactionStatus status = manager.getTransaction(definition);
 
         try {
-            sDao.insertStore(pdetail);
-            fileUpload(file, session, pdetail.getStore_num());
+            sDao.insertStore(store);
+//            fileUpload(file, session, pdetail.getStore_num());
 
             manager.commit(status);//최종 승인
 
@@ -124,42 +121,6 @@ public class OwnerService {
         return view;
     }
 
-
-    private void fileUpload(List<MultipartFile> files, HttpSession session, int bNum) throws Exception {
-        //이 메소드의 예외처리(파일 저장 실패, 파일 정보 저장 실패)를 호출한 메소드에서 처리하도록 throws를 사용
-        log.info("fileUpload()");
-        //파일 저장(폴더)
-        //파일 저장 위치 처리 : 세션에서 위치(경로) 정보를 구함
-        String realPath = session.getServletContext().getRealPath("/");
-        log.info(realPath);
-        realPath += "upload/";//파일 업로드용 폴더
-        //업로드용 폴더가 없으면 자동으로 생성
-        File folder = new File(realPath);
-        if (!folder.isDirectory()) {
-            //isDirectory() - 폴더의 유무 확인 메소드
-            //폴더가 있으면 true, 없거나 폴더가 아니면 false
-            folder.mkdir();//Make Directory(폴더)
-        }
-        for (MultipartFile mf : files) {
-            //파일명(원래 이름) 추출
-            String oriname = mf.getOriginalFilename();
-            if (oriname.equals("")) {
-                return;//업로드할 파일 없음. 파일 저장 작업 종료
-            }
-            BoardFileDto bfd = new BoardFileDto();
-            bfd.setBf_bnum(bNum);//게시글 번호 저장
-            bfd.setBf_oriname(oriname);//원래 파일명 저장
-            String sysname = System.currentTimeMillis() + oriname.substring(oriname.lastIndexOf("."));
-            //파일명을 밀리초로 변환
-            bfd.setBf_sysname(sysname);
-            //파일 저장(upload폴더에)
-            File file = new File(realPath + sysname);
-            // 경로 : .../.../.../webapp/upload/ ~.jpg
-            mf.transferTo(file);//하드디스크에 저장
-            //파일 정보 저장(DB)
-            //sDao.insertFile(bfd);
-        }
-    }
 
     // OwnerDao 가져오기
     public ModelAndView getOwner(int business_num) {
@@ -211,5 +172,73 @@ public class OwnerService {
 
             return false;
         }
+    }
+
+    public String menuInsert(MultipartFile file, MenuDto menu, HttpSession session, RedirectAttributes rttr) {
+        log.info("menuInsert");
+        String view = null;
+        String msg = null;
+
+        TransactionStatus status = manager.getTransaction(definition);
+
+        try {
+            sDao.insertMenu(menu);
+            menuFileUpload(file, session, menu);
+
+            manager.commit(status);//최종 승인
+
+            view = "redirect:pindex";
+            msg = "작성 성공";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 업로드 실패 메시지를 반환
+//            return "File upload failed.";
+            manager.rollback(status);//취소
+            view = "redirect:pdetail";
+            msg = "작성 실패";
+        }
+
+        rttr.addFlashAttribute("msg", msg);
+
+        return view;
+    }
+
+    private void menuFileUpload(MultipartFile files, HttpSession session, MenuDto menu) throws Exception {
+        //이 메소드의 예외처리(파일 저장 실패, 파일 정보 저장 실패)를 호출한 메소드에서 처리하도록 throws를 사용
+        log.info("menuFileUpload()");
+        //파일 저장(폴더)
+        //파일 저장 위치 처리 : 세션에서 위치(경로) 정보를 구함
+        String realPath = session.getServletContext().getRealPath("/");
+        log.info(realPath);
+        realPath += "upload/";//파일 업로드용 폴더
+        //업로드용 폴더가 없으면 자동으로 생성
+        File folder = new File(realPath);
+        if (!folder.isDirectory()) {
+            //isDirectory() - 폴더의 유무 확인 메소드
+            //폴더가 있으면 true, 없거나 폴더가 아니면 false
+            folder.mkdir();//Make Directory(폴더)
+        }
+        String oriname = files.getOriginalFilename();
+        if (oriname.equals("")) {
+            return;//업로드할 파일 없음. 파일 저장 작업 종료
+        }
+
+        menu.setMn_oriname(oriname);//원래 파일명 저장
+        String sysname = System.currentTimeMillis() + oriname.substring(oriname.lastIndexOf("."));
+        //파일명을 밀리초로 변환
+        menu.setMn_sysname(sysname);
+        //파일 저장(upload폴더에)
+        File file = new File(realPath + sysname);
+        // 경로 : .../.../.../webapp/upload/ ~.jpg
+        files.transferTo(file);//하드디스크에 저장
+    }
+
+    public ModelAndView getStore(int store_num){
+        log.info("getStore()");
+        ModelAndView mv = new ModelAndView();
+        StoreDto store = oDao.store(store_num);
+        mv.addObject("store", store);
+        return mv;
     }
 }

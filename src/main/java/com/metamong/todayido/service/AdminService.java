@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 @Slf4j
 public class AdminService {
-    private final int lcnt = 4;
+    private final int lcnt = 3;
 
     @Autowired
     private AdminDao aDao;
@@ -67,10 +67,11 @@ public class AdminService {
     public ModelAndView getAqnaList(SearchDto sdto, HttpSession session, AdminDto admin_auth) {
         log.info("getAqnaList()");
         ModelAndView mv = new ModelAndView();
-        //DB에서 게시글 가져오기
 
         String admin = String.valueOf(admin(admin_auth));
         mv.addObject("admin", admin);
+
+        //DB에서 게시글 가져오기
         int num = sdto.getPageNum();
         if (sdto.getListCnt() == 0) {
             sdto.setListCnt(lcnt);
@@ -107,7 +108,7 @@ public class AdminService {
         //전체 글개수 구하기(from DB)
         int maxNum = aDao.selectaqnaCnt(sdto);
         //페이지에 보여질 번호 개수
-        int pageCnt = 4;
+        int pageCnt = 3;
         //링크용 uri : 기본 - "boardList?
         // 검색 - "boardList?colname=b_title&keyword=4&
         String listName = "aqnalist?";

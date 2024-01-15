@@ -3,10 +3,8 @@ package com.metamong.todayido.controller;
 import com.metamong.todayido.dto.BoardDto;
 import com.metamong.todayido.dto.BoardFileDto;
 import com.metamong.todayido.dto.ReviewDto;
-import com.metamong.todayido.service.AdminService;
-import com.metamong.todayido.service.BoardService;
-import com.metamong.todayido.service.DetailService;
-import com.metamong.todayido.service.UserService;
+import com.metamong.todayido.dto.StoreDto;
+import com.metamong.todayido.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -27,7 +26,9 @@ public class BoardRestController {
     @Autowired
     private DetailService dServ;
 
-    ;
+    @Autowired
+    private OwnerService oServ;
+
 
     @GetMapping("idCheck")
     public String idCheck(String user_id){
@@ -42,4 +43,5 @@ public class BoardRestController {
         review = dServ.ReviewInsert(files, review, session);
         return review;
     }
+
 }

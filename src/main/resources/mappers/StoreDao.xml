@@ -6,8 +6,14 @@
         VALUES (null,#{store_num},#{store_name}, #{store_telephone}, #{store_adress},
                 #{store_category_id}, #{average_rating},
                 #{store_description}, #{open_time}, #{closed_day},
-                #{owner_name}, #{business_num}, default, null,
-                #{position_x}, #{position_y})
+                #{owner_name}, #{business_num}, default, null)
+    </insert>
+    <insert id="insertMenu" parameterType="MenuDto" useGeneratedKeys="true" keyProperty="menu_num">
+        <selectKey keyProperty="menu_num" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO menu
+        VALUES (null, #{store_num}, #{menu_name}, #{menu_price}, #{menu_descripton}, default, null, #{mn_oriname}, #{mn_sysname})
     </insert>
 
     <update id="updateStore" parameterType="StoreDto">

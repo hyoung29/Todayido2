@@ -16,8 +16,8 @@
 
 <section>
 
-    <div class="content">
-        <form class="write-form"
+    <div class="wCon">
+        <form class="writeF"
               method="post" enctype="multipart/form-data">
             <div class="user-info">
                 <div class="user-info-sub" th:object="${session.user}"></div>
@@ -31,30 +31,30 @@
             <input type="hidden" name="user_id" th:value="${session.admin.admin_id}">
 
             <input type="hidden" name="qna_num" th:value="${board.qna_num}">
-            <div th:text="'제목 : '+${board.qna_title}" class="qtit"></div>
-            <div th:text="'내용 : '+${board.qna_contents}" class="qcon"></div>
+            <div th:text="'제목 : '+${board.qna_title}" class="wInputT"></div>
+            <div th:text="'내용 : '+${board.qna_contents}" class="wInputC"></div>
 
             <!--파일 업로드부분-->
         </form>
 
         <th:block th:if="${board.qna_reply == null}">
             <form th:action="@{replyProc}" method="post">
-                <h2>답글 쓰기</h2>
+                <h2 class="login-header">답글 쓰기</h2>
                 <!--            보내는 컬럼의 이름을 name의 이름이랑 똑같이 써야함 -->
                 <input type="hidden" name="qna_num" th:value="${board.qna_num}">
-                <textarea name="qna_reply" id="text" cols="80" rows="8" placeholder="내용"></textarea><br>
-                <input type="submit" class="rqna" id="rqna" value="답글쓰기">
+                <textarea class="wInputC rqn" name="qna_reply" id="text" cols="80" rows="8" placeholder="내용"></textarea><br>
+                <input type="submit" class="btnW" id="rqna" value="답글쓰기">
             </form>
         </th:block>
 
 <!--        답글 출력       -->
         <th:block th:if="${board.qna_reply != null}">
-            <div class="qrep">
+            <div class="qrep eee">
                 <div th:text="'답글 : '+${board.qna_reply}"></div>
             </div>
         </th:block>
         <div>
-            <button class="rqna" id="delQbtn">삭제</button>
+            <button class="qrep ddd" id="delQbtn">삭제</button>
         </div>
     </div>
 </section>

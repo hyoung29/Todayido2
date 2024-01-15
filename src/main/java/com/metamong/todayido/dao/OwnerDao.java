@@ -2,6 +2,7 @@ package com.metamong.todayido.dao;
 
 
 import com.metamong.todayido.dto.OwnerDto;
+import com.metamong.todayido.dto.StoreDto;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -20,4 +21,6 @@ public interface OwnerDao {
 
     //사업주 비밀번호 재설정
     void updateOwnerPwd(OwnerDto owner);
+
+    StoreDto store(int storeNum);
 }
