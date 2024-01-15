@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -67,7 +68,12 @@ public class UserController {
         log.info("findUserId()");
         return "findUserId";
     }
-
+    @PostMapping("findUserIdresult")
+    public String findUserIdresult(UserDto user, Model model){
+        log.info("findUserIdresult()");
+        String view = uServ.findUserId(user, model);
+        return view;
+    }
     @PostMapping("userPassUpdate")
     public String userPassUpdate(UserDto user){
         log.info("userPassUpdate()");

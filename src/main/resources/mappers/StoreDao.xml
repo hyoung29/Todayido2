@@ -3,7 +3,7 @@
 <mapper namespace="com.metamong.todayido.dao.StoreDao">
     <insert id="insertStore" parameterType="StoreDto">
         INSERT INTO store
-        VALUES (null,#{store_num},#{store_name}, #{store_telephone}, #{store_adress},
+        VALUES (null, #{store_num}, #{store_name}, #{store_telephone}, #{store_adress},
                 #{store_category_id}, #{average_rating},
                 #{store_description}, #{open_time}, #{closed_day},
                 #{owner_name}, #{business_num}, default, null,
@@ -12,18 +12,18 @@
 
     <update id="updateStore" parameterType="StoreDto">
         UPDATE store
-        SET store_num = #{store_num},
-            store_telephone = #{storeTelephone},
-            store_adress = #{storeAdress},
+        SET store_num         = #{store_num},
+            store_telephone   = #{storeTelephone},
+            store_adress      = #{storeAdress},
             store_category_id = #{storeCategoryId},
-            average_rating = #{averageRating},
+            average_rating    = #{averageRating},
             store_description = #{storeDescription},
-            open_time = #{openTime},
-            closed_day = #{closedDay},
-            owner_name = #{ownerName},
-            business_num = #{businessNum},
-            position_x = #{positionX},
-            position_y = #{positionY}
+            open_time         = #{openTime},
+            closed_day        = #{closedDay},
+            owner_name        = #{ownerName},
+            business_num      = #{businessNum},
+            position_x        = #{positionX},
+            position_y        = #{positionY}
         WHERE store_num = #{store_num}
     </update>
 
@@ -65,8 +65,17 @@
     </select>
 
     <select id="searchStore" resultType="storeDto">
-        SELECT store_name, store_telephone, store_adress, store_num, menu_name
-            AS representative_menu, menufile.mn_sysname AS menu_image FROM store LEFT JOIN menu ON store.store_num = menu.store_num
-            LEFT JOIN menufile ON menu.menu_num = menufile.menu_num WHERE store_name LIKE CONCAT('%', #{keyword}, '%') OR menu_name LIKE CONCAT('%', #{keyword}, '%')
+        SELECT store_name,
+               store_telephone,
+               store_adress,
+               store_num,
+               menu_name
+                                   AS representative_menu,
+               menufile.mn_sysname AS menu_image
+        FROM store
+                 LEFT JOIN menu ON store.store_num = menu.store_num
+                 LEFT JOIN menufile ON menu.menu_num = menufile.menu_num
+        WHERE store_name LIKE CONCAT('%', #{keyword}, '%')
+           OR menu_name LIKE CONCAT('%', #{keyword}, '%')
     </select>
 </mapper>

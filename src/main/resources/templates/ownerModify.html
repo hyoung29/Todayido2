@@ -13,21 +13,18 @@
 </header>
 <section>
     <form th:action="@{ownerPage}" method="post" class="login-form">
-        <div class="prof">
-            <h1>사업주님</h1>
-            <h3 class="my">내 가게</h3>
+        <h1>내 가게</h1>
+        <div>
+            <label for="storeName" class="modi-title">가게 이름</label>
+            <input type="text" name="store_name" class="modi-content">
         </div>
-        <div class="owner-info">
-            <label for="storeName" class="owner-title">가게 이름</label>
-            <input type="text" id="storeName" name="name" class="owner-content">
+        <div>
+            <label for="businessNum" class="modi-title">사업자번호</label>
+            <input type="text" name="business_num" class="modi-content">
         </div>
-        <div class="owner-info">
-            <label for="businessNum" class="owner-title">사업자번호</label>
-            <input type="text" id="businessNum" name="name" class="owner-content">
-        </div>
-        <div class="owner-info">
-            <label for="ownerName" class="owner-title">대표자</label>
-            <input type="text" id="ownerName" name="name" class="owner-content">
+        <div>
+            <label for="ownerName" class="modi-title">대표자</label>
+            <input type="text" name="owner_name" class="modi-content">
         </div>
         <div class="btn-area">
             <input type="submit" class="login-btn" value="수정">
@@ -42,25 +39,7 @@
 </body>
 <script>
     $("#backbtn").click(function () {
-        let url = "/qnalist?";
-
-        const searchDto = [[${session.sdto}]];
-        let colname = "";
-        let keyword = "";
-        if (searchDto != null) {
-            colname = searchDto.colname;
-            keyword = searchDto.keyword;
-        }
-
-        let page = [[${session.pageNum}]];
-
-        if (colname == null || colname == "") {//검색 안한 목록 이동 (첫페이지)
-            url += `pageNum=${page}`;
-        } else {//검색한 결과 목록으로 이동.(수정하던 페이지)
-            url += `colname=${colname}&keyword=${keyword}&pageNum=${page}`;
-        }
-        console.log(url);
-        location.href = url;
+        location.href = "/ownerPage?";
     });
 </script>
 </html>

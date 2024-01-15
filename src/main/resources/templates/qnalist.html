@@ -7,20 +7,15 @@
     <title>TodayIdo</title>
     <script src="js/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
-
 <header>
     <th:block th:insert="~{fragments::header(${session.user})}"/>
 </header>
-
 <!------------------------------ 헤더 ------------------------------>
-
 <section>
     <div class="qnalist-form">
         <h2 class="login-header">문의사항</h2>
-
         <div class="search-area">
             <div>
                 <select id="sel">
@@ -42,13 +37,11 @@
                 <div class="t-name p-15">작성자</div>
                 <div class="t-date p-30">작성일</div>
             </div>
-
             <div class="data-row">
                 <th:block th:if="${#lists.isEmpty(bList)}">
                     <div style="width:100%">
                         게시글이 없습니다.
                     </div>
-
                 </th:block>
                 <th:block th:unless="${#lists.isEmpty(bList)}">
                     <th:block th:each="bitem:${bList}">
@@ -84,16 +77,13 @@
         </div>
     </div>
 </section>
-
 <!--------------------------footer-------------------------------------->
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
 <!--------------------------footer-------------------------------------->
-
 </body>
 <script>
-
     // -------------------------serch 검색 (제목 or 작성자)--------------------
     $("#search").click(function () {
         //사용자가 입력한 검색 키워드를 가져온다.
@@ -108,7 +98,7 @@
     });
     // <-------------------------serch 검색 (제목 or 작성자)-------------------->
 
-   // <----------작성하기 버튼 누르면 글 작성 페이지로 이동---------------------->
+    // <----------작성하기 버튼 누르면 글 작성 페이지로 이동---------------------->
     $("#write").click(function () {
         location.href = "qnaWrite";
     });
