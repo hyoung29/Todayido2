@@ -57,9 +57,9 @@ public class UserController {
         return view;
     }
     @GetMapping("myPage")
-    public ModelAndView myPage(HttpSession session) {
+    public ModelAndView myPage(int pageNum, HttpSession session) {
         log.info("myPage()");
-        ModelAndView mv = mServ.getReservList(session);
+        ModelAndView mv = mServ.getReservList(pageNum, session);
         return mv;
     }
     @GetMapping("findUserId")

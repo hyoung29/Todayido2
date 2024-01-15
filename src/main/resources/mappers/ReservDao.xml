@@ -10,8 +10,9 @@
         SELECT * FROM store WHERE store_num=#{store_num}
     </select>
 
-    <select id="selectReserv" resultType="ReservDto" parameterType="String">
-        SELECT * FROM rlist WHERE user_id=#{user_id} order by resevation_id desc
+    <select id="selectReserv" resultType="ReservDto" parameterType="HashMap">
+        SELECT * FROM rList WHERE user_id=#{user_id}
+        LIMIT #{pageNum}, #{listCnt}
     </select>
 
 
