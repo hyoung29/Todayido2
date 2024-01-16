@@ -14,11 +14,11 @@
 <section>
     <div class="content">
         <form method="post" class="login-form" th:action="@{userPassUpdate}">
-            <h2 class="login-header">비밀번호 재설정</h2>
+            <h2 class="login-header">비밀번호 변경</h2>
             <input type="hidden" name="user_id" th:value="${user_id}">
             <input autofocus class="login-input" name="user_password" placeholder="새로운 비밀번호" required type="password">
             <input class="login-input" name="check_password" placeholder="비밀번호 확인" required type="password">
-            <input class="login-btn" id="id-find" type="submit" value="재설정">
+            <input class="login-btn" id="id-find" type="submit" value="변경">
             <div class="find"><a th:href="@{userLogin}">로그인</a></div>
             <div class="join"><a th:href="@{userJoin}">회원가입</a></div>
             <div style="height: 30px"></div>

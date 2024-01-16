@@ -14,11 +14,11 @@
 <section>
     <div class="content">
         <form method="post" class="login-form" th:action="@{ownerPassUpdate}">
-            <h2 class="login-header">사업주 비밀번호 재설정</h2>
+            <h2 class="login-header">사업주 비밀번호 변경</h2>
             <input type="hidden" name="business_num" th:value="${business_num}">
             <input class="login-input" name="owner_pwd" placeholder="새로운 비밀번호" required type="password">
             <input class="login-input" name="check_password" placeholder="비밀번호 확인" required type="password">
-            <input class="login-btn" id="id-find" type="submit" value="재설정">
+            <input class="login-btn" id="id-find" type="submit" value="변경">
             <div class="find"><a th:href="@{ownerLogin}">사업주 로그인</a></div>
             <div class="join"><a th:href="@{ownerJoin}">사업주 회원가입</a></div>
             <div style="height: 30px"></div>

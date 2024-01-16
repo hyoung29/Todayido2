@@ -2,6 +2,7 @@ package com.metamong.todayido.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 public class MailService {
     //의존성 주입을 통해서 필요한 객체를 가져온다.
     @Autowired
@@ -27,15 +29,15 @@ public class MailService {
         Random random = new Random();
         StringBuffer key = new StringBuffer();
 
-        for(int i=0;i<8;i++) {
+        for (int i = 0; i < 8; i++) {
             int index = random.nextInt(3);
 
             switch (index) {
-                case 0 :
-                    key.append((char) ((int)random.nextInt(26) + 97));
+                case 0:
+                    key.append((char) ((int) random.nextInt(26) + 97));
                     break;
                 case 1:
-                    key.append((char) ((int)random.nextInt(26) + 65));
+                    key.append((char) ((int) random.nextInt(26) + 65));
                     break;
                 case 2:
                     key.append(random.nextInt(9));

@@ -245,7 +245,6 @@ section {
 }
 
 .bx-wrapper {
-
     margin: 50px auto;
 }
 
@@ -557,13 +556,13 @@ section {
     width: 70%;
 }
 
-.owner-title {
+.modi-title {
     font-weight: bold;
     float: left;
     margin: 10px;
 }
 
-.owner-content {
+.modi-content {
     float: right;
     margin: 10px;
 }
@@ -761,7 +760,6 @@ section {
 font.pno {
     color: red;
     font-weight: bold;
-
 }
 
 .paging > a {
@@ -969,18 +967,10 @@ span.file-title {
 
 
 /*-----------------여기부터 은정---------------*/
-@media only screen and (max-width: 768px)
-
-.content {
-    max-width: 100%;
-}
 
 .board-form, .write-form {
     max-width: 360px;
     padding: 0px;
-}
-
-.title-row .t-date, .title-row .t-view, .data-row .t-date, .data-row .t-view {
 }
 
 .p-10 {
@@ -1065,7 +1055,7 @@ span.file-title {
     margin: 0 auto;
 }
 
-label.form-label {
+.form-label {
     text-align: center;
 }
 
@@ -1224,7 +1214,6 @@ label.form-label {
 }
 
 
-
 .st-rg label {
     display: inline-block;
     width: 100px;
@@ -1376,11 +1365,6 @@ label.form-label {
 .st-rg {
     display: block;
 }
-
-.st-rgbt {
-
-}
-
 
 /*수진*/
 
@@ -1657,10 +1641,6 @@ label.form-label {
     transform: translateX(-50%);
 }
 
-input {
-    border: solid 1px #246C34;
-}
-
 .dr, .close_rev {
     margin-top: 10px;
     border: solid 1px #246C34;
@@ -1710,6 +1690,7 @@ input {
 .star_rating span.on {
     color: #777;
 }
+
 .load-more {
     margin: 10px auto 0 auto; /* 여기서 10px은 위쪽 여백입니다. */
     border: solid 1px #246C34;

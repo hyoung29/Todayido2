@@ -9,7 +9,7 @@
     <div class="content">
         <img alt="로고" class="top-left logo" onclick="gohome()" src="images/logo 1.png">
         <div class="se-area">
-            <form class="search-box" th:action="@{/static}">
+            <form class="search-box" th:action="@{/search}">
                 <input id="keyword" name="keyword" placeholder="오늘 뭐하지?">
             </form>
         </div>
@@ -20,7 +20,7 @@
                     <li><a th:href="@{ownerJoin}">사업주회원가입</a></li>
                 </th:block>
                 <th:block th:unless="${owner == null}">
-                    <li th:text="${owner.owner_name}+'사장님'"></li>
+                    <li th:text="${owner.store_name}+'님'"></li>
                     <li><a th:href="@{logout}">로그아웃</a></li>
                 </th:block>
                 <input class="burger-check" id="burger-check" type="checkbox" />
@@ -30,7 +30,6 @@
                     <th:block th:unless="${owner == null}">
                         <a th:href="@{ownerPage(business_num=${owner.business_num})}">내 가게 보기</a>
                         <a th:href="@{pdetail}">내 가게 등록</a>
-                        <a th:href="@{menuWrite}">메뉴 추가</a>
                     </th:block>
                     <div style="width: 150px"/>
                 </div>
