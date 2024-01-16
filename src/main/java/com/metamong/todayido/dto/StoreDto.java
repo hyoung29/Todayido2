@@ -22,5 +22,4 @@ public class StoreDto {
     private Timestamp create_at;
     private Timestamp updated_at;
     private String photo_path;
-    private String main_photo_path;
 }

@@ -6,7 +6,7 @@
         VALUES (null,#{store_num},#{store_name}, #{store_telephone}, #{store_adress},
                 #{store_category_id}, #{average_rating},
                 #{store_description}, #{open_time}, #{closed_day},
-                #{owner_name}, #{business_num}, default, null)
+                #{owner_name}, #{business_num}, default, null, #{photo_path})
     </insert>
     <insert id="insertMenu" parameterType="MenuDto" useGeneratedKeys="true" keyProperty="menu_num">
         <selectKey keyProperty="menu_num" resultType="Integer" order="AFTER">

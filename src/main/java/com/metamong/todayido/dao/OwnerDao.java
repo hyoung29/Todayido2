@@ -22,5 +22,5 @@ public interface OwnerDao {
     //사업주 비밀번호 재설정
     void updateOwnerPwd(OwnerDto owner);
 
-    StoreDto store(int storeNum);
+    StoreDto store(StoreDto storeNum);
 }

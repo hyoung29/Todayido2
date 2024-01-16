@@ -1,8 +1,5 @@
 package com.metamong.todayido.dao;
-import com.metamong.todayido.dto.AdminDto;
-import com.metamong.todayido.dto.BoardDto;
-import com.metamong.todayido.dto.SearchDto;
-import com.metamong.todayido.dto.ReviewDto;
+import com.metamong.todayido.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,6 +23,8 @@ public interface AdminDao {
     void updatereply(BoardDto board);
 
     void deleteBoard(int qnaNum);
+
+    List<StoreDto> selectStoreList(int storeCategoryId);
 }
 
 

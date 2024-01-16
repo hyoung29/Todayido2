@@ -61,10 +61,7 @@
         </th:block>
         <th:block th:unless="${#lists.isEmpty(rList)}">
             <th:block th:each="rev:${rList}">
-                <label>
-                    <input type="checkbox" th:id="'cb'+${rev.review_num}" name="color" value="blue"
-                           th:onclick="toggleModal([[${rev.review_num}]])">
-                </label>
+
                 <div th:id="'myModal'+${rev.review_num}" class="review_modal">
                     <span class="modal-close" th:onclick="closeModal([[${rev.review_num}]])">&times;</span>
                     <p>삭제하시겠습니까?</p>
@@ -74,6 +71,10 @@
                 <div class="rev" id="load-rlist">
                     <div id="rSpace" class="r_d">
                         <div>
+                            <label>
+                                <input type="checkbox" th:id="'cb'+${rev.review_num}" name="color" value="blue"
+                                       th:onclick="toggleModal([[${rev.review_num}]])">
+                            </label>
                             <div th:text="${rev.user_id}"></div>
                             <div th:switch="${rev.rating}">
                                 <span th:case="1">&#9733;&#9734;&#9734;&#9734;&#9734;</span>
