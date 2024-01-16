@@ -797,7 +797,7 @@ span.file-title {
 }
 
 .p-15 {
-    width: 15%;
+    width: 10%;
 }
 
 .p-20 {
@@ -809,11 +809,11 @@ span.file-title {
 }
 
 .p-30 {
-    width: 30%;
+    width: 40%;
 }
 
 .p-35 {
-    width: 35%;
+    width: 28%;
 }
 
 .p-50 {
@@ -873,7 +873,7 @@ span.file-title {
     padding: 10px;
     font-size: 16px;
     display: block;
-    width: 100%;
+    width: 600px;
     line-height: 1.5;
     color: #555;
     background-color: #fff;
@@ -989,13 +989,17 @@ span.file-title {
 }
 
 .p-15 {
-    width: 25%;
+    width: 10%;
 
 }
 
 .p-30 {
-    width: 55%;
+    width: 40%;
 
+}
+
+.p-35 {
+    width: 28%;
 }
 
 .p-85 {
@@ -1300,6 +1304,7 @@ label.form-label {
 }
 
 .btn-writeback {
+
     padding: 10px 16px;
     font-size: 24px;
     color: #FFF;
@@ -1314,6 +1319,12 @@ label.form-label {
     font-style: normal;
     font-weight: 700;
     float: right;
+}
+
+.btn-writeback{
+    position: relative;
+    right: 150px;
+    top: 150px;
 }
 
 .btn-writeedit {
@@ -1559,11 +1570,11 @@ label.form-label {
 }
 
 .qrep {
-    text-align: center;
-    width: 600px;
+    margin-top: 15px;
+    width: 602px;
     height: 60px;
     background: white;
-    border: solid 2px black;
+    border: solid 2px green;
 }
 
 /* 모달 스타일 */
@@ -1595,7 +1606,6 @@ label.form-label {
     font-weight: 500;
     line-height: normal;
 }
-
 
 .main-image {
     width: 500px;
@@ -1714,3 +1724,72 @@ input {
     height: 200px;
     margin-left: -20px;
 }
+
+.wCon {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.login-header {
+    text-align: center;
+}
+
+.wInputT {
+    width: 600px;
+    height: 50px;
+    border: solid 1px green;
+    border-radius: 5px;
+    font-size: 20px;
+    background: white;
+}
+
+.wInputC {
+    margin-top: 10px;
+    height: 400px;
+    width: 600px;
+    border: solid 1px green;
+    border-radius: 5px;
+    font-size: 18px;
+    resize: none;
+    background: white;
+}
+
+.btnW {
+    margin-top: 10px;
+    width: 100px;
+    height: 40px;
+    background-color: white;
+    border-radius: 20px;
+    border: solid 1px green;
+    font-weight: bold;
+}
+
+.back {
+    margin-left: 285px;
+}
+
+.eee {
+    width: 598px;
+}
+
+.rqn {
+    width: 594px;
+    height: 80px;
+    background: white;
+    border: solid 2px green;
+}
+
+#rqna {
+    display: block;
+    margin: 0 auto; /* 가운데 정렬을 위해 margin을 자동으로 설정합니다. */
+    margin-top: 10px; /* 원하는 만큼의 여백을 설정하세요 */
+}
+
+.ddd {
+    height: 35px;
+}
+

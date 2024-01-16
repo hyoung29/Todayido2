@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴 추가</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+<body>
+<header>
+    <th:block th:insert="~{ownerfragments::header(${session.owner})}"/>
+</header>
+<section>
+    <div class="wCon">
+
+        <form th:action="@{mProc}" method="post" class="login-form">
+            <input type="hidden" name="store_num" id="store_num" th:value="${store.store_num}">
+            <h2>메뉴 추가</h2>
+            <div class="st-rg">
+                <label for="menu_name">메뉴 이름 :</label>
+                <input type="text" id="menu_name" name="menu_name" required><br>
+            </div>
+            <div class="st-rg">
+                <label for="menu_price">메뉴 가격 :</label>
+                <input type="text" id="menu_price" name="menu_price" required><br>
+            </div>
+            <div class="st-rg">
+                <label for="menu_descripton">메뉴 설명 :</label>
+                <input type="text" id="menu_descripton" name="menu_descripton" required><br>
+            </div>
+            <div class="st-rg">
+                <label for="file">대표메뉴 사진</label>
+                <input type="file" name="files" id="file">
+                <input type="text" value="파일선택" readonly required><br>
+            </div>
+            <input type="submit" class="btnW" value="메뉴 등록">
+        </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+</html>

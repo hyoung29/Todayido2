@@ -1,9 +1,8 @@
 package com.metamong.todayido.service;
 
 import com.metamong.todayido.dao.BoardDao;
-import com.metamong.todayido.dao.UserDao;
+import com.metamong.todayido.dto.AdminDto;
 import com.metamong.todayido.dto.BoardDto;
-import com.metamong.todayido.dto.BoardFileDto;
 import com.metamong.todayido.dto.SearchDto;
 import com.metamong.todayido.util.PagingUtil;
 import jakarta.servlet.http.HttpSession;
@@ -13,11 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
 import java.util.List;
 
 @Service
@@ -28,7 +25,7 @@ public class BoardService {
     @Autowired
     private BoardDao bDao;
 
-    private final int lcnt = 4;//한 화면(페이지)에 보여질 글 개수
+    private final int lcnt = 3;//한 화면(페이지)에 보여질 글 개수
     //트랜젝션 관련 객체 선언
 
     @Autowired
@@ -37,9 +34,13 @@ public class BoardService {
     @Autowired
     private TransactionDefinition definition;
 
-    public ModelAndView getBoardList(SearchDto sdto, HttpSession session) {
+    public ModelAndView getBoardList(SearchDto sdto, HttpSession session, String admin_id) {
         log.info("getBoardList()");
         ModelAndView mv = new ModelAndView();
+
+        String admin = String.valueOf(admin(admin_id));
+        mv.addObject("admin", admin);
+
         //DB에서 게시글 가져오기
         int num = sdto.getPageNum();
         if (sdto.getListCnt() == 0) {
@@ -67,12 +68,17 @@ public class BoardService {
         return mv;
     }
 
+    private AdminDto admin(String admin_id){
+        AdminDto admin = bDao.selectQAdmin(admin_id);
+        return admin;
+    }
+
     private String getPaging(SearchDto sdto) {
         String pageHtml = null;
         //전체 글개수 구하기(from DB)
         int maxNum = bDao.selectBoardCnt(sdto);
         //페이지에 보여질 번호 개수
-        int pageCnt = 4;
+        int pageCnt = 3;
         //링크용 uri : 기본 - "boardList?
         // 검색 - "boardList?colname=b_title&keyword=4&
         String listName = "qnalist?";

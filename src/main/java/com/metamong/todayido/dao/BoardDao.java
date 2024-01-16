@@ -1,8 +1,5 @@
 package com.metamong.todayido.dao;
-import com.metamong.todayido.dto.BoardDto;
-import com.metamong.todayido.dto.BoardFileDto;
-import com.metamong.todayido.dto.SearchDto;
-import com.metamong.todayido.dto.ReviewDto;
+import com.metamong.todayido.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
@@ -51,4 +48,6 @@ public interface BoardDao {
 
     // 문의 사항 댓글 저장 메소드
     ReviewDto selectLastReply(int r_num);
+
+    AdminDto selectQAdmin(String admin_id);
 }

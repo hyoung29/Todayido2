@@ -1,5 +1,6 @@
 package com.metamong.todayido.controller;
 
+import com.metamong.todayido.dto.MenuDto;
 import com.metamong.todayido.dto.OwnerDto;
 import com.metamong.todayido.dto.StoreDto;
 import com.metamong.todayido.dto.UserDto;
@@ -70,6 +71,13 @@ public class OwnerController {
         return "pdetail";
     }
 
+    @PostMapping("pProc")
+    public String pProc(StoreDto store, RedirectAttributes rttr) {
+        log.info("pProc()");
+        String view = oServ.pdetail(store, rttr);
+        return view;
+    }
+
     @GetMapping("pModify")
     public String pModify(){
         log.info("pModify()");
@@ -105,6 +113,20 @@ public class OwnerController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("menuWrite")
+    public ModelAndView menuWrite(int store_num){
+        log.info("menuWrite()");
+        ModelAndView mv = oServ.getStore(store_num);
+        return mv;
+    }
+
+    @PostMapping("mProc")
+    public String mProc(MultipartFile files, MenuDto menu, HttpSession session, RedirectAttributes rttr){
+        log.info("mProc");
+        String view = oServ.menuInsert(files, menu, session, rttr);
+        return view;
     }
 }
 

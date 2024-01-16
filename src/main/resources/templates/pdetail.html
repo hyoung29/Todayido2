@@ -12,8 +12,11 @@
     <th:block th:insert="~{ownerfragments::header(${session.owner})}"/>
 </header>
 <section>
-    <form th:action="@{pProc}" method="post" enctype="multipart/form-data" class="login-form">
+    <form th:action="@{pProc}" method="post" enctype="multipart/form-data" class="login-form" onsubmit="return createAxis()">
         <h1>가게 등록 페이지</h1>
+
+        <input type="hidden" name="owner_name" id="owner_name" th:value="${session.owner.getOwner_name()}">
+        <input type="hidden" name="business_num" id="business_num" th:value="${session.owner.getBusiness_num()}">
 
         <div class="st-rg">
             <label for="storeName">가게 이름 :</label>
@@ -28,20 +31,19 @@
             <label for="phoneNumber">전화번호 :</label>
             <input type="tel" id="phoneNumber" name="store_telephone" required>
         </div>
-
-        <div class="st-not">
+        <div class="st-rg">
             <label for="storeCategoryId">가게카테고리 :</label>
-            <input type="hidden" id="storeCategoryId" name="store_category_id" required>
+            <input type="text" id="storeCategoryId" name="store_category_id" required>
         </div>
 
         <div class="st-not">
             <label for="averageRating">별점 :</label>
-            <input type="hidden" id="averageRating" name="average_rating" required>
+            <input type="number" id="averageRating" name="average_rating" value="0" required>
         </div>
 
-        <div class="st-not">
+        <div class="st-rg">
             <label for="storeDescription">메뉴 :</label>
-            <input type="hidden" id="storeDescription" name="store_description" required>
+            <input type="text" id="storeDescription" name="store_description" required>
         </div>
 
         <div class="st-rg">
@@ -54,15 +56,12 @@
             <input type="text" id="closedDay" name="closed_day" required>
         </div>
 
-        <label for="file">리뷰사진선택</label>
-        <input type="file" name="files" id="file">
-        <input type="text" class="upload-name" value="파일선택" readonly>
-
 
         <div class="st-rgbt">
             <input type="submit" class="login-btn" value="등록">
             <input type="reset" class="login-btn" value="취소">
         </div>
+
     </form>
 </section>
 

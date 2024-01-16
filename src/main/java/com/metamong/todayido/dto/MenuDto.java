@@ -15,4 +15,6 @@ public class MenuDto {
     private String menu_descripton;
     private Timestamp created_at;
     private Timestamp update_at;
+    private String mn_oriname;
+    private String mn_sysname;
 }

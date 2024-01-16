@@ -16,8 +16,8 @@
 
 <section>
 
-    <div class="content">
-        <form th:action="@{updateProc}" class="write-form"
+    <div class="wCon">
+        <form th:action="@{updateProc}" class="writeF"
               method="post" enctype="multipart/form-data">
             <div class="user-info">
                 <div class="user-info-sub" th:object="${session.user}"></div>
@@ -32,26 +32,26 @@
                    th:value="${session.user.user_id}">
 
             <input type="hidden" name="qna_num" th:value="${board.qna_num}">
-            <input type="text" class="write-input" name="qna_title"
+            <input type="text" class="wInputT" name="qna_title"
                    autofocus placeholder="제목" required th:value="${board.qna_title}">
             <textarea rows="15" name="qna_contents"
                       placeholder="내용을 적어주세요." value="내용:"
-                      class="write-input ta" th:text="${board.qna_contents}"></textarea>
+                      class="wInputC" th:text="${board.qna_contents}"></textarea>
 
             <!--글쓰기 업로드 뒤로가기 수정 버튼-->
             <div class="btn-area"> <!-- 업로드 수정 닫기 업로드 버튼-->
-                <input type="submit" class="btn-writeedit" value="Edit">
-                <input type="reset" class="btn-writereset" value="reset">
-                <input type="button" class="btn-writeback" value="out" id="backbtn">
+                <input type="submit" class="btnW" value="다시쓰기">
+                <input type="reset" class="btnW" value="새로고침">
+                <input type="button" class="btnW back" value="나가기" id="backbtn">
             </div>
 
-            <!--        답글 출력       -->
-            <th:block th:if="${board.qna_reply != null}">
-                <div class="qrep">
-                    <div th:text="'답글 : '+${board.qna_reply}"></div>
-                </div>
-            </th:block>
         </form>
+        <!--        답글 출력       -->
+        <th:block th:if="${board.qna_reply != null}">
+            <div class="qrep">
+                <div th:text="'답글 : '+${board.qna_reply}"></div>
+            </div>
+        </th:block>
     </div>
 </section>
 

@@ -91,4 +91,8 @@
     <select id="selectLastReply" resultType="ReviewDto" parameterType="Integer">
         SELECT * FROM rList WHERE r_num=#{r_num}
     </select>
+
+    <select id="selectQAdmin" resultType="AdminDto" parameterType="String">
+        SELECT * FROM admin WHERE admin_id=#{admin_id}
+    </select>
 </mapper>
