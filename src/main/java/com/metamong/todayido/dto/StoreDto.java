@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class StoreDto {
-    private String search;
     private int store_num;
     private String store_name;
     private String store_telephone;
@@ -22,4 +21,6 @@ public class StoreDto {
     private String business_num;
     private Timestamp create_at;
     private Timestamp updated_at;
+    private String photo_path;
+    private String main_photo_path;
 }

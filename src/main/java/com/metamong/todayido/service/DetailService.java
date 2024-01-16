@@ -1,6 +1,7 @@
 package com.metamong.todayido.service;
 
 import com.metamong.todayido.dao.DetailDao;
+import com.metamong.todayido.dto.MenuDto;
 import com.metamong.todayido.dto.ReviewDto;
 import com.metamong.todayido.dto.StoreDto;
 import jakarta.servlet.http.HttpSession;
@@ -37,6 +38,7 @@ public class DetailService {
         List<ReviewDto> rList = dDao.selectReview(store_num);
         mv.addObject("rList", rList);
 
+        mv.setViewName("content");//content 페이지로 리뷰 가져오기(수진)
         mv.setViewName("detail");
         return mv;
     }
