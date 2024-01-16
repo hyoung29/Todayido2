@@ -6,13 +6,14 @@ import com.metamong.todayido.dto.StoreDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ReservDao {
     //예약하기 메소드
     void insertReserv (ReservDto rdto);
 
-    List<ReservDto> selectReserv(String user_id);
+    ReservDto selectReserv(Map<String, Object> revMap);
 
     List<StoreDto> selectStoreList(int storeNum);
 

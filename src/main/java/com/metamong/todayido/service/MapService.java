@@ -2,10 +2,8 @@ package com.metamong.todayido.service;
 
 import com.metamong.todayido.dao.DetailDao;
 import com.metamong.todayido.dao.ReservDao;
-import com.metamong.todayido.dto.ReservDto;
-import com.metamong.todayido.dto.ReviewDto;
-import com.metamong.todayido.dto.StoreDto;
-import com.metamong.todayido.dto.UserDto;
+import com.metamong.todayido.dto.*;
+import com.metamong.todayido.util.PagingUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -60,15 +60,22 @@ public class MapService {
 
         return view;
     }
-    public ModelAndView getReservList(HttpSession session){
+
+    private final int lcnt = 1; //한 화면(페이지)에 보여질 글 개수
+
+    public ModelAndView getReservList(int pageNum, HttpSession session){
         log.info("getReservList()");
         ModelAndView mv = new ModelAndView();
         UserDto user = (UserDto)session.getAttribute("user");
-
-        List<ReservDto> reList = rDao.selectReserv(user.getUser_id());
-        mv.addObject("reList", reList);
+        Map<String, Object> revMap = new HashMap<>();
+        revMap.put("pageNum", Integer.valueOf(pageNum-1));
+        revMap.put("listCnt", Integer.valueOf(1));
+        revMap.put("user_id", user.getUser_id());
+        ReservDto result = rDao.selectReserv(revMap);
+        mv.addObject("result", result);
 
         mv.setViewName("myPage");
         return mv;
     }
+
 }

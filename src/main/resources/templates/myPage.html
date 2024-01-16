@@ -24,45 +24,33 @@
         <div class="resv">
             <h3>예약 현황</h3>
             <div class="resv_d">
-                <!--                <div class="rcontent">-->
-                <!--                    <img src="images/mesikdang.png" class="pt">-->
-                <!--                    <p th:text="${store.average_rating}" class="rstar"></p>-->
-                <!--                    <p th:text="${store.store_name}" class="rname">미식당</p>-->
-                <!--                    <p th:text="${sotre.store_adress}" class="rplace">용현동</p>-->
-                <!--                    <p th:text="${store.store_description}" class="rmenu">모듬전, 맥주, 치킨 등</p>-->
-                <!--                </div>-->
                 <div class="rcontent">
-                    <th:block th:if="${#lists.isEmpty(rlist)}">
+                    <th:block th:if="${result == null}">
                         <div style="width:100%">
                             예약 내역이 없습니다.
                         </div>
 
                     </th:block>
-                    <th:block th:unless="${#lists.isEmpty(rlist)}">
-                        <th:block th:each="reserv:${rlist}">
+                    <th:block th:unless="${result == null}">
                             <div class="d-in-row">
-                                <img src="images/mesikdang.png" class="pt">
-                                <p th:text="${rlist.store_name}" class="rstar"></p>
-                                <p th:text="${rlist.user_id}" class="rname"></p>
-                                <p th:text="${rlist.reservation_date}" class="rplace"></p>
-                                <p th:text="${rlist.store_description}" class="rmenu"></p>
-                                <div class="t-no p-10" th:text="${reserv.reservation_num}"></div>
-                                <div class="t-title p-30">
-                                    <a th:href="@{content(store_num=${reserv.store_num})}"
-                                       th:text="${reserv.store_name}"></a>
-                                </div>
-                                <div class="t-name p-15" th:text="${bitem.user_id}"></div>
-                                <div class="t-date p-30" th:text="${bitem.create_at}"></div>
+                                <img th:src="@{/images/sungdak.png}" class="pt">
+                                <p th:text="'가게명 : '+${result.store_name}" class="rmenu"></p>
+                                <p th:text="'예약자(ID) : '+${result.user_id}" class="rmenu"></p>
+                                <p th:text="'예약날짜 : '+${result.reservation_date}" class="rmenu"></p>
+                                <p th:text="'예약시간 : '+${result.resevation_time}" class="rmenu"></p>
+                                <p th:text="'예약인원 : '+${result.resevation_person}" class="rmenu"></p>
                             </div>
-                        </th:block>
+                            <div class="resv-btn">
+                                <!-- Add input elements for date, time, and number of people -->
+                                <input type="button" value="예약변경" class="resv-change" id="rchange">
+                                <input type="button" value="예약취소" class="resv-cancel">
+                            </div>
                     </th:block>
                 </div>
-                <div class="resv-btn">
-                    <!-- Add input elements for date, time, and number of people -->
-                    <input type="button" value="예약변경" class="resv-change" id="rchange">
-                    <input type="button" value="예약취소" class="resv-cancel">
-                </div>
             </div>
+        </div>
+        <div class="btn-area">
+            <div class="paging" th:utext="${paging}"></div>
         </div>
     </div>
 </section>

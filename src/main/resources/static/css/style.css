@@ -1709,3 +1709,8 @@ input {
     height: 30px;
     display: block;
 }
+.pt {
+    width: 240px;
+    height: 200px;
+    margin-left: -20px;
+}
