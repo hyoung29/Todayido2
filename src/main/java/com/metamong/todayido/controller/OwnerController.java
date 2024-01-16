@@ -4,6 +4,7 @@ import com.metamong.todayido.dto.MenuDto;
 import com.metamong.todayido.dto.OwnerDto;
 import com.metamong.todayido.dto.StoreDto;
 import com.metamong.todayido.dto.UserDto;
+import com.metamong.todayido.service.MapService;
 import com.metamong.todayido.service.OwnerService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,9 @@ import java.util.List;
 public class OwnerController {
     @Autowired
     private OwnerService oServ;
+
+    @Autowired
+    private MapService mServ;
 
     @GetMapping("ownerJoin")
     public String ownerJoin() {
@@ -128,5 +132,13 @@ public class OwnerController {
         String view = oServ.menuInsert(files, menu, session, rttr);
         return view;
     }
+
+    @GetMapping("ownerReserv")
+    public ModelAndView ownerReserv(int pageNum, HttpSession session) {
+        log.info("ownerReserv()");
+        ModelAndView mv = mServ.getReservOwnerList(pageNum, session);
+        return mv;
+    }
+
 }
 

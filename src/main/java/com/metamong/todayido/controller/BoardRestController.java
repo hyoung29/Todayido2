@@ -1,9 +1,6 @@
 package com.metamong.todayido.controller;
 
-import com.metamong.todayido.dto.BoardDto;
-import com.metamong.todayido.dto.BoardFileDto;
-import com.metamong.todayido.dto.ReviewDto;
-import com.metamong.todayido.dto.StoreDto;
+import com.metamong.todayido.dto.*;
 import com.metamong.todayido.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +26,9 @@ public class BoardRestController {
     @Autowired
     private OwnerService oServ;
 
+    @Autowired
+    private MapService mapServ;
+
     @GetMapping("idCheck")
     public String idCheck(String user_id){
         log.info("idCheck()");
@@ -43,4 +43,17 @@ public class BoardRestController {
         return review;
     }
 
+    @PostMapping("delReserv")
+    public String delReserv(@RequestParam("resevation_id") int resevation_id){
+        log.info("delReserv()");
+        String res = mapServ.deleteReservation(resevation_id);
+        return res;
+    }
+
+    @PostMapping("updateReserv")
+    public String updateReserv(ReservDto reserv){
+        log.info("updateReserv()");
+        String res = mapServ.updateReservation(reserv);
+        return res;
+    }
 }

@@ -15,6 +15,12 @@ public interface ReservDao {
 
     ReservDto selectReserv(Map<String, Object> revMap);
 
+    int selectReservCnt(String user_id);
+
     List<StoreDto> selectStoreList(int storeNum);
+
+    void updateReserv(ReservDto rdto);
+
+    void deleteReserv(int resevation_id);
 
 }

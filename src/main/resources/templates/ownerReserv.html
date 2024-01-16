@@ -14,12 +14,12 @@
 
 <body>
 <header>
-    <th:block th:insert="~{fragments::header(${session.user})}"/>
+    <th:block th:insert="~{ownerfragments::header(${session.owner})}"/>
 </header>
 <section>
     <div class="login-form">
-        <div class="user-info-sub" th:object="${session.user}">
-            <p th:text="${session.user.user_name}+'님 안녕하세요.'"></p>
+        <div class="user-info-sub" th:object="${session.owner}">
+            <p th:text="${session.owner.owner_name}+'님 안녕하세요.'"></p>
         </div>
         <div class="resv">
             <h3>예약 현황</h3>

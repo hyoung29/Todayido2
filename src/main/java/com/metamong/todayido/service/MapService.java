@@ -74,8 +74,87 @@ public class MapService {
         ReservDto result = rDao.selectReserv(revMap);
         mv.addObject("result", result);
 
+        String pageHtml = getPaging(revMap);
+        mv.addObject("paging", pageHtml);
+
+        session.setAttribute("pageNum", pageNum);
         mv.setViewName("myPage");
         return mv;
     }
+
+    private String getPaging(Map<String, Object> revMap) {
+        String pageHtml = null;
+        //전체 글개수 구하기(from DB)
+        int maxNum = rDao.selectReservCnt((String) revMap.get("user_id"));
+        //페이지에 보여질 번호 개수
+        int pageCnt = 5;
+        //링크용 uri : 기본 - "boardList?
+        // 검색 - "boardList?colname=b_title&keyword=4&
+        String listName = "myPage?";
+
+        PagingUtil paging = new PagingUtil(maxNum, ((Integer)revMap.get("pageNum"))+1,
+                (Integer)revMap.get("listCnt"), pageCnt, listName);
+
+        pageHtml = paging.makePaging();
+
+        return pageHtml;
+    }
+
+
+    public String deleteReservation(int resevationId) {
+        log.info("deleteReservation()");
+        String result = null;
+        try {
+            rDao.deleteReserv(resevationId);
+            result = "ok";
+        }catch (Exception e){
+            e.printStackTrace();
+            result = "fail";
+        }
+
+        return result;
+    }
+
+    public String updateReservation(ReservDto reserv) {
+        log.info("updateReservation()");
+        String result = null;
+
+        String time = reserv.getResevation_time() + ":00";
+        reserv.setResevation_time(time);
+        String date = reserv.getReservation_date();
+        String[] dateArr = date.split("/");
+        date = dateArr[2] + "-" + dateArr[0] + "-" + dateArr[1];
+        reserv.setReservation_date(date);
+
+        try{
+            rDao.updateReserv(reserv);
+            result = "ok";
+        }catch (Exception e){
+            e.printStackTrace();
+            result = "fail";
+        }
+
+        return result;
+    }
+
+    public ModelAndView getReservOwnerList(int pageNum, HttpSession session){
+        log.info("getReservOwnerList()");
+        ModelAndView mv = new ModelAndView();
+        OwnerDto owner = (OwnerDto)session.getAttribute("owner");
+        Map<String, Object> revMap = new HashMap<>();
+        revMap.put("pageNum", Integer.valueOf(pageNum-1));
+        revMap.put("listCnt", Integer.valueOf(1));
+        revMap.put("owner_name", owner.getBusiness_num());
+        ReservDto result = rDao.selectReserv(revMap);
+        mv.addObject("result", result);
+
+        String pageHtml = getPaging(revMap);
+        mv.addObject("paging", pageHtml);
+
+        session.setAttribute("pageNum", pageNum);
+        mv.setViewName("ownerReserv");
+        return mv;
+    }
+
 
 }
