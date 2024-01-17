@@ -188,8 +188,6 @@ public class OwnerService {
     }
 
     private boolean updateDetails(MultipartFile file, OwnerDto pdetail) {
-
-
         try {
             return true;
 
