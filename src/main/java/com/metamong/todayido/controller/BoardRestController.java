@@ -43,15 +43,6 @@ public class BoardRestController {
         return review;
     }
 
-    @PostMapping("pProc")
-    public String pProc(@RequestParam("file") List<MultipartFile> file,
-                        StoreDto pdetail, HttpSession session,
-                        RedirectAttributes rttr) {
-        log.info("pProc()");
-        String view = oServ.pdetail(file, pdetail, session, rttr);
-        return view;
-    }
-
     @PostMapping("delReserv")
     public String delReserv(@RequestParam("resevation_id") int resevation_id){
         log.info("delReserv()");
