@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -56,9 +57,10 @@ public class OwnerController {
     }
 
     @GetMapping("pindex")
-    public String pindex() {
-        log.info("pindex");
-        return "pindex";
+    public ModelAndView pindex(StoreDto store) {
+        log.info("pindex()");
+        ModelAndView mv = oServ.getStore(store);
+        return mv;
     }
 
     @GetMapping("ownerPage")
@@ -76,9 +78,9 @@ public class OwnerController {
     }
 
     @PostMapping("pProc")
-    public String pProc(StoreDto store, RedirectAttributes rttr) {
+    public String pProc(MultipartFile files, StoreDto store,HttpSession session, RedirectAttributes rttr) {
         log.info("pProc()");
-        String view = oServ.pdetail(store, rttr);
+        String view = oServ.pdetail(files, store, session, rttr);
         return view;
     }
 
@@ -120,7 +122,7 @@ public class OwnerController {
     }
 
     @GetMapping("menuWrite")
-    public ModelAndView menuWrite(int store_num){
+    public ModelAndView menuWrite(StoreDto store_num){
         log.info("menuWrite()");
         ModelAndView mv = oServ.getStore(store_num);
         return mv;

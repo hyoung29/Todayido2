@@ -1,8 +1,7 @@
 package com.metamong.todayido.service;
 import com.metamong.todayido.dao.AdminDao;
-import com.metamong.todayido.dto.AdminDto;
-import com.metamong.todayido.dto.BoardDto;
-import com.metamong.todayido.dto.SearchDto;
+import com.metamong.todayido.dao.DetailDao;
+import com.metamong.todayido.dto.*;
 import com.metamong.todayido.util.PagingUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +22,9 @@ public class AdminService {
 
     @Autowired
     private AdminDao aDao;
+
+    @Autowired
+    private DetailDao dDao;
 
     @Autowired
     private PlatformTransactionManager manager;
@@ -182,6 +184,28 @@ public class AdminService {
         }
         rttr.addFlashAttribute("msg", msg);
         return view;
+    }
+
+    public ModelAndView getStoreList(int store_category_id) {
+        log.info("getStoreList");
+        ModelAndView mv = new ModelAndView();
+        List<StoreDto> sList = aDao.selectStoreList(store_category_id);
+        mv.addObject("sList", sList);
+        return mv;
+    }
+
+    public ModelAndView getContent(int store_num) {
+        log.info("getContent()");
+        ModelAndView mv = new ModelAndView();
+        StoreDto store = dDao.selectStore(store_num);
+        mv.addObject("store", store);
+        List<MenuDto> mList = dDao.selectMenu(store_num);
+        mv.addObject("mList", mList);
+        List<ReviewDto> rList = dDao.selectReview(store_num);
+        mv.addObject("rList", rList);
+
+        mv.setViewName("adContent");
+        return mv;
     }
 }
 

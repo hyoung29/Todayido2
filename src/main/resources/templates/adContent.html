@@ -41,7 +41,7 @@
 </head>
 <body>
 <header>
-    <th:block th:insert="~{fragments::header(${session.user})}"/>
+    <th:block th:insert="~{adminfragments::header(${session.admin})}"/>
 </header>
 <section>
     <!-- 성원닭갈비 -->
@@ -180,7 +180,7 @@
                 <input type="button" value="리뷰쓰기" class="revproc">
             </th:block>
 
-            <div class="cont-re">
+            <div class="cont-mm">
                 <!-- 리뷰 등록 -->
                 <th:block th:if="${session.user != null}">
                     <div class="modalbg">
@@ -213,7 +213,7 @@
 
                 <!-- 리뷰 출력 부분 -->
                 <div id="rs">
-                    <h5 class="reH">리뷰</h5><br>
+                    <h5>리뷰</h5><br>
                     <th:block th:if="${#lists.isEmpty(rList)}">
                         <div style="width: 100%">댓글이 없습니다</div>
                     </th:block>

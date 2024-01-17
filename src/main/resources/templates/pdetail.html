@@ -56,6 +56,11 @@
             <input type="text" id="closedDay" name="closed_day" required>
         </div>
 
+        <div class="st-rg">
+            <label for="file">리뷰사진선택</label>
+            <input type="file" name="files" id="file">
+            <input type="text" class="upload-name" value="파일선택" readonly><br>
+        </div>
 
         <div class="st-rgbt">
             <input type="submit" class="login-btn" value="등록">
@@ -69,4 +74,23 @@
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
 </body>
+<script th:inline="javascript">
+    $("#file").on("change", function () {
+        //파일 선택창에서 업로드할 파일을 선택한 다음
+        //'열기' 버튼을 누르면 change 이벤트가 발생.
+        let files = $("#file")[0].files;
+        console.log(files);
+
+        let fileName = "";//출력할 문장 저장 변수
+
+        if (files.length > 1) {
+            fileName = `${files[0].name} 외 ${files.length - 1}개`;
+        } else if (files.length == 1) {
+            fileName = files[0].name;
+        } else {
+            fileName = "파일선택";
+        }
+        $(".upload-name").val(fileName);
+    });
+</script>
 </html>

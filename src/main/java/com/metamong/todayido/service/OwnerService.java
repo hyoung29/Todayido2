@@ -91,7 +91,7 @@ public class OwnerService {
         return "redirect:/";
     }
 
-    public String pdetail(StoreDto store, RedirectAttributes rttr) {
+    public String pdetail(MultipartFile file, StoreDto store,HttpSession session, RedirectAttributes rttr) {
         log.info("pdetail");
         String view = null;
         String msg = null;
@@ -99,8 +99,8 @@ public class OwnerService {
         TransactionStatus status = manager.getTransaction(definition);
 
         try {
+            storeFileUpload(file, session, store);
             sDao.insertStore(store);
-//            fileUpload(file, session, pdetail.getStore_num());
 
             manager.commit(status);//최종 승인
 
@@ -120,7 +120,32 @@ public class OwnerService {
 
         return view;
     }
+    private void storeFileUpload(MultipartFile files, HttpSession session, StoreDto store) throws Exception {
+        //이 메소드의 예외처리(파일 저장 실패, 파일 정보 저장 실패)를 호출한 메소드에서 처리하도록 throws를 사용
+        log.info("fileUpload()");
+        //파일 저장(폴더)
+        //파일 저장 위치 처리 : 세션에서 위치(경로) 정보를 구함
+        String realPath = session.getServletContext().getRealPath("/");
+        log.info(realPath);
+        realPath += "upload/";//파일 업로드용 폴더
+        //업로드용 폴더가 없으면 자동으로 생성
+        File folder = new File(realPath);
+        if (!folder.isDirectory()) {
+            //isDirectory() - 폴더의 유무 확인 메소드
+            //폴더가 있으면 true, 없거나 폴더가 아니면 false
+            folder.mkdir();//Make Directory(폴더)
+        }
+        String oriname = files.getOriginalFilename();
+        if (oriname.equals("")) {
+            return;//업로드할 파일 없음. 파일 저장 작업 종료
+        }
 
+        store.setPhoto_path(oriname);//원래 파일명 저장
+        //파일 저장(upload폴더에)
+        File file = new File(realPath + oriname);
+        // 경로 : .../.../.../webapp/upload/ ~.jpg
+        files.transferTo(file);//하드디스크에 저장
+    }
 
     // OwnerDao 가져오기
     public ModelAndView getOwner(int business_num) {
@@ -182,8 +207,9 @@ public class OwnerService {
         TransactionStatus status = manager.getTransaction(definition);
 
         try {
+            fileUpload(file, session, menu);
+
             sDao.insertMenu(menu);
-            menuFileUpload(file, session, menu);
 
             manager.commit(status);//최종 승인
 
@@ -195,7 +221,7 @@ public class OwnerService {
             // 업로드 실패 메시지를 반환
 //            return "File upload failed.";
             manager.rollback(status);//취소
-            view = "redirect:pdetail";
+            view = "redirect:menuWrite";
             msg = "작성 실패";
         }
 
@@ -204,9 +230,9 @@ public class OwnerService {
         return view;
     }
 
-    private void menuFileUpload(MultipartFile files, HttpSession session, MenuDto menu) throws Exception {
+    private void fileUpload(MultipartFile files, HttpSession session, MenuDto menu) throws Exception {
         //이 메소드의 예외처리(파일 저장 실패, 파일 정보 저장 실패)를 호출한 메소드에서 처리하도록 throws를 사용
-        log.info("menuFileUpload()");
+        log.info("fileUpload()");
         //파일 저장(폴더)
         //파일 저장 위치 처리 : 세션에서 위치(경로) 정보를 구함
         String realPath = session.getServletContext().getRealPath("/");
@@ -234,7 +260,7 @@ public class OwnerService {
         files.transferTo(file);//하드디스크에 저장
     }
 
-    public ModelAndView getStore(int store_num){
+    public ModelAndView getStore(StoreDto store_num){
         log.info("getStore()");
         ModelAndView mv = new ModelAndView();
         StoreDto store = oDao.store(store_num);

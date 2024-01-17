@@ -75,4 +75,39 @@ public class AdminController {
         String view = aServ.boardDelete(qna_num, session, rttr);
         return view;
     }
+
+    @GetMapping("adrCategory")
+    public ModelAndView adrCategory(int store_category_id) {
+        log.info("rCategory()");
+        ModelAndView mv = aServ.getStoreList(store_category_id);
+        return mv;
+    }
+
+    @GetMapping("adcCategory")
+    public ModelAndView adcCategory(int store_category_id) {
+        log.info("rCategory()");
+        ModelAndView mv = aServ.getStoreList(store_category_id);
+        return mv;
+    }
+
+    @GetMapping("adpCategory")
+    public ModelAndView adpCategory(int store_category_id) {
+        log.info("pCategory()");
+        ModelAndView mv = aServ.getStoreList(store_category_id);
+        return mv;
+    }
+
+    @GetMapping("adbCategory")
+    public ModelAndView adbCategory(int store_category_id) {
+        log.info("adbCategory()");
+        ModelAndView mv = aServ.getStoreList(store_category_id);
+        return mv;
+    }
+
+    @GetMapping("adContent")
+    public ModelAndView adContent(int store_num){
+        log.info("adContent()");
+        ModelAndView mv = aServ.getContent(store_num);
+        return mv;
+    }
 }
