@@ -24,6 +24,12 @@
         <form th:action="@{userjoinProc}" method="post" class="login-form" name="jForm" onsubmit="return check()">
             <h2 class="login-header">회원 가입</h2>
             <input autofocus class="login-input" name="user_name" placeholder="이름" required title="이름" type="text">
+            <input class="login-input" name="user_email" placeholder="이메일" required title="이메일" type="text">
+            <input type="button" class="idcheck-btn" value="본인인증" onclick="sendNumber()">
+            <div id="mail_number" name="mail_number" style="display: none">
+                <input type="text" name="number" id="number" class="login-input" placeholder="인증번호 입력">
+                <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+            </div>
             <input class="login-input" id="id" name="user_id" placeholder="아이디" title="아이디" type="text">
             <input type="button" class="idcheck-btn" value="중복확인" onclick="idcheck()">
             <input class="login-input" id="pw" name="user_password" placeholder="비밀번호" required title="비밀번호"
@@ -41,7 +47,33 @@
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script th:inline="javascript">
+    function sendNumber(){
+        $("#mail_number").css("display","block");
+        $.ajax({
+            url:"/mail",
+            type:"post",
+            dataType:"json",
+            data:{"mail" : $("#mail").val()},
+            success: function(data){
+                alert("인증번호 발송");
+                $("#Confirm").attr("value",data);
+            },
+        }
+    });
+    }
+
+    function confirmNumber(){
+        var number1 = $("#number").val();
+        var number2 = $("#Confirm").val();
+
+        if(number1 == number2){
+            alert("인증되었습니다.");
+        }else{
+            alert("번호가 다릅니다.");
+        }
+    }
     let ck = false;
     function idcheck() {
         let id = $("#id").val();

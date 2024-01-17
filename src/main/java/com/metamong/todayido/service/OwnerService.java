@@ -40,7 +40,7 @@ public class OwnerService {
     private TransactionDefinition definition;
 
     public String ownerJoin(OwnerDto owner, RedirectAttributes rttr) {
-        log.info("OwnerJoin()");
+        log.info("ownerJoin()");
         String view = null;
         String msg = null;
 
@@ -91,7 +91,7 @@ public class OwnerService {
         return "redirect:/";
     }
 
-    public String pdetail(MultipartFile file, StoreDto store,HttpSession session, RedirectAttributes rttr) {
+    public String pdetail(MultipartFile file, StoreDto store, HttpSession session, RedirectAttributes rttr) {
         log.info("pdetail");
         String view = null;
         String msg = null;
@@ -120,6 +120,7 @@ public class OwnerService {
 
         return view;
     }
+
     private void storeFileUpload(MultipartFile files, HttpSession session, StoreDto store) throws Exception {
         //이 메소드의 예외처리(파일 저장 실패, 파일 정보 저장 실패)를 호출한 메소드에서 처리하도록 throws를 사용
         log.info("fileUpload()");
@@ -148,7 +149,7 @@ public class OwnerService {
     }
 
     // OwnerDao 가져오기
-    public ModelAndView getOwner(int business_num) {
+    public ModelAndView getOwner(String business_num) {
         log.info("ownerSelect()");
         ModelAndView mv = new ModelAndView();
         OwnerDto owner = oDao.ownerSelect(business_num);
@@ -173,9 +174,30 @@ public class OwnerService {
         return view;
     }
 
-    public String updatepModify(MultipartFile file, OwnerDto pdetail, HttpSession session, RedirectAttributes rttr) {
+    public String ownerModifyProc(OwnerDto owner, HttpSession session, RedirectAttributes rttr) {
+        log.info("ownerModifyProc()");
+        TransactionStatus status = manager.getTransaction(definition);
+        String view = null;
+        String msg = null;
         try {
-            boolean updateSuccess = updateDetails(file, pdetail);
+            oDao.ownerModifyProc(owner);
+            manager.commit(status);
+            view = "ownerPage";
+            msg = "수정성공";
+        } catch (Exception e) {
+            e.printStackTrace();
+            manager.rollback(status);
+            view = "ownerModify";
+            msg = "수정실패";
+        }
+        rttr.addFlashAttribute("msg", msg);
+
+        return view;
+    }
+
+    public String updatepModify(MultipartFile file, OwnerDto owner, HttpSession session, RedirectAttributes rttr) {
+        try {
+            boolean updateSuccess = updateDetails(file, owner);
 
             if (updateSuccess) {
                 return "Update successful.";
@@ -258,7 +280,7 @@ public class OwnerService {
         files.transferTo(file);//하드디스크에 저장
     }
 
-    public ModelAndView getStore(StoreDto store_num){
+    public ModelAndView getStore(StoreDto store_num) {
         log.info("getStore()");
         ModelAndView mv = new ModelAndView();
         StoreDto store = oDao.store(store_num);

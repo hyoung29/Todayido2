@@ -590,7 +590,10 @@ section {
     border-radius: 5px;
     box-sizing: border-box;
 }
-
+.information {
+    display: flex;
+    justify-content: space-between;
+}
 
 /*은정*/
 

@@ -64,9 +64,10 @@ public class OwnerController {
     }
 
     @GetMapping("ownerPage")
-    public ModelAndView ownerPage(int business_num) {
+    public ModelAndView ownerPage(String business_num) {
         log.info("ownerPage()");
         ModelAndView mv = oServ.getOwner(business_num);
+        mv.setViewName("ownerPage");
         return mv;
     }
 
@@ -78,7 +79,7 @@ public class OwnerController {
     }
 
     @PostMapping("pProc")
-    public String pProc(MultipartFile files, StoreDto store,HttpSession session, RedirectAttributes rttr) {
+    public String pProc(MultipartFile files, StoreDto store, HttpSession session, RedirectAttributes rttr) {
         log.info("pProc()");
         String view = oServ.pdetail(files, store, session, rttr);
         return view;
@@ -91,9 +92,19 @@ public class OwnerController {
     }
 
     @GetMapping("ownerModify")
-    public String ownerModify() {
+    public ModelAndView ownerModify(String business_num) {
         log.info("ownerModify()");
-        return "ownerModify";
+        ModelAndView mv = oServ.getOwner(business_num);
+        mv.setViewName("ownerModify");
+        return mv;
+    }
+
+    @PostMapping("ownerModifyProc")
+    public String ownerModifyProc(OwnerDto owner, Model model, HttpSession session, RedirectAttributes rttr) {
+        log.info("ownerModifyProc()");
+        model.addAttribute("owner", owner);
+        String view = oServ.ownerModifyProc(owner, session, rttr);
+        return view;
     }
 
     @PostMapping("ownerPassUpdate")
@@ -105,12 +116,10 @@ public class OwnerController {
 
     @PostMapping("pModifyl")
     public String updatePDetail(@RequestParam("file") MultipartFile file,
-                                OwnerDto pdetail, HttpSession session,
+                                OwnerDto owner, HttpSession session,
                                 RedirectAttributes rttr) {
         log.info("updatePDetail()");
-
-
-        String updateResult = oServ.updatepModify(file, pdetail, session, rttr);
+        String updateResult = oServ.updatepModify(file, owner, session, rttr);
 
         if ("Update successful.".equals(updateResult)) {
             rttr.addFlashAttribute("successMessage", "가게 정보가 성공적으로 수정되었습니다.");
