@@ -138,7 +138,7 @@ public class OwnerController {
     @GetMapping("ownerReserv")
     public ModelAndView ownerReserv(int pageNum, HttpSession session) {
         log.info("ownerReserv()");
-        ModelAndView mv = mServ.getReservOwnerList(pageNum, session);
+        ModelAndView mv = mServ.getOwnerReservList(pageNum, session);
         return mv;
     }
 

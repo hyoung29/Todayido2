@@ -34,15 +34,13 @@
                     <th:block th:unless="${result == null}">
                         <div class="d-in-row">
                             <img th:src="@{/images/sungdak.png}" class="pt">
-                            <p th:text="'가게명 : '+${result.store_name}" class="rmenu"></p>
                             <p th:text="'예약자(ID) : '+${result.user_id}" class="rmenu"></p>
+                            <p th:text="'예약자 전화번호 : '+${result.user_pnum}" class="rmenu"></p>
                             <p th:text="'예약날짜 : '+${result.reservation_date}" class="rmenu"></p>
                             <p th:text="'예약시간 : '+${result.resevation_time}" class="rmenu"></p>
                             <p th:text="'예약인원 : '+${result.resevation_person}" class="rmenu"></p>
                         </div>
                         <div class="resv-btn">
-                            <!-- Add input elements for date, time, and number of people -->
-                            <input type="button" value="예약변경" class="resv-change" id="rchange">
                             <input type="button" value="예약취소" class="resv-cancel">
                         </div>
                     </th:block>
@@ -57,18 +55,6 @@
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
-<!-- Add the modal HTML -->
-<div class="modal-change1" id="modalOverlay"></div>
-<div class="modal-change" id="myModal">
-    <h2>예약 변경</h2>
-    <!-- Add input elements for date, time, and number of people inside the modal -->
-    <input type="text" id="datepickerModal" placeholder="날짜 선택" required>
-    <input type="time" id="timepickerModal" placeholder="시간 선택" required>
-    <input type="number" id="peopleModal" placeholder="인원수" required>
-    <br>
-    <input type="button" value="변경하기" class="resv-change" onclick="confirmReservationChange()">
-    <input type="button" value="취소" class="cancle-btn" onclick="closeModal()">
-</div>
 
 <script th:inline="javascript">
     $(function () {
@@ -80,11 +66,6 @@
         // Attach click event handler to the "예약취소" button
         $(".resv-cancel").click(function () {
             cancelReservation();
-        });
-
-        // Attach click event handler to the "예약변경" button
-        $("#rchange").click(function () {
-            openModal();
         });
     });
 
@@ -98,51 +79,6 @@
     function closeModal() {
         $("#myModal").hide();
         $("#modalOverlay").hide();
-    }
-
-    // Function to handle reservation change from the modal
-    function confirmReservationChange() {
-        var selectedDate = $("#datepickerModal").val();
-        var selectedTime = $("#timepickerModal").val();
-        var numberOfPeople = $("#peopleModal").val();
-        let reservid = [[${result.resevation_id}]];
-
-
-        // Check if any required field is empty
-        if (!selectedDate || !selectedTime || !numberOfPeople) {
-            alert("입력칸에 값을 입력하지 않았습니다. 모든 필수 항목을 입력해주세요.");
-            return; // Do not proceed further
-        }
-
-        let obj = {
-            "resevation_id": reservid,
-            "reservation_date": selectedDate,
-            "resevation_time": selectedTime,
-            "resevation_person": numberOfPeople
-        }
-
-        $.ajax({
-            url: "updateReserv",
-            type: "post",
-            data: obj,
-            success: function (res) {
-                if(res == "ok"){
-                    // Implement your logic to change the reservation using selectedDate, selectedTime, and numberOfPeople
-                    alert("예약이 변경되었습니다\n날짜: " + selectedDate + "\n시간: " + selectedTime + "\n인원수: " + numberOfPeople);
-                    location.href=`myPage?pageNum=[[${session.pageNum}]]`;
-                }
-                else {
-                    alert("예약 수정 실패");
-                }
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        })
-
-
-        // Close the modal after confirming the change
-        closeModal();
     }
 
     // Function to handle reservation cancellation
@@ -162,7 +98,7 @@
                     if(res == 'ok'){
                         alert("예약이 취소되었습니다!");
                         // Redirect to the original page (change the URL accordingly)
-                        window.location.href = "myPage?pageNum=1";
+                        window.location.href = "ownerReserv?pageNum=1";
                     }
                     else {
                         alert('예약 취소 실패.');
