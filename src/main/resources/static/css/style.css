@@ -290,12 +290,12 @@ section {
 }
 
 .ctcontent {
-    line-height: 0;
     font-weight: bold;
-    width: auto;
+    /*width: auto;*/
     display: flex;
     width: 1000px;
     justify-content: space-between;
+    text-align: center;
 }
 
 .ritem {
@@ -318,9 +318,20 @@ section {
     text-decoration: none;
 }
 
+
 .rplace {
-    font-size: 20px;
-    color: black;
+    font-size: 15px;
+    text-overflow: ellipsis; /* 글자가 너무 길 경우 생략 (...) 표시 */
+    animation: scrollText 20s linear infinite;
+
+    @keyframes scrollText {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
 }
 
 .rmenu {
@@ -561,10 +572,23 @@ section {
     float: left;
     margin: 10px;
 }
+.modi-title label {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    margin-bottom: 50px;
+}
 
 .modi-content {
     float: right;
     margin: 10px;
+}
+.modi-title input{
+    width: 150px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 

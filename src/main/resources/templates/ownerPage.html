@@ -46,11 +46,13 @@
         <div>
             <label class="modi-title">사업자번호</label>
             <p th:text="${owner.business_num}" class="modi-content"/>
-        </div>
+        </div> <br>
+
         <div>
             <label class="modi-title">대표자</label>
             <p th:text="${owner.owner_name}" class="modi-content"/>
-        </div>
+        </div><br>
+
         <div class="login-btn">
             <a th:href="@{ownerModify}">수정</a>
         </div>
