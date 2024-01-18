@@ -528,7 +528,7 @@ section {
     border-radius: 5px;
     margin: 0 auto 10px auto;
     display: block;
-    width: 20%;
+    width: fit-content;
     padding: 5px;
     color: white;
     background-color: #0D6EFD;

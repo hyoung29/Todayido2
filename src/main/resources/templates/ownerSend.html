@@ -35,8 +35,6 @@
         if (maddr == "") {
             alert("메일 주소를 입력하세요.");
             return;
-        } else {
-            alert("메일주소로 인증코드를 발송했습니다");
         }
 
         mObj = {"email": maddr, "business_num": busin};
@@ -47,9 +45,9 @@
             data: JSON.stringify(mObj),
             contentType: "application/json",
             success: function (res) {
-                console.log(res);
-                code = res.authCode;
-                business_num = res.business_num
+                code = res;
+                business_num = busin;
+                alert("메일주소로 인증코드를 발송했습니다");
             },
             error: function (err) {
                 console.log(err);
@@ -59,7 +57,7 @@
 
     $("#auth").click(function () {
         let ucode = $("#auth_in").val();
-        if (ucode == code) {
+        if (code != "" && ucode == code) {
             alert("인증완료");//비밀번호 재설정 화면으로 이동(location.href 사용)
             location.href = `updateOwnerPwd?business_num=${business_num}`;
         }

@@ -24,13 +24,11 @@
         <form th:action="@{userjoinProc}" method="post" class="login-form" name="jForm" onsubmit="return check()">
             <h2 class="login-header">회원 가입</h2>
             <input autofocus class="login-input" name="user_name" placeholder="이름" required title="이름" type="text">
-            <input class="login-input" name="user_email" placeholder="이메일" required title="이메일" type="text">
-            <input type="button" class="idcheck-btn" value="본인인증" onclick="sendNumber()">
-            <div id="mail_number" name="mail_number" style="display: none">
-                <input type="text" name="number" id="number" class="login-input" placeholder="인증번호 입력">
-                <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
-            </div>
-            <input class="login-input" id="id" name="user_id" placeholder="아이디" title="아이디" type="text">
+            <input class="login-input" id="mail" name="email" placeholder="이메일" required title="이메일" type="text">
+            <input type="button" class="idcheck-btn" id="sendNumber" value="본인인증">
+            <input type="text" id="auth_in" class="login-input" placeholder="인증번호">
+            <button id="auth" class="login-btn">인증</button>
+            <input type="text" class="login-input" id="id" name="user_id" placeholder="아이디" title="아이디" required>
             <input type="button" class="idcheck-btn" value="중복확인" onclick="idcheck()">
             <input class="login-input" id="pw" name="user_password" placeholder="비밀번호" required title="비밀번호"
                    type="password">
@@ -47,34 +45,41 @@
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script th:inline="javascript">
-    function sendNumber(){
-        $("#mail_number").css("display","block");
+    let code = ``;
+
+    $("#sendNumber").click(function () {
+        let maddr = $("#mail").val();
+
+        if (maddr == "") {
+            alert("메일 주소를 입력하세요.");
+            return;
+        }
+
+        mObj = {"email": maddr};
+
         $.ajax({
-            url:"/mail",
-            type:"post",
-            dataType:"json",
-            data:{"mail" : $("#mail").val()},
-            success: function(data){
-                alert("인증번호 발송");
-                $("#Confirm").attr("value",data);
-            },
-        }
-    });
-    }
+            url: "mailConfirm",
+            type: "post",
+            data: JSON.stringify(mObj),
+            contentType: "application/json",
+            success: function (res) {
+                console.log(res);
+                code = res;
+                alert("메일주소로 인증코드를 발송했습니다");
+            }
+        });
+    })
 
-    function confirmNumber(){
-        var number1 = $("#number").val();
-        var number2 = $("#Confirm").val();
-
-        if(number1 == number2){
-            alert("인증되었습니다.");
-        }else{
-            alert("번호가 다릅니다.");
+    $("#auth").click(function () {
+        let ucode = $("#auth_in").val();
+        if (code != "" && ucode == code) {
+            alert("인증완료");
         }
-    }
+    })
+
     let ck = false;
+
     function idcheck() {
         let id = $("#id").val();
         console.log(id);
@@ -84,6 +89,7 @@
             return;
         }
         let sendObj = {"user_id": id};
+
         $.ajax({
             url: "idCheck",
             type: "get",
@@ -111,16 +117,16 @@
             alert("아이디 중복 확인을 해주세요");
             return false;
         }
-        const jfrm = document.jForm;
-        console.log(jfrm);
-        let length = jfrm.length - 1;
-        for (let i = 0; i < length; i++) {
-            if (jfrm[i].value == "" || jfrm[i] == null) {
-                alert(`${jfrm[i].title} 입력`);
-                jfrm[i].focus();
-                return false;
-            }
-        }
+        // const jfrm = document.jForm;
+        // console.log(jfrm);
+        // let length = jfrm.length - 1;
+        // for (let i = 0; i < length; i++) {
+        //     if (jfrm[i].value == "" || jfrm[i] == null) {
+        //         alert(`${jfrm[i].title} 입력`);
+        //         jfrm[i].focus();
+        //         return false;
+        //     }
+        // }
         return true;
     }
 
