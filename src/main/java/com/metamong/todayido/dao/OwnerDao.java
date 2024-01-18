@@ -23,7 +23,7 @@ public interface OwnerDao {
     void updateOwnerPwd(OwnerDto owner);
 
     //가게번호로 가게정보를 가져오는 메소드
-    StoreDto store(StoreDto storeNum);
+    StoreDto store(String business_num);
 
     //사업주 정보 수정 메소드
     void ownerModifyProc(OwnerDto owner);
