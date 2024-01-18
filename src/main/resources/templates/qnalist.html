@@ -34,7 +34,7 @@
             <div class="title-row">
                 <div class="t-no p-10">NO.</div>
                 <div class="t-title p-30">제목</div>
-                <div class="t-name p-15">작성자</div>
+                <div class="t-name p-25">작성자</div>
                 <div class="t-date p-35">작성일</div>
             </div>
             <div class="data-row">
@@ -48,23 +48,20 @@
                         <div class="d-in-row">
                             <div class="t-no p-10" th:text="${bitem.qna_num}"></div>
                             <div class="t-title p-30">
-                                <a th:href="@{qnaEdit(qna_num=${bitem.qna_num})}"
-                                   th:text="${bitem.qna_title}"></a>
+                                <a th:href="@{qnaEdit(qna_num=${bitem.qna_num})}" th:text="${bitem.qna_title}"></a>
                             </div>
-                            <div class="t-name p-15" th:text="${bitem.user_id}"></div>
+                            <div class="t-name p-25" th:text="${bitem.user_id}"></div>
                             <div class="t-date p-35" th:text="${bitem.create_at}"></div>
                         </div>
-                        <th:block th:if="${bitem.qna_reply != null}">
-                            <div class="d-in-row">
-                                <div class="t-no p-10">답변</div>
-                                <div class="t-title p-30">
-                                    <a th:href="@{qnaEdit(qna_num=${bitem.qna_num})}"
-                                       th:text="${bitem.qna_reply}"></a>
-                                </div>
-                                <div class="t-name p-15">admin_id</div>
-                                <div class="t-date p-35" th:text="${bitem.create_at}"></div>
+                    <th:block th:if="${bitem.qna_reply != null}">
+                        <div class="d-in-row">
+                            <div class="t-no p-10">답변</div>
+                            <div class="t-title p-30">
+                                <a th:href="@{qnaEdit(qna_num=${bitem.qna_num})}" th:text="${bitem.qna_reply}"></a>
                             </div>
-                        </th:block>
+                            <div class="t-name p-25">admin_id</div>
+                            <div class="t-date p-35" th:text="${bitem.create_at}"></div>
+                        </div>
                     </th:block>
                 </th:block>
                 <div>
