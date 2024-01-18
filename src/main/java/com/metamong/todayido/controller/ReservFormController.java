@@ -29,39 +29,11 @@ public class ReservFormController {
     @Autowired
     private MapService mServ;
 
-    private ReservDto reservation = new ReservDto();
-
-    @GetMapping("/show")
-    public String showReservation(Model model) {
-        model.addAttribute("reservation", reservation);
-        return "index";
-    }
-
     @PostMapping("reservProc")
     public String reservProc(ReservDto reserv, HttpSession session, RedirectAttributes rttr) {
         log.info("reservProc()");
         String view = mServ.reservProc(reserv, session, rttr);
         return view;
-    }
-
-    @GetMapping("/edit")
-    public String editReservationForm(Model model) {
-        model.addAttribute("editedReservation", reservation);
-        return "edit";
-    }
-
-    @PostMapping("/edit")
-    public String editReservation(@ModelAttribute("editedReservation") ReservDto editedReservation, Model model) {
-        reservation = editedReservation;
-        model.addAttribute("reservation", reservation);
-        return "index";
-    }
-
-    @GetMapping("/cancel")
-    public String cancelReservation(Model model) {
-        reservation = new ReservDto(); // Reset reservation data
-        model.addAttribute("reservation", reservation);
-        return "index";
     }
 
     @GetMapping("/map")

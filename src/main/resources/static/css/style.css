@@ -337,6 +337,7 @@ section {
 .rmenu {
     font-size: 15px;
     color: #5b5b5b;
+    width: max-content;
 }
 
 #cafe {
