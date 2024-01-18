@@ -89,11 +89,19 @@
         // If the user clicks "Yes" in the confirmation dialog
         if (confirmCancel) {
             // Implement your logic to cancel the reservation here
-
+            let res = [[${result}]];
+            console.log(res);
+            let r_id = 0;
+            if(res != null){
+                r_id = res.resevation_id;
+            }
+            if(r_id == 0){
+                return;
+            }
             $.ajax({
                 url: 'delReserv',
                 type: 'post',
-                data: {'resevation_id':[[${result.resevation_id}]]},
+                data: {'resevation_id':r_id},
                 success: function (res) {
                     if(res == 'ok'){
                         alert("예약이 취소되었습니다!");
