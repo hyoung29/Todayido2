@@ -291,17 +291,21 @@ section {
 
 .ctcontent {
     font-weight: bold;
-    /*width: auto;*/
     display: flex;
+    flex-wrap: wrap;
     width: 1000px;
     justify-content: space-between;
     text-align: center;
 }
 
 .ritem {
-    width: 250px;
+    width: calc(25% - 10px);
+    margin-bottom: 20px;
     text-decoration: none;
+    color: black;
 }
+
+
 
 .ctimg {
     width: 200px;
@@ -572,6 +576,7 @@ section {
     float: left;
     margin: 10px;
 }
+
 .modi-title label {
     display: inline-block;
     width: 100px;
@@ -583,7 +588,8 @@ section {
     float: right;
     margin: 10px;
 }
-.modi-title input{
+
+.modi-title input {
     width: 150px;
     height: 30px;
     padding: 5px;
@@ -1334,7 +1340,7 @@ span.file-title {
     float: right;
 }
 
-.btn-writeback{
+.btn-writeback {
     position: relative;
     right: 150px;
     top: 150px;
@@ -1394,13 +1400,19 @@ span.file-title {
 
 .cView {
     background: white;
-    max-width: fit-content;
-    max-height: fit-content;
+    width: 1000px;
     margin: auto;
     padding: 100px 100px 1000px; /* 값 수정 */
     margin-top: 70px;
     margin-bottom: 50px;
+    overflow: scroll;
+    -ms-overflow-style: none;
 }
+
+.cView::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+}
+
 
 .sld img {
     width: 100%;
@@ -1520,9 +1532,11 @@ span.file-title {
 }
 
 .nn {
-    font-size: 15px;
+    font-size: 16px;
     text-align: left;
-    height: 50px;
+    height: 55px;
+    line-height: 175%;
+
 }
 
 /* 영업 시간, 주소 박스 */
@@ -1551,6 +1565,7 @@ span.file-title {
     font-size: large;
     margin-left: 20px;
 }
+
 /* 수진_여기까지 */
 
 .qtit {
@@ -1655,7 +1670,7 @@ span.file-title {
 
 .r_modal {
     width: 350px;
-    height: 280px;
+    height: 400px;
     background-color: white;
     border: solid 1px black;
     position: absolute;
@@ -1722,6 +1737,7 @@ span.file-title {
     height: 30px;
     display: block;
 }
+
 .pt {
     width: 240px;
     height: 200px;
@@ -1812,3 +1828,4 @@ span.file-title {
     text-align: center;
     font-weight: bold;
 }
+

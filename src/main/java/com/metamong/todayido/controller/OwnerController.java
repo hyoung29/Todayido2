@@ -64,7 +64,7 @@ public class OwnerController {
     }
 
     @GetMapping("ownerPage")
-    public ModelAndView ownerPage(int business_num) {
+    public ModelAndView ownerPage(String  business_num) {
         log.info("ownerPage()");
         ModelAndView mv = oServ.getOwner(business_num);
         return mv;

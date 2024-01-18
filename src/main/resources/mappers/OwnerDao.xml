@@ -25,7 +25,7 @@
         FROM owner
         WHERE business_num = #{business_num}
     </select>
-    <select id="ownerSelect" resultType="OwnerDto" parameterType="Integer">
+    <select id="ownerSelect" resultType="OwnerDto" parameterType="String">
         SELECT *
         FROM owner
         WHERE business_num = #{business_num}

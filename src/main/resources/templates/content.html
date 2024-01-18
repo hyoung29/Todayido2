@@ -47,7 +47,8 @@
     <!-- 성원닭갈비 -->
     <div class="cView">
         <div class="c-dak">
-            <img th:src="@{upload/}+${store.photo_path}" alt="Store Photo" style="width: 100%; height: 500px;"><!-- sql데이터 베이스에서 가져온 사진 -->
+            <img th:src="@{upload/}+${store.photo_path}" alt="Store Photo" style="width: 100%; height: 500px;">
+            <!-- sql데이터 베이스에서 가져온 사진 -->
             <h1>
                 <span th:text="${store.store_name}" style="font-weight: bolder; font-size: 35px;"></span>
                 <span th:text="${'(' + store.average_rating + ')'}" style="font-size: 30px; color: #246C34"></span>
@@ -172,7 +173,7 @@
                 <div class="sh"><span th:text="${store.store_adress}"></span></div>
                 <!-- Map 페이지 -->
                 <div style="margin-top: -13%; font-size: 18px; text-align: right; height: 0px">
-                    <img src="images/map.png"> <a th:href="@{map(store_num=${store_num})}">위치보기</a>
+                    <img src="images/map.png"> <a th:href="@{map(store_num=${store_num})}" target="blank">위치보기</a>
                 </div>
             </div>
             <!-- 리뷰 -->
@@ -190,7 +191,8 @@
                                 <input type="hidden" name="user_id" id="user_id" th:value="${session.user.user_id}">
                                 <input type="hidden" name="store_num" id="store_num" th:value="${store.store_num}">
                                 <h3 class="rev_text">리뷰작성</h3>
-                                <textarea name="review_text" id="text" cols="40" rows="8" placeholder="내용"></textarea><br>
+                                <textarea name="review_text" id="text" cols="40" rows="8"
+                                          placeholder="내용"></textarea><br>
                                 <!-- 리뷰사진 추가 -->
                                 <div>
                                     <label for="file">리뷰사진선택</label>
@@ -230,7 +232,8 @@
                                 <div id="rSpace" class="r_d">
                                     <div>
                                         <label>
-                                            <input type="checkbox" th:id="'cb'+${rev.review_num}" name="color" value="blue"
+                                            <input type="checkbox" th:id="'cb'+${rev.review_num}" name="color"
+                                                   value="blue"
                                                    th:onclick="toggleModal([[${rev.review_num}]])">
                                         </label>
                                         <div th:text="${rev.user_id}"></div>
@@ -292,6 +295,27 @@
         }
     }
 
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var reviewForm = document.getElementById('rform');
+        var submitButton = document.getElementById('drbtn');
+
+        submitButton.addEventListener('click', function () {
+            // 여기에 리뷰 등록 로직을 추가
+
+            // 등록 완료 메시지 얼럿
+            alert('리뷰가 등록되었습니다.');
+            window.location.reload();
+        });
+
+        var closeButton = document.getElementById('cbtn');
+        closeButton.addEventListener('click', function () {
+            // 여기에 모달 닫기 로직을 추가
+            // 예를 들어, 모달 숨기기 등을 수행할 수 있습니다.
+        });
+    });
+
+
     // 모달 닫기 함수
     function closeModal(num) {
         var modal = document.getElementById('myModal' + num);
@@ -309,7 +333,7 @@
                 if (res == "ok") {
                     closeModal(num);
                     alert('리뷰가 삭제되었습니다.');
-                    location.href = `detail?store_num=[[${store.store_num}]]`;
+                    window.location.reload();
                 }
             },
             error: function (err) {

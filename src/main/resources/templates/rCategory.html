@@ -27,16 +27,18 @@
             <h3>추천 식당</h3>
             <div class="recommend">
                 <div class="ctcontent">
-                    <th:block th:each="sLt:${sList}">
+                    <th:block th:each="sLt, stat : ${sList}">
                         <div class="ritem">
-                            <img src="images/mesikdang.png" class="ctimg">
                             <a th:href="@{content(store_num=${sLt.store_num})}" class="ritem">
+                                <img th:src="@{upload/}+${sLt.photo_path}" class="ctimg">
                                 <p th:text="${sLt.average_rating}" class="rstar"></p>
                                 <p th:text="${sLt.store_name}" class="rname"></p>
                                 <p th:text="${sLt.store_adress}" class="rplace"></p>
                                 <p th:text="${sLt.store_description}" class="rmenu"></p>
                             </a>
                         </div>
+                        <!-- Show only the first 4 items initially -->
+                        <th:block th:if="${stat.index < 4}"></th:block>
                     </th:block>
                 </div>
             </div>

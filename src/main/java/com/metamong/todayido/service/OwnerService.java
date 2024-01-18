@@ -148,7 +148,7 @@ public class OwnerService {
     }
 
     // OwnerDao 가져오기
-    public ModelAndView getOwner(int business_num) {
+    public ModelAndView getOwner(String  business_num) {
         log.info("ownerSelect()");
         ModelAndView mv = new ModelAndView();
         OwnerDto owner = oDao.ownerSelect(business_num);
