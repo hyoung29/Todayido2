@@ -16,7 +16,8 @@ public class SearchService {
     public SearchService(StoreDao storeDao) {
         this.storeDao = storeDao;
     }
-//  검색 결과 목록
+
+    // 검색 결과 목록
     public List<StoreDto> searchStore(String keyword) {
         return storeDao.searchStore(keyword);
     }

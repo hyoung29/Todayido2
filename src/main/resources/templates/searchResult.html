@@ -8,27 +8,117 @@
             margin: 500px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Enter 키를 눌렀을 때 검색 기능 실행
+            $("#keyword").keypress(function (e) {
+                if (e.which === 13) { // 13은 Enter 키의 keyCode
+                    e.preventDefault();
+                    doSearch();
+                }
+            });
+
+            // 검색 버튼 클릭 시 검색 기능 실행
+            $("#search").click(function () {
+                doSearch();
+            });
+
+            function doSearch() {
+                // 사용자가 입력한 검색 키워드를 가져온다.
+                let keyword = $("#keyword").val();
+                if (keyword.trim() === "") {
+                    alert("검색어를 입력하세요.");
+                    return;
+                }
+
+                // AJAX를 사용하여 서버에 검색 요청
+                $.ajax({
+                    type: "post",
+                    url: "/content",
+                    contentType: "application/json",
+                    data: JSON.stringify({"keyword": keyword}),
+                    success: function (data) {
+                        // 서버에서 받아온 검색 결과를 처리하는 부분
+                        displaySearchResults(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            // 검색 결과를 동적으로 추가하는 함수
+            function displaySearchResults(results) {
+                let resultsContainer = $("#search-results");
+                resultsContainer.empty(); // 기존 결과 비우기
+
+                // 받아온 결과를 돌면서 동적으로 추가
+                for (let i = 0; i < results.length; i++) {
+                    let result = results[i];
+                    let resultItem = $("<div>");
+                    resultItem.append("<p>" + result.store_name + "</p>");
+                    resultItem.append("<p>" + result.store_telephone + "</p>");
+                    resultItem.append("<p>" + result.store_adress + "</p>");
+                    resultItem.append("<p>" + result.menu_name + "</p>");
+                    resultsContainer.append(resultItem);
+                }
+            }
+        });
+    </script>
 </head>
 <body>
 <header>
     <th:block th:insert="~{fragments::header(${session.user})}"/>
 </header>
 <section>
-    <form th:action="@{/search}" method="get"></form>
-    <div class="popup">
-        <p>관련 검색어를 찾을 수 없습니다.</p>
+    <!-- 검색 폼 -->
+<!--    <div class="se-area">-->
+<!--        <form class="search-box" th:action="@{/search}">&lt;!&ndash; 수진: /static에서 /search로 수정 &ndash;&gt;-->
+<!--            <input id="keyword" name="keyword" placeholder="오늘 뭐하지?">-->
+<!--        </form>-->
+<!--    </div>-->
+    <!-- 검색 결과 -->
+    <!-- 검색 결과를 동적으로 추가할 부분 -->
+    <div id="search-results" th:fragment="search-results">
+        <!-- 검색 결과를 동적으로 추가할 영역 -->
     </div>
-        <!-- 검색 결과 -->
-        <div th:if="${store.search}">
-            <div th:each="result : ${searchResult}">
+
+    <script th:inline="javascript">
+        // 서버에서 받아온 검색 결과 데이터 (Thymeleaf에서 전달된 데이터를 사용)
+        var searchResults = /*[[${searchResult}]]*/ [];
+
+        // 검색 결과를 동적으로 추가하는 함수
+        function appendSearchResults(results) {
+            var searchResultsDiv = document.getElementById("search-results");
+
+            // 결과를 추가하기 전에 기존의 내용을 비워줌
+            searchResultsDiv.innerHTML = "";
+
+            // 각 결과에 대해 HTML을 생성하여 추가
+            results.forEach(function (result) {
+                var resultDiv = document.createElement("div");
+
+                // 각 데이터를 이용하여 HTML 구성
+                resultDiv.innerHTML = `
                 <div>
-                    <h3 th:text="${store.store_name}"></h3>
-                    <p th:text="${store.store_adress}"></p>
-                    <p th:text="${store.store_telephone}"></p>
-                    <p th:text="${menu.menu_name}"></p>
+                    <h3 th:text="${result.store_name}"></h3>
+                    <p th:text="${result.store_adress}"></p>
+                    <p th:text="${result.store_telephone}"></p>
+                    <p th:text="${result.menu_name}"></p>
                 </div>
-            </div>
-        </div>
+            `;
+
+                // 결과를 추가
+                searchResultsDiv.appendChild(resultDiv);
+            });
+        }
+
+        // 페이지 로드 시 검색 결과를 예시로 추가
+        window.onload = function () {
+            appendSearchResults(searchResults);
+        };
+    </script>
 </section>
 <footer>
     <th:block th:insert="~{fragments::footer}"/>

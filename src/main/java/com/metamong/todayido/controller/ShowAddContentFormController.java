@@ -1,5 +1,6 @@
 package com.metamong.todayido.controller;
 
+import com.metamong.todayido.service.SearchService;
 import com.metamong.todayido.service.StoreService;
 import com.metamong.todayido.service.MapService;
 import lombok.extern.slf4j.Slf4j;
