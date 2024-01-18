@@ -30,6 +30,11 @@
         <div class="login-btn">
             <a th:href="@{ownerModify}">수정</a>
         </div>
+        <div class="login-btn">
+            <th:block th:if="${store != null}">
+                <a th:href="@{menuWrite(business_num=${store.business_num})}">메뉴 등록</a>
+            </th:block>
+        </div>
     </div>
 </section>
 <footer>

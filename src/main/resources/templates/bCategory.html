@@ -29,8 +29,8 @@
                 <div class="ctcontent">
                     <th:block th:each="sLt:${sList}">
                         <div class="ritem">
-                            <img src="images/crown.png" class="ctimg">
                             <a th:href="@{content(store_num=${sLt.store_num})}" class="ritem">
+                                <img th:src="@{upload/}+${sLt.photo_path}" class="ctimg">
                                 <p th:text="${sLt.average_rating}" class="rstar"></p>
                                 <p th:text="${sLt.store_name}" class="rname"></p>
                                 <p th:text="${sLt.store_adress}" class="rplace"></p>

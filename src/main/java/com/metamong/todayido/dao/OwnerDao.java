@@ -22,5 +22,7 @@ public interface OwnerDao {
     //사업주 비밀번호 재설정
     void updateOwnerPwd(OwnerDto owner);
 
-    StoreDto store(StoreDto storeNum);
+    StoreDto store(String business_num);
+
+    int selectStoreNum(String bNum);
 }

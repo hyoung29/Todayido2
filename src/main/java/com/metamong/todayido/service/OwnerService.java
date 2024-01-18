@@ -148,11 +148,13 @@ public class OwnerService {
     }
 
     // OwnerDao 가져오기
-    public ModelAndView getOwner(String  business_num) {
+    public ModelAndView getOwner(String business_num) {
         log.info("ownerSelect()");
         ModelAndView mv = new ModelAndView();
         OwnerDto owner = oDao.ownerSelect(business_num);
         mv.addObject("owner", owner);
+        StoreDto store = oDao.store(business_num);
+        mv.addObject("store", store);
         return mv;
     }
 
@@ -258,10 +260,10 @@ public class OwnerService {
         files.transferTo(file);//하드디스크에 저장
     }
 
-    public ModelAndView getStore(StoreDto store_num){
+    public ModelAndView getStore(String business_num){
         log.info("getStore()");
         ModelAndView mv = new ModelAndView();
-        StoreDto store = oDao.store(store_num);
+        StoreDto store = oDao.store(business_num);
         mv.addObject("store", store);
         return mv;
     }
