@@ -193,6 +193,8 @@ public class OwnerService {
             msg = "수정실패";
         }
         rttr.addFlashAttribute("msg", msg);
+        owner = oDao.selectOwner(owner.getBusiness_num());
+        session.setAttribute("owner", owner);
 
         return view;
     }

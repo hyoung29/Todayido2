@@ -1,4 +1,4 @@
-package com.metamong.todayido.util;//package com.aidata.springboard02.util;
+//package com.metamong.todayido.util;//package com.aidata.springboard02.util;
 //
 //import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.servlet.http.HttpServletResponse;
