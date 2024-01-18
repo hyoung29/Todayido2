@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>TodayIdo</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <th:block th:insert="~{ownerfragments::header(${session.owner})}"/>
+</header>
+<section>
+    <div class="content">
+        <form class="ctgy-form">
+            <div class="Category">
+                <ul class="category">
+                    <li><h3>카테고리</h3></li>
+                    <li><a th:href="@{rCategory(store_category_id=1)}">식당</a></li>
+                    <li><a th:href="@{cCategory(store_category_id=2)}"><b>카페</b></a></li>
+                    <li><a th:href="@{bCategory(store_category_id=3)}">술집</a></li>
+                    <li><a th:href="@{pCategory(store_category_id=4)}">장소</a></li>
+                </ul>
+            </div>
+            <img src="images/cafe.png" width="1000px">
+            <h3>추천 카페</h3>
+            <div class="recommend">
+                <div class="ctcontent">
+                    <th:block th:each="sLt:${sList}">
+                        <div class="ritem">
+                            <a th:href="@{ocontent(store_num=${sLt.store_num})}" class="ritem">
+                                <img th:src="@{upload/}+${sLt.photo_path}" class="ctimg">
+                                <p th:text="${sLt.average_rating}" class="rstar"></p>
+                                <p th:text="${sLt.store_name}" class="rname"></p>
+                                <p th:text="${sLt.store_adress}" class="rplace"></p>
+                                <p th:text="${sLt.store_description}" class="rmenu"></p>
+                            </a>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+</html>

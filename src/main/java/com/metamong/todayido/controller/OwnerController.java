@@ -3,7 +3,6 @@ package com.metamong.todayido.controller;
 import com.metamong.todayido.dto.MenuDto;
 import com.metamong.todayido.dto.OwnerDto;
 import com.metamong.todayido.dto.StoreDto;
-import com.metamong.todayido.dto.UserDto;
 import com.metamong.todayido.service.MapService;
 import com.metamong.todayido.service.OwnerService;
 import jakarta.servlet.http.HttpSession;
@@ -14,12 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @Slf4j
@@ -105,7 +101,13 @@ public class OwnerController {
         String view = oServ.ownerModifyProc(owner, session, rttr);
         return view;
     }
-
+    @PostMapping("modiProc")
+    public String modiProc(MultipartFile files, MenuDto menu, Model model, HttpSession session, RedirectAttributes rttr){
+        log.info("modiProc");
+        model.addAttribute("menu", menu);
+        String view = oServ.modiProc(files, menu, session, rttr);
+        return view;
+    }
     @PostMapping("ownerPassUpdate")
     public String ownerPassUpdate(OwnerDto owner){
         log.info("ownerPassUpdate()");
@@ -149,6 +151,49 @@ public class OwnerController {
         ModelAndView mv = mServ.getOwnerReservList(pageNum, session);
         return mv;
     }
+    @GetMapping("orCategory")
+    public ModelAndView rCategory(int store_category_id) {
+        log.info("rCategory()");
+        ModelAndView mv = oServ.getStoreList(store_category_id);
+        return mv;
+    }
+
+
+    @GetMapping("ocCategory")
+    public ModelAndView cCategory(int store_category_id) {
+        log.info("cCategory()");
+        ModelAndView mv = oServ.getStoreList(store_category_id);
+        return mv;
+    }
+
+    @GetMapping("obCategory")
+    public ModelAndView bCategory(int store_category_id) {
+        log.info("bCategory()");
+        ModelAndView mv = oServ.getStoreList(store_category_id);
+        return mv;
+    }
+
+    @GetMapping("opCategory")
+    public ModelAndView pCategory(int store_category_id) {
+        log.info("pCategory()");
+        ModelAndView mv = oServ.getStoreList(store_category_id);
+        return mv;
+    }
+
+    @GetMapping("ocontent")
+    public ModelAndView ocontent(int store_num){
+        log.info("ocontent()");
+        ModelAndView mv = oServ.getOContent(store_num);
+        return mv;
+    }
+
+    @GetMapping("menuModi")
+    public ModelAndView menuModi(int store_num){
+        log.info("menuModi()");
+        ModelAndView mv = oServ.getMenuList(store_num);
+        return mv;
+    }
+
 
 }
 
