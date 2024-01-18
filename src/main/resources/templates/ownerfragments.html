@@ -31,7 +31,9 @@
                         <a th:href="@{ownerPage(business_num=${owner.business_num})}">내 가게 보기</a>
                         <a th:href="@{pdetail}">내 가게 등록</a>
                         <a th:href="@{menuWrite(store_num=17)}">메뉴 등록</a>
-                        <a th:href="@{ownerReserv}">예약 내역 확인</a>
+                        <th:block th:unless="${owner == null}">
+                            <a href="ownerReserv?pageNum=1">예약 내역 확인</a>
+                        </th:block>
                     </th:block>
                     <div style="width: 150px"/>
                 </div>

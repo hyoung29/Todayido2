@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 public class ReservDto {
         private String Store_name;
         private String user_id;
+        private String user_pnum;
         private int resevation_id;
         private int Store_num;
         private String reservation_date;

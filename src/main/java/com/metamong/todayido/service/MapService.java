@@ -48,7 +48,7 @@ public class MapService {
             rDao.insertReserv(reserv);
             log.info("");
 
-            view = "redirect:myPage";
+            view = "redirect:myPage?pageNum=1";
             msg = "예약 성공";
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,23 +137,43 @@ public class MapService {
         return result;
     }
 
-    public ModelAndView getReservOwnerList(int pageNum, HttpSession session){
+    public ModelAndView getOwnerReservList(int pageNum, HttpSession session){
         log.info("getReservOwnerList()");
         ModelAndView mv = new ModelAndView();
         OwnerDto owner = (OwnerDto)session.getAttribute("owner");
+        int store_num = rDao.selectStoreNum(owner.getBusiness_num());
+
         Map<String, Object> revMap = new HashMap<>();
         revMap.put("pageNum", Integer.valueOf(pageNum-1));
         revMap.put("listCnt", Integer.valueOf(1));
-        revMap.put("owner_name", owner.getBusiness_num());
-        ReservDto result = rDao.selectReserv(revMap);
+        revMap.put("store_num",store_num);
+        ReservDto result = rDao.selectOwnerReserv(revMap);
         mv.addObject("result", result);
 
-        String pageHtml = getPaging(revMap);
+        String pageHtml = getOwnerPaging(revMap);
         mv.addObject("paging", pageHtml);
 
         session.setAttribute("pageNum", pageNum);
         mv.setViewName("ownerReserv");
         return mv;
+    }
+
+    private String getOwnerPaging(Map<String, Object> revMap) {
+        String pageHtml = null;
+        //전체 글개수 구하기(from DB)
+        int maxNum = rDao.selectOwnerReservCnt((int) revMap.get("store_num"));
+        //페이지에 보여질 번호 개수
+        int pageCnt = 5;
+        //링크용 uri : 기본 - "boardList?
+        // 검색 - "boardList?colname=b_title&keyword=4&
+        String listName = "ownerReserv?";
+
+        PagingUtil paging = new PagingUtil(maxNum, ((Integer)revMap.get("pageNum"))+1,
+                (Integer)revMap.get("listCnt"), pageCnt, listName);
+
+        pageHtml = paging.makePaging();
+
+        return pageHtml;
     }
 
 

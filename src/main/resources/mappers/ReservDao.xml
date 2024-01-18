@@ -30,5 +30,16 @@
         SELECT count(*) FROM rList WHERE user_id=#{user_id}
     </select>
 
-
+    <select id="selectOwnerReserv" resultType="ReservDto" parameterType="HashMap">
+        SELECT * FROM rList WHERE store_num=#{store_num}
+            LIMIT #{pageNum}, #{listCnt}
+    </select>
+    <select id="selectOwnerReservCnt" resultType="Integer">
+        SELECT count(*)
+        FROM rList
+        WHERE store_num = #{store_num}
+    </select>
+    <select id="selectStoreNum" resultType="Integer" parameterType="String">
+        SELECT store_num FROM store WHERE business_num= #{b_num}
+    </select>
 </mapper>

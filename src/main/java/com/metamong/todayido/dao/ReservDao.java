@@ -23,4 +23,10 @@ public interface ReservDao {
 
     void deleteReserv(int resevation_id);
 
+    ReservDto selectOwnerReserv(Map<String, Object> revMap);
+
+    int selectOwnerReservCnt(int store_num);
+
+    int selectStoreNum(String b_num);
+
 }
