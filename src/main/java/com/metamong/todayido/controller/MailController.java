@@ -2,6 +2,7 @@ package com.metamong.todayido.controller;
 
 import com.metamong.todayido.service.MailService;
 import jakarta.mail.MessagingException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,21 @@ import java.util.Map;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class MailController {
     @Autowired
-    private MailService mServ;
+    private final MailService mServ;
+
+    @ResponseBody
+    @PostMapping("/mail")
+    public String MailSend(String mail){
+
+        int number = mServ.sendMail(mail);
+
+        String num = "" + number;
+
+        return num;
+    }
 
     @GetMapping("userSend")
     public String userSend() {
