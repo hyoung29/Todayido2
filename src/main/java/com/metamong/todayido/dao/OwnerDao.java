@@ -17,10 +17,12 @@ public interface OwnerDao {
     OwnerDto selectOwner(String business_num);
 
     //??
-    OwnerDto ownerSelect(int business_num);
+    OwnerDto ownerSelect(String business_num);
 
     //사업주 비밀번호 재설정
     void updateOwnerPwd(OwnerDto owner);
 
-    StoreDto store(StoreDto storeNum);
+    StoreDto store(String business_num);
+
+    int selectStoreNum(String bNum);
 }

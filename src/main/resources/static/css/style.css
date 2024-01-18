@@ -1394,10 +1394,10 @@ span.file-title {
 
 .cView {
     background: white;
-    max-width: fit-content;
-    max-height: fit-content;
+    width: 1000px;
+    height: auto;
     margin: auto;
-    padding: 100px 100px 1000px; /* 값 수정 */
+    padding: 100px 100px; /* 값 수정 */
     margin-top: 70px;
     margin-bottom: 50px;
 }
@@ -1629,13 +1629,14 @@ span.file-title {
 }
 
 .rev {
-    width: 450px;
+    width: 700px;
     height: 100%;
     margin: 25px auto;
     background-color: white;
     padding: 10px;
     border-radius: 10px;
     display: none;
+    font-size: 23px;
 }
 
 .revproc {
@@ -1677,8 +1678,8 @@ span.file-title {
 }
 
 .r_photo {
-    width: 100px;
-    height: 130px;
+    width: 120px;
+    height: 180px;
     margin-left: auto;
 }
 

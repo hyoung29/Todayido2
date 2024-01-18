@@ -57,14 +57,13 @@ public class OwnerController {
     }
 
     @GetMapping("pindex")
-    public ModelAndView pindex(StoreDto store) {
+    public String pindex() {
         log.info("pindex()");
-        ModelAndView mv = oServ.getStore(store);
-        return mv;
+        return "pindex";
     }
 
     @GetMapping("ownerPage")
-    public ModelAndView ownerPage(int business_num) {
+    public ModelAndView ownerPage(String business_num) {
         log.info("ownerPage()");
         ModelAndView mv = oServ.getOwner(business_num);
         return mv;
@@ -122,9 +121,9 @@ public class OwnerController {
     }
 
     @GetMapping("menuWrite")
-    public ModelAndView menuWrite(StoreDto store_num){
+    public ModelAndView menuWrite(String business_num){
         log.info("menuWrite()");
-        ModelAndView mv = oServ.getStore(store_num);
+        ModelAndView mv = oServ.getStore(business_num);
         return mv;
     }
 
