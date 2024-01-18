@@ -1,9 +1,13 @@
 package com.metamong.todayido.dao;
 
 
+import com.metamong.todayido.dto.MenuDto;
 import com.metamong.todayido.dto.OwnerDto;
+import com.metamong.todayido.dto.ReviewDto;
 import com.metamong.todayido.dto.StoreDto;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface OwnerDao {
@@ -30,4 +34,16 @@ public interface OwnerDao {
 
 
     int selectStoreNum(String bNum);
+
+    List<StoreDto> selectStoreList(int storeCategoryId);
+
+    List<MenuDto> selectMenu(int storeNum);
+
+    List<ReviewDto> selectReview(int storeNum);
+
+    StoreDto selectStore(int storeNum);
+
+    List<MenuDto> menuListSelect(int store_num);
+
+    void modiProc(MenuDto menu);
 }

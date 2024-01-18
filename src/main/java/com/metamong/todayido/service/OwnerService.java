@@ -1,9 +1,9 @@
 package com.metamong.todayido.service;
 
+import com.metamong.todayido.dao.DetailDao;
 import com.metamong.todayido.dao.OwnerDao;
 import com.metamong.todayido.dao.StoreDao;
 import com.metamong.todayido.dto.*;
-import jakarta.mail.Store;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +13,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -31,6 +27,9 @@ public class OwnerService {
     private OwnerDao oDao;
     @Autowired
     private StoreDao sDao;
+    @Autowired
+    private DetailDao dDao;
+
     private final BCryptPasswordEncoder pEncoder = new BCryptPasswordEncoder();
 
     @Autowired
@@ -184,19 +183,41 @@ public class OwnerService {
         try {
             oDao.ownerModifyProc(owner);
             manager.commit(status);
-            view = "ownerPage";
+            view = "redirect:ownerPage?business_num=" + owner.getBusiness_num();
             msg = "수정성공";
         } catch (Exception e) {
             e.printStackTrace();
             manager.rollback(status);
-            view = "ownerModify";
+            view = "redirect:ownerModify?business_num=" + owner.getBusiness_num();
             msg = "수정실패";
         }
         rttr.addFlashAttribute("msg", msg);
 
         return view;
     }
+    public String modiProc(MultipartFile files, MenuDto menu, HttpSession session, RedirectAttributes rttr) {
+        log.info("modiProc()");
+        TransactionStatus status = manager.getTransaction(definition);
+        String view = null;
+        String msg = null;
+        String mimg = menu.getMn_sysname();
+        try {
+            fileUpload(files, session, menu);
+            fileDelete(mimg, session);
+            oDao.modiProc(menu);
+            manager.commit(status);
+            view = "redirect:ocontent?store_num=" + menu.getStore_num();
+            msg = "수정성공";
+        } catch (Exception e) {
+            e.printStackTrace();
+            manager.rollback(status);
+            view = "redirect:menuModi?store_num=" + menu.getStore_num();
+            msg = "수정실패";
+        }
+        rttr.addFlashAttribute("msg", msg);
 
+        return view;
+    }
     public String updatepModify(MultipartFile file, OwnerDto owner, HttpSession session, RedirectAttributes rttr) {
         try {
             boolean updateSuccess = updateDetails(file, owner);
@@ -288,5 +309,51 @@ public class OwnerService {
         StoreDto store = oDao.store(business_num);
         mv.addObject("store", store);
         return mv;
+    }
+
+    public ModelAndView getStoreList(int store_category_id) {
+        log.info("getStoreList");
+        ModelAndView mv = new ModelAndView();
+        List<StoreDto> sList = oDao.selectStoreList(store_category_id);
+        mv.addObject("sList", sList);
+        return mv;
+    }
+
+    public ModelAndView getOContent(int store_num) {
+        log.info("getOContent()");
+        ModelAndView mv = new ModelAndView();
+        StoreDto store = oDao.selectStore(store_num);
+        mv.addObject("store", store);
+        List<MenuDto> mList = oDao.selectMenu(store_num);
+        mv.addObject("mList", mList);
+        List<ReviewDto> rList = oDao.selectReview(store_num);
+        mv.addObject("rList", rList);
+
+        mv.setViewName("ocontent");
+        return mv;
+    }
+
+    public ModelAndView getMenuList(int store_num) {
+        log.info("getMenuList()");
+        ModelAndView mv = new ModelAndView();
+        List<MenuDto> menu = oDao.menuListSelect(store_num);
+        mv.addObject("menu", menu);
+        StoreDto store = oDao.selectStore(store_num);
+        mv.addObject("store", store);
+
+        mv.setViewName("menuModi");
+        return mv;
+    }
+
+
+    private void fileDelete(String mimg,
+                            HttpSession session)throws Exception{
+        log.info("fileDelete()");
+        String realPath = session.getServletContext().getRealPath("/");
+        realPath+="upload/" + mimg;
+        File file = new File(realPath);
+        if (file.exists()){
+            file.delete();
+        }
     }
 }

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>콘텐츠 정보 보기</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Add Bootstrap-datepicker CSS link -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- bxSlider용 라이브러리 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script>
+        $(function () {
+            //bxSlider 설정
+            $(".sld").bxSlider({
+                auto: false, //수동 순환
+                slideWidth: 600 //슬라이더 가로 길이.
+            });
+
+            //메시지 출력
+            let m = null;
+            if (m != null) {
+                alert(m);
+            }
+        });
+    </script>
+    <script th:inline="javascript">
+        $(function () {
+            let m = [[${msg}]];
+            if (m != null) {
+                alert(m);
+            }
+        });
+    </script>
+</head>
+<body>
+<header>
+    <th:block th:insert="~{ownerfragments::header(${session.owner})}"/>
+</header>
+<section>
+    <!-- 성원닭갈비 -->
+    <div class="cView">
+        <div class="c-dak">
+            <img th:src="@{upload/}+${store.photo_path}" alt="Store Photo" style="width: 800px; height: 500px;"><!-- sql데이터 베이스에서 가져온 사진 -->
+            <h1>
+                <span th:text="${store.store_name}" style="font-weight: bolder; font-size: 35px;"></span>
+                <span th:text="${'(' + store.average_rating + ')'}" style="font-size: 30px; color: #246C34"></span>
+            </h1>
+            <h4 th:text="${store.store_telephone}"></h4>
+            <div class="sl" style="margin: 50px">
+                <h3>대표메뉴</h3>
+                <div class="sld">
+                    <!-- 이미지 슬라이더 또는 대표 메뉴 이미지들 -->
+                    <th:block th:each="menu:${mList}">
+                        <div><img th:src="@{upload/} + ${menu.mn_sysname}" alt="Main Photo"></div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+        <!-- 메뉴&설명 -->
+        <th:block>
+            <div class="cont-menu">
+                <div class="mnu">
+                    <p class="mu">메뉴</p>
+                    <div class="tt">
+                        <p th:each="menu:${mList}" th:text="${menu.menu_name}"></p>
+                    </div>
+                </div>
+                <div class="pay">
+                    <p class="mu">가격</p>
+                    <div class="ttl">
+                        <p th:each="menu : ${mList}">
+                            <span th:text="${menu.menu_price} + '원'"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="com">
+                    <p class="mu">설명</p>
+                    <div class="nn">
+                        <p th:each="menu:${mList}" th:text="${menu.menu_descripton}"></p>
+                    </div>
+                </div>
+            </div>
+            <th:block th:if="${store.business_num == session.owner.business_num}">
+                <div class="btnW">
+                    <a th:href="@{menuModi(store_num=${store.store_num})}">메뉴 수정</a>
+                </div>
+            </th:block>
+        </th:block>
+
+        <!-- 영업 시간 -->
+        <div class="cont-mm">
+            <div class="store-hour">영업 시간</div>
+            <div class="sh">
+                <div>시간: <span th:text="${store.open_time}"></span></div>
+                <div>휴무일: <span th:text="${store.closed_day}"></span></div>
+            </div>
+
+            <div style="text-align: right;">
+                <div class="user-info">
+                    <div class="user-info-sub" th:object="${session.user}"></div>
+                </div>
+
+                <th:block th:if="${session.user != null}">
+                    <button type="button" class="res" style="font-size: 18px;
+                        background-color: white; border-style: none; text-underline: dash;"
+                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <img src="images/schedule.png">예약하기
+                    </button>
+
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title" id="staticBackdropLabel">예약하기</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Add your form or content here -->
+                                    <form id="reservationForm" th:action="@{reservProc}" method="post">
+                                        <input type="hidden" name="store_num" th:value="${store.store_num}">
+                                        <div class="mb-3 text-center">
+                                            <label for="date" class="form-label">날짜:</label>
+                                            <input type="text" id="date" name="reservation_date"
+                                                   class="form-control datepicker"
+                                                   data-date-format="yyyy-mm-dd" required>
+                                        </div>
+
+                                        <div class="mb-3 text-center">
+                                            <label for="people" class="form-label">인원수:</label>
+                                            <input type="number" id="people" name="resevation_person"
+                                                   class="form-control"
+                                                   min="1"
+                                                   required>
+                                        </div>
+
+                                        <div class="mb-3 text-center">
+                                            <label for="time" class="form-label">시간:</label>
+                                            <input type="time" id="time" name="resevation_time" class="form-control"
+                                                   required>
+                                        </div>
+
+                                        <div class="btn-class">
+                                            <div class="child">
+                                                <!-- 예약하기 button -->
+                                                <button class="btn btn-primary" id="saveReservation">
+                                                    저장
+                                                </button>
+                                                <!-- 예약 취소하기 button -->
+                                                <button type="button" class="btn btn-secondary"
+                                                        id="cancelReservation">취소
+                                                </button>
+                                                <!-- 닫기 button -->
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">닫기
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+            <!-- 주소 -->
+            <div class="cont-mm">
+                <div class="store-hour">주소</div>
+                <div class="sh"><span th:text="${store.store_adress}"></span></div>
+                <!-- Map 페이지 -->
+                <div style="margin-top: -13%; font-size: 18px; text-align: right; height: 0px">
+                    <img src="images/map.png"> <a th:href="@{map(store_num=${store_num})}" target="blank">위치보기</a>
+                </div>
+            </div>
+            <!-- 리뷰 -->
+            <!-- 리뷰쓰기 버튼 -->
+            <th:block th:if="${session.user != null}">
+                <input type="button" value="리뷰쓰기" class="revproc">
+            </th:block>
+
+            <div class="cont-re">
+                <!-- 리뷰 등록 -->
+                <th:block th:if="${session.user != null}">
+                    <div class="modalbg">
+                        <div class="r_modal">
+                            <form id="rform">
+                                <input type="hidden" name="user_id" id="user_id" th:value="${session.user.user_id}">
+                                <input type="hidden" name="store_num" id="store_num" th:value="${store.store_num}">
+                                <h3 class="rev_text">리뷰작성</h3>
+                                <textarea name="review_text" id="text" cols="40" rows="8"
+                                          placeholder="내용"></textarea><br>
+                                <!-- 리뷰사진 추가 -->
+                                <div>
+                                    <label for="file">리뷰사진선택</label>
+                                    <input type="file" name="files" id="file">
+                                    <input type="text" class="upload-name" value="파일선택" readonly><br>
+                                </div>
+                                <input type="hidden" name="rating" value="0" id="rating">
+                                <p class="star_rating">
+                                    <span data-star="1">★</span>
+                                    <span data-star="2">★</span>
+                                    <span data-star="3">★</span>
+                                    <span data-star="4">★</span>
+                                    <span data-star="5">★</span>
+                                </p>
+                                <input type="button" value="등록" class="dr" id="drbtn">
+                                <input type="button" value="닫기" class="close_rev" id="cbtn">
+                            </form>
+                        </div>
+                    </div>
+                </th:block>
+
+                <!-- 리뷰 출력 부분 -->
+                <div id="rs">
+                    <h5 class="reH">리뷰</h5><br>
+                    <th:block th:if="${#lists.isEmpty(rList)}">
+                        <div style="width: 100%">댓글이 없습니다</div>
+                    </th:block>
+                    <th:block th:unless="${#lists.isEmpty(rList)}">
+                        <th:block th:each="rev : ${rList}">
+                            <div class="rev" id="load-rlist">
+                                <div id="rSpace" class="r_d">
+                                    <div>
+                                        <div th:text="${rev.user_id}"></div>
+                                        <div th:switch="${rev.rating}">
+                                            <span th:case="1">&#9733;&#9734;&#9734;&#9734;&#9734;</span>
+                                            <span th:case="2">&#9733;&#9733;&#9734;&#9734;&#9734;</span>
+                                            <span th:case="3">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
+                                            <span th:case="4">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                                            <span th:case="5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                        </div>
+                                        <div th:text="${rev.review_text}"></div>
+                                        <div th:text="${rev.crated_at}"></div>
+                                    </div>
+                                    <th:block th:if="${rev.rv_sysname != null}">
+                                        <img th:src="@{upload/}+${rev.rv_sysname}" class="r_photo">
+                                    </th:block>
+                                </div>
+                            </div>
+                        </th:block>
+                    </th:block>
+                </div>
+
+                <button class="load-more" id="load-more">더보기</button>
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<!-- Your custom scripts here -->
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $('#date').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+    });
+</script>
+
+<!-- 리뷰 삭제 모달 -->
+<script th:inline="javascript">
+    // 모달 표시/숨김 토글 함수
+    function toggleModal(num) {
+
+        var modal = document.getElementById('myModal' + num);
+        var checkbox = document.querySelector('#cb' + num);
+
+        if (checkbox.checked) {
+            modal.style.display = 'block';
+        } else {
+            modal.style.display = 'none';
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var reviewForm = document.getElementById('rform');
+        var submitButton = document.getElementById('drbtn');
+
+        submitButton.addEventListener('click', function () {
+            // 여기에 리뷰 등록 로직을 추가
+
+            // 등록 완료 메시지 얼럿
+            alert('리뷰가 등록되었습니다.');
+            window.location.reload();
+        });
+
+        var closeButton = document.getElementById('cbtn');
+        closeButton.addEventListener('click', function () {
+            // 여기에 모달 닫기 로직을 추가
+            // 예를 들어, 모달 숨기기 등을 수행할 수 있습니다.
+        });
+    });
+
+
+    // 모달 닫기 함수
+    function closeModal(num) {
+        var modal = document.getElementById('myModal' + num);
+        modal.style.display = 'none';
+    }
+
+    // 삭제 함수 (예 버튼 클릭 시 호출)
+    function deleteItem(num) {
+        $.ajax({
+            url: "deleteReviewProc",
+            type: "post",
+            data: {review_num: num},
+            success: function (res) {
+                console.log(res);
+                if (res == "ok") {
+                    closeModal(num);
+                    alert('리뷰가 삭제되었습니다.');
+                    window.location.reload();
+                }
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+    }
+</script>
+
+<!-- 리뷰 관련 -->
+<script th:inline="javascript">
+    $("#file").on("change", function () {
+        //파일 선택창에서 업로드할 파일을 선택한 다음
+        //'열기' 버튼을 누르면 change 이벤트가 발생.
+        let files = $("#file")[0].files;
+        console.log(files);
+
+        let fileName = "";//출력할 문장 저장 변수
+
+        if (files.length > 1) {
+            fileName = `${files[0].name} 외 ${files.length - 1}개`;
+        } else if (files.length == 1) {
+            fileName = files[0].name;
+        } else {
+            fileName = "파일선택";
+        }
+        $(".upload-name").val(fileName);
+    });
+
+    $(".revproc").click(function (e) {
+        e.preventDefault();
+        $(".modalbg").show();
+    })
+    $(".close_rev").click(function () {
+        $(".modalbg").hide();
+    })
+
+    $("#drbtn").click(function () {
+        let form = new FormData();
+        let files = $("#file")[0];
+        form.append("user_id", $("#user_id").val());
+        form.append("store_num", $("#store_num").val());
+        form.append("review_text", $("#text").val());
+        form.append("files", files.files[0]);
+        form.append("rating", $("#rating").val());
+        console.log(form);
+
+        $.ajax({
+            url: "reviewInsert",
+            type: "post",
+            data: form,
+            enctype: "multipart/form-data",
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (res) {
+                console.log(res);
+                if (res != null) {
+                    let str = "";
+                    str += `
+
+                <div class="rev">
+                        <div id="rSpace" class="r_d">
+                            <div>
+                                <div>${res.user_id}</div>
+                    `;
+                    switch (res.rating) {
+                        case 1:
+                            str += `<span>&#9733;&#9734;&#9734;&#9734;&#9734;</span>`;
+                            break;
+                        case 2:
+                            str += `<span>&#9733;&#9733;&#9734;&#9734;&#9734;</span>`;
+                            break;
+                        case 3:
+                            str += `<span>&#9733;&#9733;&#9733;&#9734;&#9734;</span>`;
+                            break;
+                        case 4:
+                            str += `<span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>`;
+                            break;
+                        default:
+                            str += `<span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>`;
+                    }
+                    str += `
+                                <div>${res.review_text}</div>
+                                <div>${res.crated_at}</div>
+                            </div>
+                            <img src="upload/${res.rv_sysname}" class="r_photo">
+                        </div>
+                    </div>
+                    `;
+                    $("#rs").prepend(str);
+                    //$("#comment").val("");
+                    $(".modalbg").hide();
+                } else {
+                    alert("댓글 작성 실패");
+                    $("#comment").val("");
+                    $("#comment").focus();
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+    $(".star_rating span").click(function () {
+        $(this).parent().children("span").removeClass("on");
+        $(this).addClass("on").prevAll("span").addClass("on");
+        let s = $(this).data("star");
+        console.log(s);
+        $("#rating").val(s);
+    });
+
+    $(function () {
+        var numToShow = 3; // 한 번에 보여줄 리뷰 수
+        var reviews = $('.rev');
+
+        reviews.slice(0, numToShow).show();
+
+        $('#load-more').click(function (e) {
+            e.preventDefault();
+            var hiddenReviews = reviews.filter(':hidden');
+
+            if (hiddenReviews.length <= numToShow) {
+                $(this).hide(); // 숨겨진 리뷰가 numToShow 이하일 때 더보기 버튼 숨기기
+            }
+
+            hiddenReviews.slice(0, numToShow).show();
+        });
+
+        if (reviews.length <= numToShow) {
+            $('#load-more').hide(); // 리뷰가 numToShow 이하일 때 더보기 버튼 숨기기
+        }
+    });
+</script>
+</html>
