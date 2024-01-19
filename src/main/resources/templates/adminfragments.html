@@ -33,17 +33,17 @@
             </ul>
         </nav>
     </div>
-<!--    <script th:inline="javascript">-->
-<!--        const mem = [[${session.admin}]];-->
+    <script th:inline="javascript">
+        const mem = [[${session.admin}]];
 
-<!--        function gohome() {-->
-<!--            if (mem != null) {-->
-<!--                location.href = "boardList?pageNum=1";-->
-<!--            } else {-->
-<!--                location.href = "/";-->
-<!--            }-->
-<!--        }-->
-<!--    </script>-->
+        function gohome() {
+            if (mem != null) {
+                location.href = "adindex";
+            } else {
+                location.href = "adminLogin";
+            }
+        }
+    </script>
 </div>
 <!--------------------footer------------------------->
 <div class="footer-bar" th:fragment="footer">

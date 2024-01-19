@@ -43,7 +43,7 @@ public interface OwnerDao {
 
     StoreDto selectStore(int storeNum);
 
-    List<MenuDto> menuListSelect(int store_num);
+    MenuDto menuListSelect(int menu_num);
 
     void modiProc(MenuDto menu);
 }

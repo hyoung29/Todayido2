@@ -661,7 +661,7 @@ section {
 }
 
 /*
-	board content style
+   board content style
 */
 .t_content {
     display: block;
@@ -763,11 +763,8 @@ section {
 }
 
 .data-area {
-    margin: auto;
-    margin-bottom: 10px;
+    margin-left: 3%;
     width: 100%;
-    float: none;
-
 }
 
 .btn-area .paging {
@@ -834,6 +831,10 @@ span.file-title {
     width: 20%;
 }
 
+.p-28 {
+    width: 28%;
+}
+
 .p-25 {
     width: 25%;
 }
@@ -844,6 +845,10 @@ span.file-title {
 
 .p-35 {
     width: 35%;
+}
+
+.p-40 {
+    width: 40%;
 }
 
 .p-50 {
@@ -858,30 +863,6 @@ span.file-title {
     min-height: 100%;
     position: relative;
     padding-bottom: 58px; /* footer height */
-}
-
-.footer-bar {
-    width: 100%;
-    background-color: #5b5b5b;
-    color: #fff;
-    min-height: 58px;
-    line-height: 58px;
-    padding: 0px;
-}
-
-.footer-logo {
-    width: 30px;
-    border-radius: 5px;
-}
-
-.fcontents {
-    text-align: center;
-    padding: 0px;
-}
-
-.footer-logo, .footer-txt {
-    margin: 0px auto;
-    vertical-align: middle;
 }
 
 .ta {
@@ -1223,9 +1204,7 @@ span.file-title {
 
 
 .st-rg label {
-    display: inline-block;
-    width: 100px;
-    text-align: center;
+
     margin-bottom: 5px;
 }
 
@@ -1356,13 +1335,16 @@ span.file-title {
     font-weight: 700;
     color: black;
     line-height: normal;
-    margin-left: 1280px;
+
+
+
+    margin-left: 70%;
 
 }
 
 .qnalist-form {
     text-align: center;
-    max-width: 1500px;
+    max-width: 1300px;
     max-height: fit-content;
     padding: 15px;
     margin: 50px auto;
@@ -1462,12 +1444,18 @@ span.file-title {
     border-radius: 40px;
     background: #D9D9D9;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    /*justify-content: space-around;*/
     align-items: center;
     width: 100%;
-    height: 250px;
+    /*height: 250px;*/
     margin-top: 100px;
+}
+
+.menu-title {
+    display: flex;
+    font-weight: bold;
+    width: 100%;
 }
 
 .cont-menu .mnu, .pay, .com {
@@ -1491,8 +1479,23 @@ span.file-title {
     white-space: nowrap;
 }
 
-.mu {
-    border-bottom: solid 1px #5b5b5b;
+.mu1 {
+    width: 25%;
+    text-align: center;
+}
+.mu2 {
+    width: 15%;
+    text-align: center;
+}
+.mu3 {
+    width: 60%;
+    text-align: center;
+}
+
+.menu-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
 }
 
 .ttl {
@@ -1503,11 +1506,12 @@ span.file-title {
 }
 
 .tt {
-    text-align: left;
-    color: #555555;
-    font-size: 18px;
-    height: 50px;
-
+    /*text-align: left;*/
+    /*color: #555555;*/
+    /*font-size: 18px;*/
+    /*height: 50px;*/
+    width: 25%;
+    text-align: center;
 }
 
 .nn {

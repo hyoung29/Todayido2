@@ -188,9 +188,9 @@ public class OwnerController {
     }
 
     @GetMapping("menuModi")
-    public ModelAndView menuModi(int store_num){
+    public ModelAndView menuModi(int menu_num){
         log.info("menuModi()");
-        ModelAndView mv = oServ.getMenuList(store_num);
+        ModelAndView mv = oServ.getMenuList(menu_num);
         return mv;
     }
 

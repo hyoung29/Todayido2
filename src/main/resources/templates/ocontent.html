@@ -47,7 +47,8 @@
     <!-- 성원닭갈비 -->
     <div class="cView">
         <div class="c-dak">
-            <img th:src="@{upload/}+${store.photo_path}" alt="Store Photo" style="width: 800px; height: 500px;"><!-- sql데이터 베이스에서 가져온 사진 -->
+            <img th:src="@{upload/}+${store.photo_path}" alt="Store Photo" style="width: 800px; height: 500px;">
+            <!-- sql데이터 베이스에서 가져온 사진 -->
             <h1>
                 <span th:text="${store.store_name}" style="font-weight: bolder; font-size: 35px;"></span>
                 <span th:text="${'(' + store.average_rating + ')'}" style="font-size: 30px; color: #246C34"></span>
@@ -66,32 +67,32 @@
         <!-- 메뉴&설명 -->
         <th:block>
             <div class="cont-menu">
-                <div class="mnu">
+                <div class="menu-title">
                     <p class="mu">메뉴</p>
-                    <div class="tt">
-                        <p th:each="menu:${mList}" th:text="${menu.menu_name}"></p>
-                    </div>
-                </div>
-                <div class="pay">
                     <p class="mu">가격</p>
-                    <div class="ttl">
-                        <p th:each="menu : ${mList}">
-                            <span th:text="${menu.menu_price} + '원'"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="com">
                     <p class="mu">설명</p>
-                    <div class="nn">
-                        <p th:each="menu:${mList}" th:text="${menu.menu_descripton}"></p>
+                </div>
+                <th:block th:each="menu:${mList}">
+                    <div class="menu-content">
+                        <div class="tt">
+                            <th:block th:if="${store.business_num == session.owner.business_num}">
+                                <a th:href="@{menuModi(menu_num=${menu.menu_num})}">
+                                    <p th:text="${menu.menu_name}"></p>
+                                </a>
+                            </th:block>
+                            <th:block th:unless="${store.business_num == session.owner.business_num}">
+                                <p th:text="${menu.menu_name}"></p>
+                            </th:block>
+                        </div>
+                        <div class="tt">
+                            <p th:text="${menu.menu_price} + '원'"></p>
+                        </div>
+                        <div class="tt">
+                            <p th:text="${menu.menu_descripton}"></p>
+                        </div>
                     </div>
-                </div>
+                </th:block>
             </div>
-            <th:block th:if="${store.business_num == session.owner.business_num}">
-                <div class="btnW">
-                    <a th:href="@{menuModi(store_num=${store.store_num})}">메뉴 수정</a>
-                </div>
-            </th:block>
         </th:block>
 
         <!-- 영업 시간 -->

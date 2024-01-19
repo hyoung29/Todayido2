@@ -6,9 +6,6 @@
     <title>메뉴 수정</title>
     <script src="js/jquery-3.7.1.min.js"></script>
     <link href="css/style.css" rel="stylesheet">
-    <style>
-
-    </style>
 </head>
 <body>
 <header>
@@ -18,28 +15,27 @@
     <div class="wCon">
         <form th:action="@{modiProc}" method="post" class="login-form" enctype="multipart/form-data">
             <input type="hidden" name="store_num" id="store_num" th:value="${store.store_num}">
-            <h2>메뉴 추가</h2>
-            <th:block th:each="mli:${menu}">
+            <input type="hidden" name="menu_num" id="menu_num" th:value="${menu.menu_num}">
+            <h2>메뉴 수정</h2>
                 <div class="st-rg">
-                    <label for="menu_name">메뉴 이름 :</label>
-                    <input type="text" id="menu_name" name="menu_name" th:value="${mli.menu_name}" required><br>
+                    <label for="menu_name" class="modi-title">메뉴 이름 :</label>
+                    <input type="text" id="menu_name" name="menu_name" th:value="${menu.menu_name}" required class="modi-content"><br>
                 </div>
                 <div class="st-rg">
-                    <label for="menu_price">메뉴 가격 :</label>
-                    <input type="text" id="menu_price" name="menu_price" th:value="${mli.menu_price}" required><br>
+                    <label for="menu_price" class="modi-title">메뉴 가격 :</label>
+                    <input type="text" id="menu_price" name="menu_price" th:value="${menu.menu_price}" required class="modi-content"><br>
                 </div>
                 <div class="st-rg">
-                    <label for="menu_descripton">메뉴 설명 :</label>
-                    <input type="text" id="menu_descripton" name="menu_descripton" th:value="${mli.menu_descripton}" required><br>
+                    <label for="menu_descripton" class="modi-title">메뉴 설명 :</label>
+                    <input type="text" id="menu_descripton" name="menu_descripton" th:value="${menu.menu_descripton}" required class="modi-content"><br>
                 </div>
-                <input type="hidden" th:value="${mli.mn_oriname}" name="mn_oriname">
-                <input type="hidden" th:value="${mli.mn_sysname}" name="mn_sysname">
+                <input type="hidden" th:value="${menu.mn_oriname}" name="mn_oriname">
+                <input type="hidden" th:value="${menu.mn_sysname}" name="mn_sysname">
                 <div class="st-rg">
-                    <label for="file">대표메뉴 사진</label>
+                    <label for="file" class="modi-title">대표메뉴 사진</label>
                     <input type="file" name="files" id="file">
-                    <input type="text" class="upload-name" value="파일선택" th:value="${mli.mn_sysname}" readonly><br>
+                    <input type="text" class="upload-name" value="파일선택" th:value="${menu.mn_sysname}" readonly><br>
                 </div>
-            </th:block>
             <input type="submit" class="btnW" value="메뉴 수정">
         </form>
     </div>

@@ -40,12 +40,12 @@
         </nav>
     </div>
     <script th:inline="javascript">
-        const mem = [[${session.member}]];
+        const mem = [[${session.owner}]];
         function gohome(){
             if(mem != null){
-                location.href = "boardList?pageNum=1";
+                location.href = "pindex";
             } else {
-                location.href = "/";
+                location.href = "ownerLogin";
             }
         }
     </script>

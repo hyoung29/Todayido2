@@ -23,7 +23,7 @@
             menu_descripton=#{menu_descripton},
             mn_oriname=#{mn_oriname},
             mn_sysname=#{mn_sysname}
-        WHERE store_num=#{store_num}
+        WHERE menu_num=#{menu_num}
     </update>
     <select id="selectId" resultType="Integer" parameterType="String">
         SELECT count(*)
@@ -71,6 +71,6 @@
         SELECT * FROM store WHERE store_num = #{store_num}
     </select>
     <select id="menuListSelect" resultType="MenuDto" parameterType="Integer">
-        SELECT * FROM menu WHERE store_num = #{store_num}
+        SELECT * FROM menu WHERE menu_num = #{menu_num}
     </select>
 </mapper>

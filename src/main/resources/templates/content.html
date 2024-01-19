@@ -47,7 +47,8 @@
     <!-- 성원닭갈비 -->
     <div class="cView">
         <div class="c-dak">
-            <img th:src="@{upload/}+${store.photo_path}" alt="Store Photo" style="width: 800px; height: 500px;"><!-- sql데이터 베이스에서 가져온 사진 -->
+            <img th:src="@{upload/}+${store.photo_path}" alt="Store Photo" style="width: 800px; height: 500px;">
+            <!-- sql데이터 베이스에서 가져온 사진 -->
             <h1>
                 <span th:text="${store.store_name}" style="font-weight: bolder; font-size: 35px;"></span>
                 <span th:text="${'(' + store.average_rating + ')'}" style="font-size: 30px; color: #246C34"></span>
@@ -66,29 +67,26 @@
         <!-- 메뉴&설명 -->
         <th:block>
             <div class="cont-menu">
-                <div class="mnu">
-                    <p class="mu">메뉴</p>
-                    <div class="tt">
-                        <p th:each="menu:${mList}" th:text="${menu.menu_name}"></p>
-                    </div>
+                <div class="menu-title">
+                    <p class="mu1">메뉴</p>
+                    <p class="mu2">가격</p>
+                    <p class="mu3">설명</p>
                 </div>
-                <div class="pay">
-                    <p class="mu">가격</p>
-                    <div class="ttl">
-                        <p th:each="menu : ${mList}">
-                            <span th:text="${menu.menu_price} + '원'"></span>
-                        </p>
+                <th:block th:each="menu:${mList}">
+                    <div class="menu-content">
+                        <div class="mu1">
+                            <p th:text="${menu.menu_name}"></p>
+                        </div>
+                        <div class="mu2">
+                            <p th:text="${menu.menu_price} + '원'"></p>
+                        </div>
+                        <div class="mu3">
+                            <p th:text="${menu.menu_descripton}"></p>
+                        </div>
                     </div>
-                </div>
-                <div class="com">
-                    <p class="mu">설명</p>
-                    <div class="nn">
-                        <p th:each="menu:${mList}" th:text="${menu.menu_descripton}"></p>
-                    </div>
-                </div>
+                </th:block>
             </div>
         </th:block>
-
         <!-- 영업 시간 -->
         <div class="cont-mm">
             <div class="store-hour">영업 시간</div>
@@ -172,7 +170,7 @@
                 <div class="sh"><span th:text="${store.store_adress}"></span></div>
                 <!-- Map 페이지 -->
                 <div style="margin-top: -13%; font-size: 18px; text-align: right; height: 0px">
-                    <img src="images/map.png"> <a th:href="@{map(store_num=${store_num})}" target="blank">위치보기</a>
+                    <img src="images/map.png"> <a th:href="@{map(store_num=${store.store_num})}" target="blank">위치보기</a>
                 </div>
             </div>
             <!-- 리뷰 -->

@@ -335,12 +335,12 @@ public class OwnerService {
         return mv;
     }
 
-    public ModelAndView getMenuList(int store_num) {
+    public ModelAndView getMenuList(int menu_num) {
         log.info("getMenuList()");
         ModelAndView mv = new ModelAndView();
-        List<MenuDto> menu = oDao.menuListSelect(store_num);
+        MenuDto menu = oDao.menuListSelect(menu_num);
         mv.addObject("menu", menu);
-        StoreDto store = oDao.selectStore(store_num);
+        StoreDto store = oDao.selectStore(menu.getStore_num());
         mv.addObject("store", store);
 
         mv.setViewName("menuModi");
