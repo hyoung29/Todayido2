@@ -3,7 +3,7 @@
 <mapper namespace="com.metamong.todayido.dao.StoreDao">
     <insert id="insertStore" parameterType="StoreDto">
         INSERT INTO store
-        VALUES (null,#{store_num},#{store_name}, #{store_telephone}, #{store_adress},
+        VALUES (null,#{store_name}, #{store_telephone}, #{store_adress},
                 #{store_category_id}, #{average_rating},
                 #{store_description}, #{open_time}, #{closed_day},
                 #{owner_name}, #{business_num}, default, null, #{photo_path})
@@ -64,16 +64,10 @@
         FROM store
         WHERE store_num = #{store_num}
     </select>
-
-    <select id="searchStore" parameterType="SearchDto" resultType="StoreDto">
-        SELECT store_name,
-               store_telephone,
-               store_adress,
-               store.store_num, -- store_num을 명시적으로 지정
-               menu_name AS representative_menu
-        FROM store
-                 LEFT JOIN menu ON store.store_num = menu.store_num
-        WHERE store_name LIKE CONCAT('%', #{keyword}, '%')
-           OR menu_name LIKE CONCAT('%', #{keyword}, '%')
+    <select id="searchStore" parameterType="string" resultType="SearchMenuDto">
+        SELECT * FROM stor_menu_list
+        WHERE menu_name LIKE CONCAT('%',#{keyword},'%')
     </select>
+
+
 </mapper>

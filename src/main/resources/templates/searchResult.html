@@ -3,125 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <title>TodayIdo</title>
-    <style>
-        .popup {
-            margin: 500px;
-        }
-    </style>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="path/to/your/local/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Enter 키를 눌렀을 때 검색 기능 실행
-            $("#keyword").keypress(function (e) {
-                if (e.which === 13) { // 13은 Enter 키의 keyCode
-                    e.preventDefault();
-                    doSearch();
-                }
-            });
-
-            // 검색 버튼 클릭 시 검색 기능 실행
-            $("#search").click(function () {
-                doSearch();
-            });
-
-            function doSearch() {
-                // 사용자가 입력한 검색 키워드를 가져온다.
-                let keyword = $("#keyword").val();
-                if (keyword.trim() === "") {
-                    alert("검색어를 입력하세요.");
-                    return;
-                }
-
-                // AJAX를 사용하여 서버에 검색 요청
-                $.ajax({
-                    type: "post",
-                    url: "/content",
-                    contentType: "application/json",
-                    data: JSON.stringify({"keyword": keyword}),
-                    success: function (data) {
-                        // 서버에서 받아온 검색 결과를 처리하는 부분
-                        displaySearchResults(data);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
-            }
-
-            // 검색 결과를 동적으로 추가하는 함수
-            function displaySearchResults(results) {
-                let resultsContainer = $("#search-results");
-                resultsContainer.empty(); // 기존 결과 비우기
-
-                // 받아온 결과를 돌면서 동적으로 추가
-                for (let i = 0; i < results.length; i++) {
-                    let result = results[i];
-                    let resultItem = $("<div>");
-                    resultItem.append("<p>" + result.store_name + "</p>");
-                    resultItem.append("<p>" + result.store_telephone + "</p>");
-                    resultItem.append("<p>" + result.store_adress + "</p>");
-                    resultItem.append("<p>" + result.menu_name + "</p>");
-                    resultsContainer.append(resultItem);
-                }
-            }
-        });
-    </script>
 </head>
 <body>
 <header>
     <th:block th:insert="~{fragments::header(${session.user})}"/>
 </header>
 <section>
-    <!-- 검색 폼 -->
-<!--    <div class="se-area">-->
-<!--        <form class="search-box" th:action="@{/search}">&lt;!&ndash; 수진: /static에서 /search로 수정 &ndash;&gt;-->
-<!--            <input id="keyword" name="keyword" placeholder="오늘 뭐하지?">-->
-<!--        </form>-->
-<!--    </div>-->
-    <!-- 검색 결과 -->
-    <!-- 검색 결과를 동적으로 추가할 부분 -->
-    <div id="search-results" th:fragment="search-results">
-        <!-- 검색 결과를 동적으로 추가할 영역 -->
+    <div th:if="${#lists.isEmpty(results)}">
+        <script>
+            alert("검색 관련 결과가 없습니다");
+            history.back();
+        </script>
     </div>
-
-    <script th:inline="javascript">
-        // 서버에서 받아온 검색 결과 데이터 (Thymeleaf에서 전달된 데이터를 사용)
-        var searchResults = /*[[${searchResult}]]*/ [];
-
-        // 검색 결과를 동적으로 추가하는 함수
-        function appendSearchResults(results) {
-            var searchResultsDiv = document.getElementById("search-results");
-
-            // 결과를 추가하기 전에 기존의 내용을 비워줌
-            searchResultsDiv.innerHTML = "";
-
-            // 각 결과에 대해 HTML을 생성하여 추가
-            results.forEach(function (result) {
-                var resultDiv = document.createElement("div");
-
-                // 각 데이터를 이용하여 HTML 구성
-                resultDiv.innerHTML = `
-                <div>
-                    <h3 th:text="${result.store_name}"></h3>
-                    <p th:text="${result.store_adress}"></p>
-                    <p th:text="${result.store_telephone}"></p>
+    <div th:if="${not #lists.isEmpty(results)}">
+        <div id="search-results">
+            <table border="1" style="background: #FFFFFF">
+                <tbody>
+                <!-- 검색 결과를 반복문으로 표시 -->
+                <td th:each="result : ${results}">
+                    <!-- 이미지 경로는 적절히 설정하세요 -->
+                    <p><a th:href="@{content(store_num=${result.store_num})}">
+                         <img th:src="@{'/images/'+${result.photo_path}}" alt="가게 이미지" style="width: 300px; height: 230px;margin-top: -5%;">
+                       </a>
+                    </p>
+                    <p th:text="${result.store_name}" style="font-size: 180%;font-weight: bolder;margin-top: -20px;"></p>
+                    <p th:text="${result.store_adress}" style="margin-top: -5%;font-weight: bolder;font-size: 98%;"></p>
                     <p th:text="${result.menu_name}"></p>
-                </div>
-            `;
-
-                // 결과를 추가
-                searchResultsDiv.appendChild(resultDiv);
-            });
-        }
-
-        // 페이지 로드 시 검색 결과를 예시로 추가
-        window.onload = function () {
-            appendSearchResults(searchResults);
-        };
-    </script>
+                </td>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 <footer>
     <th:block th:insert="~{fragments::footer}"/>
 </footer>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        // Enter 키를 눌렀을 때 검색 기능 실행
+        $("#keyword").keypress(function (e) {
+            if (e.which === "") {
+                e.preventDefault();
+                doSearch();
+            }
+        });
+
+        function doSearch() {
+            let keyword = $("#keyword").val().trim(); // 앞뒤 공백 제거
+            if (keyword === "") {
+                alert("검색어를 입력하세요.");
+            } else {
+                // 여기에 검색 기능에 대한 로직 추가
+                // 예: AJAX 호출 또는 검색 결과 페이지 이동
+                $.ajax({
+                    type: "get",
+                    url: "/searchResult",
+                    data: { keyword: keyword, pageNum: 1 },
+                    success: function (data) {
+                        if (data.length === 0) {
+                            showAlert("검색 결과가 없습니다.");
+                        } else {
+                            displaySearchResults(data);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        }
+
+        function alert(message) {
+            alert(message);
+        }
+
+        // 검색 결과를 확인하고 결과가 없으면 메시지를 표시하고 index.html로 이동
+        if ($("#search-results").is(":empty")) {
+            alert("검색 결과를 찾을 수 없습니다.");
+            location.href = "index";
+        }
+    });
+</script>
 </body>
 </html>
+
