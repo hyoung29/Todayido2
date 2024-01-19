@@ -1,29 +1,39 @@
 package com.metamong.todayido.controller;
 
-import com.metamong.todayido.dto.StoreDto;
+import com.metamong.todayido.dto.SearchDto;
 import com.metamong.todayido.service.SearchService;
+import com.metamong.todayido.service.StoreService;
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 
 @Controller
+@Slf4j
 public class SearchController {
 
-    private final SearchService searchService;
-
     @Autowired
-    public SearchController(SearchService searchService) {
-        this.searchService = searchService;
-    }
+    private SearchService searchService;
+
 
     @GetMapping("/search")
-    public String search(@RequestParam String keyword, Model model) {
-        List<StoreDto> searchResults = searchService.searchStore(keyword);
-        model.addAttribute("searchResults", searchResults);
-        return "searchResult";  // 검색 결과를 보여줄 Thymeleaf 템플릿
+    public ModelAndView searchResult(SearchDto sDto, HttpSession session) {
+        log.info("searchResult()");
+        ModelAndView mv = searchService.searchStore(sDto ,session);
+        return mv;
     }
+
+
+//    @Autowired
+//    private StoreService storeService;
+//
+//    @PostMapping("/search")
+//    public String searchStore(String keyword, Model model) {
+//        List<SearchMenuDto> searchResults = storeService.searchStoreDto(keyword);
+//        model.addAttribute("searchResults", searchResults);
+//        return "stor_menu_list"; // 검색 결과를 보여줄 View의 이름
+//    }
 }

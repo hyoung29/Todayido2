@@ -1,9 +1,8 @@
 package com.metamong.todayido.service;
 
 import com.metamong.todayido.dao.DetailDao;
-import com.metamong.todayido.dto.MenuDto;
-import com.metamong.todayido.dto.ReviewDto;
-import com.metamong.todayido.dto.StoreDto;
+import com.metamong.todayido.dao.StoreDao;
+import com.metamong.todayido.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +30,11 @@ public class StoreService {
         mv.setViewName("content");
         return mv;
     }
+    @Autowired
+    private StoreDao storeDao;
+
+//    public List<SearchMenuDto> searchStoreDto(String keyword) {
+//        return storeDao.searchStore(keyword);
+//    }
 }
 
