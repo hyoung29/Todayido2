@@ -146,8 +146,11 @@ public class OwnerController {
     }
 
     @GetMapping("ownerReserv")
+    //메서드는 두 개의 매개변수를 받음
     public ModelAndView ownerReserv(int pageNum, HttpSession session) {
+        //로그에 메시지를 기록
         log.info("ownerReserv()");
+        //데이터와 뷰 정보를 함께 가지고 있어 웹 페이지에 필요한 데이터를 전달하고, 특정 뷰를 표시하기 위한 정보를 제공
         ModelAndView mv = mServ.getOwnerReservList(pageNum, session);
         return mv;
     }

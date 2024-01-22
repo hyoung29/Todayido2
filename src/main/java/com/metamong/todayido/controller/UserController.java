@@ -1,7 +1,5 @@
 package com.metamong.todayido.controller;
 
-import com.metamong.todayido.dto.ReservDto;
-import com.metamong.todayido.dto.SearchDto;
 import com.metamong.todayido.dto.UserDto;
 import com.metamong.todayido.service.MapService;
 import com.metamong.todayido.service.UserService;
@@ -58,6 +56,7 @@ public class UserController {
         return view;
     }
     @GetMapping("myPage")
+    //유저 마이페이지로 예약 내역 받기
     public ModelAndView myPage(int pageNum, HttpSession session) {
         log.info("myPage()");
         ModelAndView mv = mServ.getReservList(pageNum, session);
