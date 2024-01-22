@@ -2,6 +2,7 @@ package com.metamong.todayido.service;
 
 import com.metamong.todayido.dao.DetailDao;
 import com.metamong.todayido.dao.ReservDao;
+import com.metamong.todayido.dao.StoreDao;
 import com.metamong.todayido.dto.*;
 import com.metamong.todayido.util.PagingUtil;
 import jakarta.servlet.http.HttpSession;
@@ -25,7 +26,8 @@ public class MapService {
     @Autowired
     private ReservDao rDao;
 
-
+    @Autowired
+    private StoreDao sDao;
     public ModelAndView getMap(int store_num) {
         log.info("getMap()");
         ModelAndView mv = new ModelAndView();
@@ -66,6 +68,8 @@ public class MapService {
     public ModelAndView getReservList(int pageNum, HttpSession session){
         log.info("getReservList()");
         ModelAndView mv = new ModelAndView();
+        //StoreDto store = sDao.selectStore(store_num);
+        //mv.addObject("store", store);
         UserDto user = (UserDto)session.getAttribute("user");
         Map<String, Object> revMap = new HashMap<>();
         revMap.put("pageNum", Integer.valueOf(pageNum-1));

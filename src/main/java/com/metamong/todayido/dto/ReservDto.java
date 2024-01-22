@@ -18,6 +18,7 @@ public class ReservDto {
         private String reservation_date;
         private String resevation_time;
         private int resevation_person;
+        private String photo_path;
 
 
     }

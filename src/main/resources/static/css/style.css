@@ -1189,29 +1189,23 @@ span.file-title {
 }
 
 
-.st-rg {
-    margin-bottom: 15px;
-}
+/*.st-rg {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
 
 
-.st-rg input {
-    width: 120px;
-    height: 30px;
-    padding: 5px;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
+/*.st-rg input {*/
+/*    width: 120px;*/
+/*    padding: 5px;*/
+/*    border-radius: 5px;*/
+/*    box-sizing: border-box;*/
+/*}*/
 
-
-.st-rg label {
-
-    margin-bottom: 5px;
-}
-
-.st-rgbt input {
-    display: inline-flex;
-    margin: 25px;
-}
+/*.st-rgbt input {*/
+/*    display: inline-flex;*/
+/*    margin: 25px;*/
+/*}*/
 
 .modyfy {
     text-align: center;

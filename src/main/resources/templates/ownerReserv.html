@@ -33,7 +33,7 @@
                     </th:block>
                     <th:block th:unless="${result == null}">
                         <div class="d-in-row">
-                            <img th:src="@{/images/sungdak.png}" class="pt">
+                            <img th:src="@{upload/}+${result.photo_path}" class="pt">
                             <p th:text="'예약자(ID) : '+${result.user_id}" class="rmenu"></p>
                             <p th:text="'예약자 전화번호 : '+${result.user_pnum}" class="rmenu"></p>
                             <p th:text="'예약날짜 : '+${result.reservation_date}" class="rmenu"></p>
