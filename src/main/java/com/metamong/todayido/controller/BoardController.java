@@ -45,7 +45,7 @@ public class BoardController {
     @Autowired
     private BoardService bServ;
 
-    //    작성글 리스트로 불러오기
+    //작성글 리스트로 불러오기
     @GetMapping("qnalist")
     public ModelAndView boardList(SearchDto sdto, HttpSession session, String admin_id) {
         log.info("boardList()");
@@ -53,7 +53,7 @@ public class BoardController {
         return mv;
     }
 
-    // 글수정 폼 페이지
+    //Qna 게시글 답변 수정 폼 페이지
     @GetMapping("qnaEdit")
     public ModelAndView qnaEdit(int qna_num) {
         log.info("qnaEdit");
@@ -61,7 +61,7 @@ public class BoardController {
         return mv;
     }
 
-    //글 수정 프로세스
+    //Qna 게시글 수정 프로세스
     @PostMapping("updateProc")
     public String updateBoard(BoardDto board,RedirectAttributes rttr) {
         log.info("UpdateProc()");
@@ -70,6 +70,7 @@ public class BoardController {
     }
 
 
+    //Qna 글수정 폼 페이지
     @GetMapping("updateForm")
     public ModelAndView updateForm(int b_num) {
         log.info("updateForm()");

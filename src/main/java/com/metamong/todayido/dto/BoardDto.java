@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 
+
+//Qna 문의사항 게시판 Dto
 @Getter
 @Setter
 public class BoardDto {
