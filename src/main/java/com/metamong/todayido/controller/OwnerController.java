@@ -66,13 +66,14 @@ public class OwnerController {
         return mv;
     }
 
-    //가게등록하기
+    //가게등록하기 페이지 이동
     @GetMapping("pdetail")
     public String pdetail() {
         log.info("pdetail()");
         return "pdetail";
     }
 
+    //가게 정보 등록 업로드
     @PostMapping("pProc")
     public String pProc(MultipartFile files, StoreDto store, HttpSession session, RedirectAttributes rttr) {
         log.info("pProc()");
@@ -80,11 +81,13 @@ public class OwnerController {
         return view;
     }
 
+    //가게 수정하기 페이지로 이동하는 컨트롤러
     @GetMapping("pModify")
     public String pModify(){
         log.info("pModify()");
         return "pModify";
     }
+
 
     @GetMapping("ownerModify")
     public ModelAndView ownerModify(String business_num) {

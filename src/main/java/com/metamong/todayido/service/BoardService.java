@@ -118,7 +118,7 @@ public class BoardService {
 
         return view;
     }
-
+    //저장된 게시판 가져오기
     public ModelAndView getBoard(int b_num) {
         log.info("getBoard");
         ModelAndView mv = new ModelAndView();

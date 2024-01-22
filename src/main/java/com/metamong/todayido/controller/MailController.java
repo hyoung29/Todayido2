@@ -20,6 +20,7 @@ public class MailController {
     @Autowired
     private MailService mServ;
 
+    //이메일 받아서 코드 보내기
     @PostMapping("mailConfirm")
     @ResponseBody
     public String mailConfirm(@RequestBody Map<String, Object> mail) throws MessagingException, UnsupportedEncodingException {
@@ -28,12 +29,14 @@ public class MailController {
         return authCode;
     }
 
+    //유저 이메일 이동
     @GetMapping("userSend")
     public String userSend() {
         log.info("userSend()");
         return "userSend";
     }
 
+    //사업주 이메일 이동
     @GetMapping("ownerSend")
     public String ownerSend() {
         log.info("ownerSend()");

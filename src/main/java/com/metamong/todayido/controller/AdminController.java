@@ -22,24 +22,30 @@ public class AdminController {
     @Autowired
     private AdminService aServ;
 
+    //관리자 로그인
     @GetMapping("adminLogin")
     public String adminLogin(){
         log.info("adminLogin()");
         return "adminLogin";
     }
+
+    //관리자 로그인 기능
     @PostMapping("adminloginProc")
     public String adminloginProc(AdminDto admin, HttpSession session, RedirectAttributes rttr) {
         log.info("adminloginProc()");
         String view = aServ.adminloginProc(admin, session, rttr);
         return view;
     }
+
+
+    //관리자 로그인 후 메인 인덱스 페이지로 이동
     @GetMapping("adindex")
     public String adindex() {
         log.info("adindex");
         return "adindex";
     }
 
-    //댓글삭제
+    //관리자 카테고리 댓글삭제
     @PostMapping("deleteReviewProc")
     @ResponseBody
     public String deleteReview(int review_num){
@@ -48,6 +54,7 @@ public class AdminController {
         return result;
     }
 
+    //관리자 Qna 문의사항 게시판 질문 답변 리스트로 돌아가기
     @GetMapping("aqnalist")
     public ModelAndView aqnalist(SearchDto sdto, HttpSession session, AdminDto admin_auth){
         log.info("aqnalist");
@@ -55,6 +62,7 @@ public class AdminController {
         return mv;
     }
 
+    //관리자 Qan 문의사항 게시판 답변 쓰기
     @GetMapping("aqnaEdit")
     public ModelAndView aqnaEdit(int qna_num) {
         log.info("aqnaEdit");
@@ -62,6 +70,7 @@ public class AdminController {
         return mv;
     }
 
+    //관리자 Qna 게시판 댓글 수정
     @PostMapping("replyProc")
     public String updateProc(BoardDto board, HttpSession session, RedirectAttributes rttr){
         log.info("updateProc");
@@ -69,6 +78,7 @@ public class AdminController {
         return view;
     }
 
+    //관리자 Qna 게시판 리뷰 삭제
     @GetMapping("boardDelete")
     public String boardDelete(int qna_num, HttpSession session, RedirectAttributes rttr){
         log.info("boardDelete()");
