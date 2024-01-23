@@ -17,6 +17,7 @@ public interface DetailDao {
 
     ReviewDto selectLastReview(int review_num);
 
+    //store_num으로 데이터베이스에서 store정보 조회
     StoreDto selectStore(int storeNum);
 
     List<StoreDto> selectStoreList(int store_category_id);

@@ -5,6 +5,7 @@
     <insert id="insertReserv" parameterType="ReservDto">
         INSERT INTO Reservation VALUES (#{user_id},NULL,#{store_num},#{reservation_date},#{resevation_time},#{resevation_person})
     </insert>
+
     <update id="updateReserv" parameterType="ReservDto">
         UPDATE Reservation
         SET reservation_date=#{reservation_date},
@@ -12,6 +13,7 @@
             resevation_person=#{resevation_person}
         WHERE resevation_id=#{resevation_id}
     </update>
+
     <delete id="deleteReserv" parameterType="Integer">
         DELETE FROM Reservation
         WHERE resevation_id=#{resevation_id}
@@ -34,11 +36,13 @@
         SELECT * FROM rList WHERE store_num=#{store_num}
             LIMIT #{pageNum}, #{listCnt}
     </select>
+
     <select id="selectOwnerReservCnt" resultType="Integer">
         SELECT count(*)
         FROM rList
         WHERE store_num = #{store_num}
     </select>
+
     <select id="selectStoreNum" resultType="Integer" parameterType="String">
         SELECT store_num FROM store WHERE business_num= #{b_num}
     </select>

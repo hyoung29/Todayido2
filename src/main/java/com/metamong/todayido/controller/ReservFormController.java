@@ -29,6 +29,7 @@ public class ReservFormController {
     @Autowired
     private MapService mServ;
 
+    //예약 정보 보내기
     @PostMapping("reservProc")
     public String reservProc(ReservDto reserv, HttpSession session, RedirectAttributes rttr) {
         log.info("reservProc()");
@@ -36,6 +37,7 @@ public class ReservFormController {
         return view;
     }
 
+    //해당 가게 위치 정보 가져오기
     @GetMapping("/map")
     public ModelAndView map(int store_num){
         log.info("map()");

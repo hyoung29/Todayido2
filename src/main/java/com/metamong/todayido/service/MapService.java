@@ -28,38 +28,60 @@ public class MapService {
 
     @Autowired
     private StoreDao sDao;
+
+    //store_num을 매개변수로 받아 지도 페이지에 표시할 데이터를 가져옴
     public ModelAndView getMap(int store_num) {
+        //메서드가 호출될 때 "getMap()"라는 정보를 로그에 남김
         log.info("getMap()");
+        // ModelAndView 객체 생성
         ModelAndView mv = new ModelAndView();
+        //DetailDao 객체의 selectStore 메서드를 호출하여 store_num으로 데이터베이스에서 store 정보를 조회
         StoreDto store = dDao.selectStore(store_num);
+        //조회된 store정보를 ModelAndView에 "store"라는 이름으로 추가
         mv.addObject("store", store);
 
+        //뷰의 이름을 "map"으로 설정
         mv.setViewName("map");
+        //지도 페이지를 렌더링하는 데 필요한 데이터와 뷰의 경로 전달
         return mv;
     }
 
+    //예약 정보 처리 메서드
     public String reservProc (ReservDto reserv, HttpSession session, RedirectAttributes rttr){
+        //메서드가 호출될 때 reservProc()라는 정보를 로그에 남김
         log.info("reservProc()");
+        //뷰의 경로를 저장하는 변수를 초기화
         String view = null;
+        //처리 결과 메시지를 저장하는 변수를 초기화
         String msg = null;
+        //세션에서 UserDto를 가져와서 user_id 얻음
         String user_id = ((UserDto)session.getAttribute("user")).getUser_id();
+        //가져온 user_id를 예약 정보에 설정
         reserv.setUser_id(user_id);
 
+        //예약 정보를 데이터베이스에 저장
         try {
-            //글 내용 저장.
+            // DAO를 통해 예약 정보를 데이터베이스에 저장
             rDao.insertReserv(reserv);
             log.info("");
 
+            //예약 성공 시, myPage로 리다이렉트하고 메시지를 설정
             view = "redirect:myPage?pageNum=1";
+            //예약 성공 시의 메시지를 설정
             msg = "예약 성공";
+            // 예외가 발생하면 콘솔에 스택 트레이스를 출력
         } catch (Exception e) {
             e.printStackTrace();
 
+            //예약 실패 시, 해당 가게의 콘텐츠 페이지로 리다이렉트하고 메시지를 설정
             view = "redirect:content?store_num=4";
+            //예약 실패 시의 메시지를 설정
             msg = "예약 실패";
         }
+        //RedirectAttributes를 통해 리다이렉트 시에 속성을 전달
         rttr.addFlashAttribute("msg", msg);
 
+        //처리 결과에 따라 리다이렉트할 뷰의 경로를 반환
         return view;
     }
 
@@ -179,17 +201,27 @@ public class MapService {
 
         //페이지 번호, 리스트 개수, 가게 번호 등의 정보를 담기 위한 HashMap 객체를 생성
         Map<String, Object> revMap = new HashMap<>();
+        //HashMap에 페이지 번호를 추가, 페이지 번호를 0부터 시작하는 형태로 변환
         revMap.put("pageNum", Integer.valueOf(pageNum-1));
+        //HashMap에 한 페이지에 표시할 예약 목록의 개수를 추가
         revMap.put("listCnt", Integer.valueOf(1));
+        //HashMap에 store_num 추가
         revMap.put("store_num",store_num);
+        // DAO를 통해 HashMap에 담긴 정보를 이용하여 소유자의 예약 목록을 데이터베이스에서 조회
         ReservDto result = rDao.selectOwnerReserv(revMap);
+        //조회된 예약 목록을 ModelAndView 객체에 "result"라는 이름으로 추가
         mv.addObject("result", result);
 
+        //페이징 처리를 위한 HTML 코드를 생성하는 메서드를 호출하여 페이지 HTML을 가져옴
         String pageHtml = getOwnerPaging(revMap);
+        //페이지 HTML을 ModelAndView 객체에 "paging"이라는 이름으로 추가
         mv.addObject("paging", pageHtml);
 
+        //세션에 현재 페이지 번호를 저장
         session.setAttribute("pageNum", pageNum);
+        // ModelAndView의 뷰 이름을 "ownerReserv"로 설정
         mv.setViewName("ownerReserv");
+        // ModelAndView 객체를 반환
         return mv;
     }
 
