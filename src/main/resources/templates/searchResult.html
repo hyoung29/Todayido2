@@ -10,35 +10,62 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="path/to/your/local/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <style>
-        .popup {
-            margin: 500px;
-        }
-    </style>
-    <script>
-        $(document).ready(function () {
-            // Enter 키를 눌렀을 때 검색 기능 실행
-            $("#keyword").keypress(function (e) {
-                if (e.which === 13) {
-                    e.preventDefault();
-                    doSearch();
-                }
-            });
+</head>
+<body>
+<header>
+    <th:block th:insert="~{fragments::header(${session.user})}"/>
+</header>
+<section>
+    <div th:if="${#lists.isEmpty(results)}">
+        <script>
+            alert("검색 관련 결과가 없습니다");
+            history.back();
+        </script>
+    </div>
+    <div th:if="${not #lists.isEmpty(results)}">
+        <div id="search-results">
+            <table border="1" style="background: #FFFFFF">
+                <tbody>
+                <!-- 검색 결과를 반복문으로 표시 -->
+                <td th:each="result : ${results}">
+                    <!-- 이미지 경로는 적절히 설정하세요 -->
+                    <p><a th:href="@{content(store_num=${result.store_num})}">
+                         <img th:src="@{'/images/'+${result.photo_path}}" alt="가게 이미지" style="width: 300px; height: 230px;margin-top: -5%;">
+                       </a>
+                    </p>
+                    <p th:text="${result.store_name}" style="font-size: 180%;font-weight: bolder;margin-top: -20px;"></p>
+                    <p th:text="${result.store_adress}" style="margin-top: -5%;font-weight: bolder;font-size: 98%;"></p>
+                    <p th:text="${result.menu_name}"></p>
+                </td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<footer>
+    <th:block th:insert="~{fragments::footer}"/>
+</footer>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        // Enter 키를 눌렀을 때 검색 기능 실행
+        $("#keyword").keypress(function (e) {
+            if (e.which === "") {
+                e.preventDefault();
+                doSearch();
+            }
+        });
 
-            // 이 함수는 이미 searchResult.html에 포함되어 있는 것 같습니다.
-            function doSearch() {
-                let keyword = $("#keyword").val().trim();
-                if (keyword === "") {
-                    showAlert("검색어를 입력하세요.");
-                    return;
-                }
-
-                // 검색어를 서버로 전송
+        function doSearch() {
+            let keyword = $("#keyword").val().trim(); // 앞뒤 공백 제거
+            if (keyword === "") {
+                alert("검색어를 입력하세요.");
+            } else {
+                // 여기에 검색 기능에 대한 로직 추가
+                // 예: AJAX 호출 또는 검색 결과 페이지 이동
                 $.ajax({
-                    type: "post",
-                    url: "/content",
-                    contentType: "application/json",
-                    data: JSON.stringify({"keyword": keyword}),
+                    type: "get",
+                    url: "/searchResult",
+                    data: { keyword: keyword, pageNum: 1 },
                     success: function (data) {
                         if (data.length === 0) {
                             showAlert("검색 결과가 없습니다.");
@@ -51,72 +78,19 @@
                     }
                 });
             }
+        }
 
-            function displaySearchResults(results) {
-                let resultsContainer = $("#search-results");
-                resultsContainer.empty();
+        function alert(message) {
+            alert(message);
+        }
 
-                for (let i = 0; i < results.length; i++) {
-                    let result = results[i];
-                    let resultItem = $("<div>");
-                    resultItem.append("<p><a href='#' class='store-link' data-id='" + result.store_num + "'>" + result.store_name + "</a></p>");
-                    resultItem.append("<p>" + result.store_telephone + "</p>");
-                    resultItem.append("<p>" + result.store_adress + "</p>");
-                    resultsContainer.append(resultItem);
-                }
-
-                // 가게 링크에 대한 클릭 이벤트 추가
-                $(".store-link").click(function (e) {
-                    e.preventDefault();
-                    let store_num = $(this).data("id");
-                    navigateToContentPage(store_num);
-                });
-            }
-
-            function navigateToContentPage(store_num) {
-                let url = "/content/{store_num}";
-                url = url.replace("{store_num}", store_num);
-                window.location.href = url;
-            }
-
-            function showAlert(message) {
-                $("#alert-modal-body").text(message);
-                $("#alert-modal").modal("show");
-            }
-        });
-    </script>
-</head>
-<body>
-<header>
-    <th:block th:insert="~{fragments::header(${session.user})}"/>
-</header>
-<section>
-    <div th:if="${not #lists.isEmpty(results)}">
-        <div id="search-results">
-            <table border="1" style="background: #D9D9D9">
-                <tbody style="background: #FFFFFF">
-                <!-- 검색 결과를 반복문으로 표시 -->
-                <td th:each="result : ${results}">
-                    <!-- 이미지 경로는 적절히 설정하세요 -->
-                    <p><a th:href="@{content(store_num=${result.store_num})}">
-                        <img th:src="@{'/images/'+${result.photo_path}}" alt="가게 이미지" style="width: 300px; height: 230px;margin-top: -5%;">
-                       </a>
-                    </p>
-                    <p th:text="${result.store_name}" style="font-size: 180%;font-weight: bolder;margin-top: -20px;"></p>
-                    <p th:text="${result.store_adress}" style="margin-top: -5%;font-weight: bolder;font-size: 98%;"></p>
-                    <p th:text="${result.menu_name}"></p>
-                </td>
-                </tbody>
-            </table>
-        </div>
-        <div th:if="${#lists.isEmpty(results)}">
-            <p>검색 결과가 없습니다.</p>
-        </div>
-    </div>
-</section>
-<footer>
-    <th:block th:insert="~{fragments::footer}"/>
-</footer>
+        // 검색 결과를 확인하고 결과가 없으면 메시지를 표시하고 index.html로 이동
+        if ($("#search-results").is(":empty")) {
+            alert("검색 결과를 찾을 수 없습니다.");
+            location.href = "index";
+        }
+    });
+</script>
 </body>
 </html>
 

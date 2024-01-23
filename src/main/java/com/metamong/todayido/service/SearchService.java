@@ -30,23 +30,6 @@ public class SearchService {
         List<SearchMenuDto> mList = sdao.searchStore(sDto.getKeyword());
         mv.addObject("results", mList);
 
-//
-//        //페이징 처리
-//        sDto.setPageNum(num);
-//        String pageHtml = getPaging(sDto);
-//        mv.addObject("paging", pageHtml);
-
-
-        //페이지 번호와 검색 관련 내용을 세션에 저장
-        if (sDto.getColname() != null) {
-            session.setAttribute("sDto", sDto);
-        } else {
-            //검색이 아닐 때는 제거
-            session.removeAttribute("sDto");
-        }
-        //페이지 번호 저장
-        session.setAttribute("pageNum", num);
-
         mv.setViewName("searchResult");
         return mv;
     }
