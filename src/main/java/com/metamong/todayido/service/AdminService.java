@@ -99,7 +99,7 @@ public class AdminService {
         mv.setViewName("aqnalist");
         return mv;
     }
-
+//관리자 로그인
     private AdminDto admin(AdminDto admin_auth){
         AdminDto admin = aDao.selectAdmin(admin_auth);
         return admin;
