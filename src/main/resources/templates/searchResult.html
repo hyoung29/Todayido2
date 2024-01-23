@@ -48,7 +48,7 @@
 <script th:inline="javascript">
     $(document).ready(function () {
         // Enter 키를 눌렀을 때 검색 기능 실행
-        $("#keyword").keypress(function (e) {
+        $("#search").keypress(function (e) {
             if (e.which === "") {
                 e.preventDefault();
                 doSearch();
